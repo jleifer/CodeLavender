@@ -1,0 +1,31 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="cL:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/cL_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="cL/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="cL" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="AppEngine API" />
+          <element id="library" level="project" name="Maven: com.google.appengine:appengine-api-1.0-sdk:1.9.48" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:18.0" />
+          <element id="library" level="project" name="Maven: com.googlecode.objectify:objectify:5.1.5" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.1.RELEASE" />
+          <element id="library" level="project" name="Spring MVC-4.3.7.RELEASE" />
+          <element id="library" level="project" name="Spring-4.3.7.RELEASE" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
