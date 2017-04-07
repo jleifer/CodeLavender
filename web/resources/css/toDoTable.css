@@ -1,0 +1,228 @@
+body{
+	background-color: rgb(170,170,255);
+}
+
+input, #itemTable{
+	background-color: white;
+	height: 25px;
+}
+#itemTable{
+	border:1px solid rgb(3,158,211);
+	border-collapse: collapse;
+	text-align: center;
+	table-layout: fixed;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+#itemTable tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+#itemTable th{
+	background-color: rgb(223,223,223);
+	border:1px solid rgb(237,237,237);
+	height: 25px;
+}
+#itemTable td{
+	border:2px solid rgb(237,237,237);
+	height: 25px;
+	width: 20%;
+	white-space: nowrap;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-left: 5px;
+}
+
+#ToDoListContainer{
+    width:1000px;
+    height:595px;
+    margin:auto;
+    border: 2px solid rgb(119,119,221);
+}
+#toDoDetailsDiv{
+	width: 950px;
+	height:85px;
+	border: 2px solid rgb(119,119,221);
+	margin:auto;
+}
+#itemsDiv{
+	width: 950px;
+	height:405px;
+	border: 2px solid rgb(119,119,221);
+	margin:auto;
+	margin-top: 10px;
+}
+
+.itemBtns{
+	float: left;
+	width: 37px;
+	height: 29px;
+	background-image: url("../img/itemsBtns.png");
+	background-repeat: no-repeat;
+	border: 1px solid lightgrey;
+	cursor: pointer;
+}
+#addItemBtn{
+	background-position: 0px 0px;
+}
+#deleteItemBtn{
+	background-position: -37px 0px;
+}
+#upItemBtn{
+	background-position: -74px 0px;
+}
+#downItemBtn{
+	background-position: -111px 0px;
+}
+#addItemBtn:hover{
+	background-image: url("../img/addItemBtn-Hover.png");
+}
+#addItemBtn:active{
+	background-image: url("../img/itemsBtns.png");
+	border: 1px solid rgb(3,158,211);
+}
+#deleteItemBtn:hover{
+	background-image: url("../img/deleteItemBtn-Hover.png");
+	background-position: 0px 0px;
+}
+#deleteItemBtn:active{
+	background-image: url("../img/itemsBtns.png");
+	border: 1px solid rgb(3,158,211);
+	background-position: -37px 0px;
+}
+#upItemBtn:hover{
+	background-image: url("../img/upItemBtn-Hover.png");
+	background-position: 0px 0px;
+}
+#upItemBtn:active{
+	background-image: url("../img/itemsBtns.png");
+	border: 1px solid rgb(3,158,211);
+	background-position: -74px 0px;
+}
+#downItemBtn:hover{
+	background-image: url("../img/downItemBtn-Hover.png");
+	background-position: 0px 0px;
+}
+#downItemBtn:active{
+	background-image: url("../img/itemsBtns.png");
+	border: 1px solid rgb(3,158,211);
+	background-position: -111px 0px;
+}
+#itemTableDiv{
+	width: 915px;
+	border: 2px solid rgb(119,119,221);
+	background-image: url("../img/table_fake_background.png");
+	background-repeat: repeat;
+	background-size: 20% 50px;
+	margin-left: 15px;
+}
+
+#emptyTableText{
+	position: absolute;
+	width: 100%;
+	height: 274px;
+	line-height: 274px;
+	margin-top: 26px;
+	background-color: white;
+	text-align: center;
+	z-index: 4;
+}
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:300px;
+  overflow:auto;  
+}
+#table-wrapper table {
+  width:100%;
+}
+#table-wrapper table thead th .theadtext{
+	position: absolute;
+	z-index: 2;
+	height: 25px;
+	width: 20%;
+	margin-top: -12px;
+	overflow: hidden;
+	background-color: rgb(223,223,223);
+	border: 1px solid rgb(237,237,237);
+}
+
+#editItemOverlay{
+	width: 500px;
+	height: 550px;
+	top: 10%;
+	left: 30%;
+	position: absolute;
+	background-color: rgb(244,244,244);
+	border: 1px solid grey;
+	box-shadow: 3px 3px 10px #888888;
+	z-index: 99;
+	display: none;
+}
+#addItemOverLayCloseBtn{
+	width:30px;
+	height: 30px;
+	float: right; 
+	line-height: 30px; 
+	color: black;
+	background-color: white;
+	text-align: center;
+	font-size:22px;
+	cursor: default;
+}
+#addItemOverLayCloseBtn:hover{
+	color: white;
+	background-color: rgb(232,17,35);
+}
+#addItemOverLayCloseBtn:active{
+	color: white;
+	background-color: rgb(241,112,122);
+}
+
+.AddNewItemText{
+	font-size: 40px;
+	margin-top: 25px;
+	margin-left: 15px;
+}
+#toDoListTopDiv{
+	width: 1000px;
+	height: 40px;
+    border:2px solid rgb(119,119,221);
+    margin: auto;
+    margin-top: 10px;
+}
+.toDoListTopBtns{
+	float: left;
+	width: 37px;
+	height: 29px;
+	background-image: url("../img/toDoListTopBtns.png");
+	background-repeat: no-repeat;
+	border: 1px solid lightgrey;
+	cursor: pointer;
+	margin-top: 5px;
+}
+#createNewBtn{
+	margin-left: 15px;
+	background-position: 0px 0px;
+}
+#SaveBtn{
+	background-position: -40px 0px;
+}
+#SaveBtn:hover{
+	background-image: url("../img/saveBtn-Hover.png");
+	background-position: 0px 0px;
+}
+#createNewBtn:hover{
+	background-image: url("../img/createNewBtn-Hover.png");
+	background-position: 0px 0px;
+}
+#createNewBtn:active{
+	background-image: url("../img/toDoListTopBtns.png");
+	border: 1px solid rgb(3,158,211);
+}
+#SaveBtn:active{
+	background-image: url("../img/toDoListTopBtns.png");
+	border: 1px solid rgb(3,158,211);
+	background-position: -40px 0px;
+}
