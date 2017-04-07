@@ -53,7 +53,7 @@
             <h1><strong>dev</strong>Root</h1>
             <div class="description">
               <p>
-                The perfect place to learn good programming practices.
+                The place to build a foundation in mathematical logic.
               </p>
             </div>
           </div>
@@ -88,8 +88,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading">About</h2>
-          <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+          <h2 class="section-heading">About Us</h2>
+          <!--<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
         </div>
       </div>
       <div class="row">
@@ -101,11 +101,13 @@
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
-                  <h4>2009-2011</h4>
-                  <h4 class="subheading">Our Humble Beginnings</h4>
+                  <h4>Goal</h4>
+                  <!--<h4 class="subheading">Our Humble Beginnings</h4>-->
                 </div>
                 <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                  <p class="text-muted">
+                    We seek to provide an environment where users can learn mathematical logic in a creative and collaborative manner.
+                  </p>
                 </div>
               </div>
             </li>
@@ -115,11 +117,15 @@
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
-                  <h4>March 2011</h4>
-                  <h4 class="subheading">An Agency is Born</h4>
+                  <h4>Process</h4>
+                  <!--<h4 class="subheading">An Agency is Born</h4>-->
                 </div>
                 <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                  <p class="text-muted">
+                    Our site provides this learning environment by allowing users to construct their own mathematical logic courses.
+                    These courses can be customized with multiple modules and topics that contain the material that other users can learn from.
+                    We also provide the ability to exercise your familiarity with the content by allowing for the creation of quizzes containing mathematical logic questions in each module and topic within a course.
+                  </p>
                 </div>
               </div>
             </li>
@@ -129,11 +135,14 @@
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
-                  <h4>December 2012</h4>
-                  <h4 class="subheading">Transition to Full Service</h4>
+                  <h4>View Your Progress</h4>
                 </div>
                 <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                  <p class="text-muted">
+                    Each course that you navigate to allows you to see your familiarity with its learning material by displaying your highest exercise score next to the respeective topic or module in a course.
+                    After you log in, you can click on your profile page to get a quick view of the courses that you have started, and jump back into the learning by clicking on one.
+                    Any courses that you create can also be accessed from your profile page to improve them.
+                  </p>
                 </div>
               </div>
             </li>
@@ -143,19 +152,19 @@
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
-                  <h4>July 2014</h4>
-                  <h4 class="subheading">Phase Two Expansion</h4>
+                  <h4>Become an Instructor</h4>
                 </div>
                 <div class="timeline-body">
-                  <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                  <p class="text-muted">
+                    If you are an instructor, let us know.  After verifying that you are an instructor, we can specify that your courses have been created by an actual instructor for the material.
+                    This will allow your content to be clearly visible by students looking to learn from an instructor.
+                  </p>
                 </div>
               </div>
             </li>
             <li class="timeline-inverted">
               <div class="timeline-image">
-                <h4>Be Part
-                  <br>Of Our
-                  <br>Story!</h4>
+                <h4>Join us in creating a place to foster the learning of mathematical logic today!</h4>
               </div>
             </li>
           </ul>
