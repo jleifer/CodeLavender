@@ -9,9 +9,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
+    <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
     <title>Hello World</title>
 </head>
-<body>
-<h2>${message}</h2>
+<body onload="loadAuth()">
+<h2> Hello from this side</h2>
+<a href="#" onclick="signOut();">Sign out</a>
+<script src="https://apis.google.com/js/platform.js"></script>
+<script src="../../resources/js/todo.js"></script>
 </body>
 </html>
