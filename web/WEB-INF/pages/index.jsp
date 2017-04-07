@@ -68,9 +68,11 @@
               <!--<a class="btn btn-link-1 btn-link-1-twitter" href="#">-->
               <!--<i class="fa fa-twitter"></i> Twitter-->
               <!--</a>-->
-              <a class="btn btn-link-1 btn-link-1-google-plus" href="#">
-                <i class="fa fa-google-plus"></i> Login With Google
-              </a>
+              <%--<a class="btn btn-link-1 btn-link-1-google-plus" >--%>
+                <%--<i class="fa fa-google-plus" ></i> Login With Google--%>
+              <%--</a>--%>
+              <center><div class="g-signin2" data-onsuccess="onSignIn"></div></center>
+              <a href="#" onclick="signOut();">Sign out</a>
               <br>
               <br>
               <a href="#about" class="page-scroll btn btn-primary">About Us</a>
@@ -168,6 +170,9 @@
 <script src="../../resources/js/bootstrap.js"></script>
 <script src="../../resources/js/jquery.backstretch.min.js"></script>
 <script src="../../resources/js/scripts.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="../../resources/js/todo.js" async defer></script>
+<meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
 
 <!--[if lt IE 10]>
 <!--<script src="js/placeholder.js"></script>-->

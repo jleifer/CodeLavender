@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.ModelMap;
 
 @Controller
-@RequestMapping({"/", "/hello"})
+@RequestMapping({"/", "/index"})
 public class MainController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String printHello(ModelMap model) {
         model.addAttribute("message", "Hello Spring MVC Framework!");
-        return "hello"; //Name of the jsp - using a different name will result in a different jsp being loaded.
+        return "index"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 }
