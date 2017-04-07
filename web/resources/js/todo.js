@@ -3,7 +3,7 @@
  */
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    window.open("hello.jsp","_self",false);
+    window.open("/hello","_self",false);
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
@@ -27,5 +27,5 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.');
     });
-    window.open("/index.jsp","_self",false);
+    window.open("/index","_self",false);
 }
