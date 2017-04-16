@@ -14,14 +14,17 @@ import java.util.Date;
 public class User {
     //Primary Key
     @Id public Long id;
-    // 3 attributes
+    // 5 attributes
+    /* A user has a name, their owner (Google account), if they are an instructor,
+     * when the account was created, and what courses they have endorsed.
+     */
     @Index private String name;
     @Index private String owner;
     @Index private int isInstructor;
     @Index private Date created;
     @Index private int[] endorsed;
 
-
+    //Default constructor
     public User(){
         this.name = "default";
         this.owner = "Anonymous";
@@ -30,6 +33,7 @@ public class User {
         this.endorsed = new int[100];
     }
 
+    //Constructor
     public User(String name, String owner, int isInstructor, Date created, int[] endorsed){
         this();
         if(name != null){
@@ -49,6 +53,7 @@ public class User {
         }
     }
 
+    // Getters and setters
     public Long getId() {
         return id;
     }

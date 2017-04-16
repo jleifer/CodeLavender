@@ -17,11 +17,15 @@ public class Course {
     //Primary Key
     @Id public Long id;
     // 4 attributes
+    /* A course has a name, their owner (Google account), how many users have endorsed them, and how many instructors
+     * have endorsed them.
+     */
     @Index private String name;
     @Index private String owner;
     @Index private int endorsedByUsers;
     @Index private int endorsedByInstructors;
 
+    //Default constructor
     public Course(){
         this.name = "default";
         this.owner = "Anonymous";
@@ -29,6 +33,7 @@ public class Course {
         this.endorsedByInstructors = 0;
     }
 
+    //Constructor
     public Course(String name, String owner, int endorsedByUsers,
                   int endorsedByInstructors, User u){
         this();
@@ -47,6 +52,7 @@ public class Course {
         }
     }
 
+    //Getters and setters
     public Long getId() {
         return id;
     }

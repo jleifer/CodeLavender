@@ -12,30 +12,40 @@ import com.googlecode.objectify.annotation.Parent;
  */
 @Entity
 public class Topic {
+    /* IDs what module this topic belongs to */
     @Parent @Index private Key<Module> module;
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Id public Long id;
     // 2 attributes
+    /* A topic has a name, their content, and if it has a test. */
     @Index private String name;
-    @Index private int level; //How we prevent users from skipping topics.
+    @Index private int hasTest; //How we prevent users from skipping topics.
+    @Index private String content;
 
+    //Default constructor
     public Topic(){
         this.name = "default";
-        this.level = 0;
+        this.hasTest = 0;
+        this.content = "topic";
     }
 
-    public Topic(String name, int level, Module m){
+    //Constructor
+    public Topic(String name, int hasTest, String content, Module m){
         this();
         module = Key.create(Module.class, m.id);
         if(name!=null){
             this.name = name;
         }
-        if(level >= 0){
-            this.level = level;
+        if(hasTest >= 0){
+            this.hasTest = hasTest;
+        }
+        if(content != null){
+            this.content = content;
         }
     }
 
+    //Getters and setters
     public Long getId() {
         return id;
     }
@@ -48,13 +58,17 @@ public class Topic {
         this.name = name;
     }
 
-    public int getLevel() {
-        return level;
+    public int getHasTest() {
+        return hasTest;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setHasTest(int hasTest) {
+        this.hasTest = hasTest;
     }
+
+    public String getContent() { return content; }
+
+    public void setHasContent(String content) { this.content = content; }
 
     public Key<Module> getTheParentModule() {
         return module;

@@ -12,6 +12,7 @@ import com.googlecode.objectify.annotation.Parent;
  */
 @Entity
 public class UserCompleted {
+    /* IDs which user this belongs to. */
     @Parent @Index private Key<User> user;
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
@@ -24,6 +25,7 @@ public class UserCompleted {
     @Index private int topicLevel;
     @Index private int completed;
 
+    //Default constructor
     public UserCompleted(){
         this.moduleID = 0L;
         this.topicID = 0L;
@@ -32,6 +34,7 @@ public class UserCompleted {
         this.completed = 0;
     }
 
+    //Constructor
     public UserCompleted(long moduleID, long topicID, int moduleLevel,
                   int topicLevel, int completed, User u){
         this();
@@ -53,6 +56,7 @@ public class UserCompleted {
         }
     }
 
+    //Getters and setters
     public Key<User> getParentUser() {
         return user;
     }

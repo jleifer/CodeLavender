@@ -12,30 +12,35 @@ import com.googlecode.objectify.annotation.Parent;
  */
 @Entity
 public class Module {
+    /* IDs what course this module belongs to. */
     @Parent @Index private Key<Course> course;
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Id public Long id;
     // 2 attributes
+    /* A module has a name, if it has a test.*/
     @Index private String name;
-    @Index private int level; //How we prevent users from skipping modules.
+    @Index private int hasTest;
 
+    //Default constructor
     public Module(){
         this.name = "default";
-        this.level = 0;
+        this.hasTest = 0;
     }
 
+    //Constructor
     public Module(String name, int level, Course c){
         this();
         course = Key.create(Course.class, c.id);
         if(name!=null){
             this.name = name;
         }
-        if(level >= 0){
-            this.level = level;
+        if(hasTest >= 0){
+            this.hasTest = hasTest;
         }
     }
 
+    //Getters and setters
     public Long getId() {
         return id;
     }
@@ -48,12 +53,12 @@ public class Module {
         this.name = name;
     }
 
-    public int getLevel() {
-        return level;
+    public int getHasTest() {
+        return hasTest;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setHasTest(int hasTest) {
+        this.hasTest = hasTest;
     }
 
     public Key<Course> getTheParentCourse() {
