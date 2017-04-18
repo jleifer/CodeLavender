@@ -31,12 +31,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+                <a href="hello"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Homepage <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="hello">Homepage <span class="sr-only">(current)</span></a></li>
                 </ul>
                 <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
                 <!--<div class="input-group">-->
@@ -51,7 +51,7 @@
                             <img class="profImg" src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="profile">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a onclick="signOut();">Sign Out</a></li>
                         </ul>
@@ -60,7 +60,7 @@
             </div>
         </nav>
         <!----------- !Navbar End ------------>
-        <div style="padding-top:50px;"> </div>
+        <div style="padding-top:50px;"> </div>
         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
             <div class="panel panel-default">
                 <div class="panel-body">
