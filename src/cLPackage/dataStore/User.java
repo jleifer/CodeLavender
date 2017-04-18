@@ -18,29 +18,29 @@ public class User {
     /* A user has a name, their owner (Google account), if they are an instructor,
      * when the account was created, and what courses they have endorsed.
      */
-    @Index private String name;
-    @Index private String owner;
+    @Index private String firstName;
+    @Index private String lastName;
     @Index private int isInstructor;
     @Index private Date created;
     @Index private int[] endorsed;
 
     //Default constructor
     public User(){
-        this.name = "default";
-        this.owner = "Anonymous";
+        this.firstName = "default";
+        this.lastName = "last";
         this.isInstructor = 0;
         this.created = new Date();
         this.endorsed = new int[100];
     }
 
     //Constructor
-    public User(String name, String owner, int isInstructor, Date created, int[] endorsed){
+    public User(String firstName, String lastName, int isInstructor, Date created, int[] endorsed){
         this();
-        if(name != null){
-            this.name = name;
+        if(firstName != null){
+            this.firstName = firstName;
         }
-        if(owner != null){
-            this.name = owner;
+        if(lastName != null){
+            this.lastName = lastName;
         }
         if(isInstructor >= 0){
             this.isInstructor = isInstructor;
@@ -58,21 +58,17 @@ public class User {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getOwner() {
-        return owner;
-    }
+    public String getLastName(){ return lastName; }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     public int getIsInstructor() {
         return isInstructor;

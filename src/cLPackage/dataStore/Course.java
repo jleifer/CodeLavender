@@ -21,7 +21,8 @@ public class Course {
      * have endorsed them.
      */
     @Index private String name;
-    @Index private String owner; // Own is the Google account (auto-get).
+    @Index private String ownerFirst; // Own is the Google account (auto-get).
+    @Index private String ownerLast;
     @Index private int isPublic; // 0 - private, 1 - public
     @Index private int endorsedByUsers;
     @Index private int endorsedByInstructors;
@@ -29,22 +30,26 @@ public class Course {
     //Default constructor
     public Course(){
         this.name = "default";
-        this.owner = "Anonymous";
+        this.ownerFirst = "Anonymous";
+        this.ownerLast = "Last";
         this.isPublic = 0;
         this.endorsedByUsers = 0;
         this.endorsedByInstructors = 0;
     }
 
     //Constructor
-    public Course(String name, String owner, int isPublic, int endorsedByUsers,
+    public Course(String name, String ownerFirst, String ownerLast, int isPublic, int endorsedByUsers,
                   int endorsedByInstructors, User u){
         this();
         user = Key.create(User.class, u.id);
         if(name!=null){
             this.name = name;
         }
-        if(owner!=null){
-            this.owner = owner;
+        if(ownerFirst!=null){
+            this.ownerFirst = ownerFirst;
+        }
+        if(ownerLast!=null){
+            this.ownerLast =ownerLast;
         }
         if(isPublic == 0 || isPublic == 1){
             this.isPublic = isPublic;
@@ -70,12 +75,20 @@ public class Course {
         this.name = name;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getOwnerFirst() {
+        return ownerFirst;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerFirst(String ownerFirst) {
+        this.ownerFirst = ownerFirst;
+    }
+
+    public String getOwnerLast() {
+        return ownerLast;
+    }
+
+    public void setOwnerLast(String ownerLast) {
+        this.ownerLast = ownerLast;
     }
 
     public int getIsPublic() {
