@@ -21,7 +21,8 @@ public class Course {
      * have endorsed them.
      */
     @Index private String name;
-    @Index private String owner;
+    @Index private String owner; // Own is the Google account (auto-get).
+    @Index private int isPublic; // 0 - private, 1 - public
     @Index private int endorsedByUsers;
     @Index private int endorsedByInstructors;
 
@@ -29,12 +30,13 @@ public class Course {
     public Course(){
         this.name = "default";
         this.owner = "Anonymous";
+        this.isPublic = 0;
         this.endorsedByUsers = 0;
         this.endorsedByInstructors = 0;
     }
 
     //Constructor
-    public Course(String name, String owner, int endorsedByUsers,
+    public Course(String name, String owner, int isPublic, int endorsedByUsers,
                   int endorsedByInstructors, User u){
         this();
         user = Key.create(User.class, u.id);
@@ -43,6 +45,9 @@ public class Course {
         }
         if(owner!=null){
             this.owner = owner;
+        }
+        if(isPublic == 0 || isPublic == 1){
+            this.isPublic = isPublic;
         }
         if(endorsedByUsers >= 0){
             this.endorsedByUsers = endorsedByUsers;
@@ -71,6 +76,14 @@ public class Course {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public int getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(int isPublic) {
+        this.isPublic = isPublic;
     }
 
     public int getEndorsedByUsers() {
