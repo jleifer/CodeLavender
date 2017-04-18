@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class NewCourseController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String printHello(ModelMap model) {
-        model.addAttribute("message", "Hello Spring MVC Framework!");
+    public String getNewCoursePage(ModelMap model) {
         return "newCourse"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 }

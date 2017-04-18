@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.ModelMap;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping({"/", "/index","/index.jsp"})
 public class RootController {
 
     @RequestMapping(method = RequestMethod.GET)
