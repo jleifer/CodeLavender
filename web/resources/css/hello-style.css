@@ -1,0 +1,131 @@
+body{
+    background-color: rgb(233,233,233);
+}
+
+.page-tab{
+    width:100%;
+    height: 40px;
+    border:1px solid lightgrey;
+    background-color:white;
+    margin:auto;
+}
+.page-tab-all-div{
+    width:1000px;
+    height: 40px;
+    margin:auto;
+}
+.page-single-table{
+    font-size:12px;
+    width:100px;
+    height: 40px;
+    line-height:40px;
+    text-align: center;
+    color:grey;
+    border:0px solid red;
+    cursor:pointer;
+    float:left;
+}
+.page-single-table:hover{
+    background-color:dimgray;
+    color:lightgrey;
+}
+
+.main-page-all-recommendation-div{
+    width:1000px;
+    border:0px solid red;
+    margin:auto;
+}
+
+.main-page-all-recommendation-name{
+    width:300px;
+    height:30px;
+    font-size:20px;
+    text-align: left;
+    border:0px solid red;
+    margin-top:30px;
+    float:left;
+}
+.rec-see-all{
+    width:100px;
+    height:30px;
+    border:0px solid red;
+    margin-top:30px;
+    margin-right:55px;
+    line-height:30px;
+    text-align: right;
+    float:right;
+}
+.main-page-single-rec{
+    width:220px;
+    height: 290px;
+    box-shadow: 2px 2px 5px #0f0f0f;
+    border:1px solid lightgrey;
+    margin-right:20px;
+    margin-top:10px;
+    background-color:#ffffff;
+    cursor:pointer;
+    float: left;
+}
+.rec-class-name{
+    font-size:14px;
+    font-weight: bold;
+    margin-left:10px;
+}
+.rec-creator-name{
+    margin-left:10px;
+    font-size:14px;
+    font-style: italic;
+}
+.rec-class-intro{
+    margin-left:10px;
+    font-size:12px;
+    width:200px;
+    height: 55px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    border: 1px solid lavender;
+
+}
+.rec-rating-text{
+    margin-left:5px;
+}
+.progress{
+    width: 130px;
+    height: 5px;
+    border: 1px solid black;
+    margin-left: 10px;
+    margin-top: 7px;
+    position: relative;
+    box-shadow: 1px 1px 1px #888888;
+    float:left;
+}
+.progress_fill{
+    position: absolute;
+    width: 120px;
+    height: 5px;
+    background-color: rgb(55,155,255);
+}
+.progress_unfill{
+    position: absolute;
+    width: 40px;
+    height: 5px;
+    background-color: rgb(255,155,55);
+}
+.progress_empty{
+    position: absolute;
+    width: 0px;
+    height: 5px;
+    background-color: rgb(255,155,55);
+}
+.progress_minMark{
+    position: absolute;
+    width: 3px;
+    height: 5px;
+    right: 20px;
+    background-color: red;
+}
+.progress-text{
+    margin-right:10px;
+    float: right;
+    font-style: italic;
+}

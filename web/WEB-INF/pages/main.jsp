@@ -1,19 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Spartanrme
-  Date: 2/7/2017
-  Time: 8:07 PM
+  User: Randhawa
+  Date: 4/7/17
+  Time: 4:10 PM
   To change this template use File | Settings | File Templates.
-  from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Hello World</title>
+    <title>$Title$</title>
 </head>
 <body>
-<h2>${message}</h2>
-Click <a onclick="location.href='/'" href="/">${returnlink}</a> to return to the initial page.
+$END$
 </body>
 </html>
