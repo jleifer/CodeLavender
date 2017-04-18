@@ -60,6 +60,13 @@
             </div>
         </nav>
         <!----------- !Navbar End ------------>
+        <!----new course button---->
+        <div align="right">
+            <button type="button" class="btn btn-outline-primary" onclick="location.href = 'newCourse';">
+                <span class="glyphicon glyphicon-plus"></span> Add course
+            </button>
+        </div>
+        <!----Profile Div---->
         <div style="padding-top:50px;"> </div>
         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
             <div class="panel panel-default">
