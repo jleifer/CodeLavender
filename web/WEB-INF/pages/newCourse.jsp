@@ -10,17 +10,19 @@
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
+
+    <link rel="stylesheet" href="../../resources/css/profile.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../../resources/js/jquery-3.1.1.js"></script>
+    <script src="../../resources/js/bootstrap.js"></script>
+    <script src="../../resources/js/googleLogIn.js"></script>
+    <script src="../../resources/js/newCourseController.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
+
     <title>New Course</title>
 </head>
 <body>
-<link rel="stylesheet" href="../../resources/css/profile.css">
-<link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="../../resources/js/jquery-3.1.1.js"></script>
-<script src="../../resources/js/bootstrap.js"></script>
-<script src="../../resources/js/googleLogIn.js"></script>
-<script src="../../resources/js/newCourseController.js"></script>
-<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
 <div class="mainbody container-fluid">
     <div class="row">
@@ -33,12 +35,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="hello"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+                <a href="main"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="hello">Homepage <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -74,7 +76,12 @@
                 <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
             </span>
             <%--<button class="add_field_button">Add More Fields</button>--%>
-            <div><input type="text" name="mytext[]"></div>
+            <div>
+                <span class="btn glyphicon glyphicon-edit" title="edit"></span>
+                Name:<input type="text" name="course_name">
+                Description:<input type="text" name="course_description">
+                Cover Image URL:<input type="text" name="course_img_url">
+            </div>
         </div>
 
 

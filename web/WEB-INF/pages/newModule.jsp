@@ -10,16 +10,19 @@
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
-    <title>Profile</title>
+
+    <link rel="stylesheet" href="../../resources/css/profile.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../../resources/js/jquery-3.1.1.js"></script>
+    <script src="../../resources/js/bootstrap.js"></script>
+    <script src="../../resources/js/googleLogIn.js"></script>
+    <script src="../../resources/js/newModuleController.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
+    <title>New Module</title>
 </head>
 <body>
-<link rel="stylesheet" href="../../resources/css/profile.css">
-<link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="../../resources/js/jquery-3.1.1.js"></script>
-<script src="../../resources/js/bootstrap.js"></script>
-<script src="../../resources/js/googleLogIn.js"></script>
-<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
+
 <div class="mainbody container-fluid">
     <div class="row">
         <!------------- Navbar -------------->
@@ -38,12 +41,6 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
                 </ul>
-                <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
-                <!--<div class="input-group">-->
-                <!--<input type="text" class="search-box" placeholder="Search">-->
-                <!--<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>-->
-                <!--</div>-->
-                <!--</form>-->
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbar-img" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -60,36 +57,30 @@
             </div>
         </nav>
         <!----------- !Navbar End ------------>
-        <!----new course button---->
-        <div align="right">
-            <button type="button" class="btn btn-outline-primary" onclick="location.href = 'newCourse';">
-                <span class="glyphicon glyphicon-plus"></span> Add course
-            </button>
+
+        <!---------!Module Name ---------->
+        <div class="input-group input-group-lg col-xs-5">
+            <span class="input-group-addon" id="sizing-addon1">Module Name</span>
+            <input type="text" class="form-control" disabled placeholder="eg - Module #" aria-describedby="sizing-addon1">
+            <span class="input-group-btn">
+                <button class="btn btn-success glyphicon glyphicon-ok" type="button"></button>
+            </span>
         </div>
-        <!----Profile Div---->
-        <div style="padding-top:50px;"> </div>
-        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="media">
-                        <div align="center">
-                            <img class="profImg thumbnail img-responsive" src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="300px" height="300px">
-                        </div>
-                        <div class="media-body">
-                            <hr>
-                            <h3><strong>Last Name</strong></h3>
-                            <p id = "LastName">Last Name</p>
-                            <hr>
-                            <h3><strong>First Name</strong></h3>
-                            <p id = "FirstName">First Name</p>
-                            <hr>
-                            <h3><strong>Email</strong></h3>
-                            <p id = "Email">email@email.com</p>
-                        </div>
-                    </div>
-                </div>
+        <br>
+        <br>
+        <!---------!Topics ---------->
+        <div class="input_fields_wrap">
+            <label class="control-label">Add Topics</label>
+            <span class="add_field_button">
+                <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
+            </span>
+            <%--<button class="add_field_button">Add More Fields</button>--%>
+            <div>
+                <span class="btn glyphicon glyphicon-edit" title="edit"></span>
+                Name:<input type="text" name="module_name"/>
             </div>
         </div>
+
 
     </div>
 </div>
