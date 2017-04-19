@@ -15,6 +15,7 @@
 <body>
 <link rel="stylesheet" href="../../resources/css/profile.css">
 <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../resources/css/newCourse-style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="../../resources/js/jquery-3.1.1.js"></script>
 <script src="../../resources/js/bootstrap.js"></script>
@@ -56,26 +57,50 @@
             </div>
         </nav>
         <!----------- !Navbar End ------------>
+        <div class = content>
+            <!---------!Course Name ---------->
+            <div class="input-group input-group-lg col-xs-5">
+                <span class="input-group-addon" id="sizing-addon1">Course Name</span>
+                <input type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1">
+                <span class="input-group-btn">
+                    <%--<button class="btn btn-success glyphicon glyphicon-ok" type="button"></button>--%>
+                </span>
+            </div>
+            <br>
+            <br>
+            <!---------!Modules ---------->
+            <div class="input_fields_wrap">
+                <label class="control-label">Add Modules</label>
+                <span class="add_field_button">
+                    <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
+                </span>
+                <%--<button class="add_field_button">Add More Fields</button>--%>
 
-        <!---------!Course Name ---------->
-        <div class="input-group input-group-lg col-xs-5">
-            <span class="input-group-addon" id="sizing-addon1">Course Name</span>
-            <input type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1">
-            <span class="input-group-btn">
-                <button class="btn btn-success glyphicon glyphicon-ok" type="button"></button>
-            </span>
+                <input type="text" placeholder="Module Name" name="mod_name[]">
+                <button class="btn btn-warning glyphicon glyphicon-pencil btn-xs" type="button"></button>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <%--<span class="input-group-addon">Module #</span>--%>
+                        <input type="text" class="form-control" size="4">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <%--<div class="input-group-btn">--%>
+                        <%--<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
+                        <%--Action--%>
+                        <%--</button>--%>
+                        <%--</div>--%>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <br>
-        <!---------!Modules ---------->
-        <div class="input_fields_wrap">
-            <label class="control-label">Add Modules</label>
-            <span class="add_field_button">
-                <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
-            </span>
-            <%--<button class="add_field_button">Add More Fields</button>--%>
-            <div><input type="text" name="mytext[]"></div>
-        </div>
+
 
 
     </div>
