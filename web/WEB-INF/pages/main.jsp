@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <!-- Start our file -->
     <script src="../../resources/js/googleLogin.js"></script>
-    <script src="../../resources/js/hello-script.js"></script>
     <link rel="stylesheet" href="../../resources/css/hello-style.css">
     <link rel="stylesheet" href="../../resources/css/profile.css">
     <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
@@ -42,12 +41,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="hello"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+        <a href="main"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="hello">Homepage <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
         <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
         <!--<div class="input-group">-->
