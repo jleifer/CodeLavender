@@ -1,6 +1,8 @@
+
 /**
- * Created by Randhawa on 4/17/17.
+ * Created by Yifang Cao on 4/19/2017.
  */
+
 $(document).ready(function() {
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
@@ -13,15 +15,13 @@ $(document).ready(function() {
             x++; //text box increment
             $(wrapper).append('<div>' +
                 '<span class="btn glyphicon glyphicon-edit" title="edit"></span>'+
-                'Name:<input type="text" name="course_name">'+
-                'Description:<input type="text" name="course_description">'+
-                'Cover Image URL:<input type="text" name="course_img_url">'+
+                'Name:<input type="text" name="module_name"/>' +
                 '<a href="#" class="remove_field">' +
                 '<span class="remove_field glyphicon glyphicon-minus-sign"></span></a>' +
                 '</div>'); //add input box
         }
         $(".glyphicon-edit").click(function () {
-            location.href = "/newModule";
+            location.href = "/newTopic";
         });
     });
 
@@ -30,6 +30,6 @@ $(document).ready(function() {
     })
 
     $(".glyphicon-edit").click(function () {
-        location.href = "/newModule";
+        location.href = "/newTopic";
     });
 });

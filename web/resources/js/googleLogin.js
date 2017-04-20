@@ -24,7 +24,7 @@ function onSignIn(googleUser) {
     localStorage.setItem("imgSrc",imgSrc);
     email =  profile.getEmail(); // This is null if the 'email' scope is not present.
     localStorage.setItem("email",email);
-    window.open("/hello","_self",false);
+    window.open("/main","_self",false);
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
