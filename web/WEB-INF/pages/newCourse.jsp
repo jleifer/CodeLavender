@@ -1,4 +1,6 @@
-<%--
+<%@ page import="cLPackage.dataStore.Course" %>
+<%@ page import="cLPackage.dataStore.Module" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Spartanrme
   Date: 2/7/2017
@@ -7,6 +9,12 @@
   from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%
+    Long userId = (Long) request.getAttribute("userId");
+    Long courseId = (Long) request.getAttribute("courseId");
+    Course course = (Course) request.getAttribute("courseObj");
+
+%>
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -62,7 +70,8 @@
         <!---------!Course Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Course Name</span>
-            <input type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1">
+            <input type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="<%=course.getName()%>">
+
         </div>
         <br>
         <br>
@@ -86,5 +95,9 @@
         </span>
     </div>
 </div>
+<%=userId.toString()%><br/>
+<%=courseId.toString()%><br/>
+<br/>
+<br/>
 </body>
 </html>
