@@ -86,5 +86,8 @@
         </span>
     </div>
 </div>
+<%=request.getAttribute("userId")%><br/>
+<%=request.getAttribute("courseId")%><br/>
+<%=request.getAttribute("moduleNum")%><br/>
 </body>
 </html>

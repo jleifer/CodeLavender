@@ -29,7 +29,7 @@ public class Module {
     }
 
     //Constructor
-    public Module(String name, int level, Course c){
+    public Module(String name,  Course c){
         this();
         course = Key.create(Course.class, c.id);
         if(name!=null){
