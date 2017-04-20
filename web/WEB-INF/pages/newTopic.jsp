@@ -144,10 +144,14 @@
                 <span id="quiz_total_num" >Total: 0</span>
                 <br clear="both;">
             </div>
+            <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
+                <button class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+            </span>
         </div>
-
         <!---------END Add Topic Quiz Control END------------>
-        <div class="bot_buffer_div">
+
+
+        <div class="bot_buffer_div" style="clear: both">
             <form action="TopicQuiz" method="get"></form>
         </div>
     </div>
