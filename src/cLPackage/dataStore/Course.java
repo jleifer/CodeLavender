@@ -26,6 +26,8 @@ public class Course {
     @Index private int isPublic; // 0 - private, 1 - public
     @Index private int endorsedByUsers;
     @Index private int endorsedByInstructors;
+    @Index private String description;
+    @Index private String imgURL;
 
     //Default constructor
     public Course(){
@@ -35,11 +37,13 @@ public class Course {
         this.isPublic = 0;
         this.endorsedByUsers = 0;
         this.endorsedByInstructors = 0;
+        this.description = "No Description";
+        this.imgURL = "../../resources/img/rec-img.jpeg";
     }
 
     //Constructor
     public Course(String name, String ownerFirst, String ownerLast, int isPublic, int endorsedByUsers,
-                  int endorsedByInstructors, User u){
+                  int endorsedByInstructors, String description, User u){
         this();
         user = Key.create(User.class, u.id);
         if(name!=null){
@@ -59,6 +63,9 @@ public class Course {
         }
         if(endorsedByInstructors >= 0){
             this.endorsedByInstructors = endorsedByInstructors;
+        }
+        if(description!=null){
+            this.description=description;
         }
     }
 
@@ -107,6 +114,10 @@ public class Course {
         this.endorsedByUsers = endorsedByUsers;
     }
 
+    public String getDescription(){return this.description;}
+
+    public void setDescription(String description){ this.description=description;}
+
     public int getEndorsedByInstructors() {
         return endorsedByInstructors;
     }
@@ -114,6 +125,10 @@ public class Course {
     public void setEndorsedByInstructors(int endorsedByInstructors) {
         this.endorsedByInstructors = endorsedByInstructors;
     }
+
+    public String getImgURL(){return this.imgURL;}
+
+    public void setImgURL(String imgURL){this.imgURL = imgURL;}
 
     public Key<User> getTheParentUser() {
         return user;
