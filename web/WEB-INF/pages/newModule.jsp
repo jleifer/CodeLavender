@@ -62,9 +62,6 @@
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Module Name</span>
             <input type="text" class="form-control" disabled placeholder="eg - Module #" aria-describedby="sizing-addon1">
-            <span class="input-group-btn">
-                <button class="btn btn-success glyphicon glyphicon-ok" type="button"></button>
-            </span>
         </div>
         <br>
         <br>
@@ -81,7 +78,9 @@
             </div>
         </div>
 
-
+        <span class="input-group-btn" style="display: block; margin-top: 20px;" title="Submit">
+                <button class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+        </span>
     </div>
 </div>
 </body>
