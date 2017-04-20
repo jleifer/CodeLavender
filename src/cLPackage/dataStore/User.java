@@ -22,6 +22,7 @@ public class User {
     @Index private String lastName;
     @Index private int isInstructor;
     @Index private Date created;
+    @Index private String email;
     @Index private int[] endorsed;
 
     //Default constructor
@@ -30,11 +31,12 @@ public class User {
         this.lastName = "last";
         this.isInstructor = 0;
         this.created = new Date();
+        this.email = "no email";
         this.endorsed = new int[100];
     }
 
     //Constructor
-    public User(String firstName, String lastName, int isInstructor, Date created, int[] endorsed){
+    public User(String firstName, String lastName, int isInstructor, String email, Date created, int[] endorsed){
         this();
         if(firstName != null){
             this.firstName = firstName;
@@ -44,6 +46,9 @@ public class User {
         }
         if(isInstructor >= 0){
             this.isInstructor = isInstructor;
+        }
+        if(email!=null){
+            this.email = email;
         }
         if(created != null){
             this.created = created;
@@ -85,6 +90,10 @@ public class User {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+    public String getEmail(){return this.email;}
+
+    public void setEmail(String email){this.email=email;}
 
     public int[] getEndorsed(){
         return endorsed;

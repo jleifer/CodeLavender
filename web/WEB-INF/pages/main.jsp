@@ -111,70 +111,7 @@
     <div class="rec-see-all"><a href="#">See All</a></div>
     <br style="clear: both;">
 
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress" title="Current: 90% Required: 80%" ><div class="progress_fill"></div><div class="progress_minMark"></div></div>
-        <div class="progress-text">95%
-        </div>
-    </div>
 
-
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress-text">Start Now</div>
-    </div>
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress-text">Start Now</div>
-    </div>
     <div class="main-page-single-rec">
         <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
         <div class="rec-class-name">Boolean Logic for Beginners</div>
@@ -202,88 +139,11 @@
     <div class="main-page-all-recommendation-name">Best Classes by Users</div>
     <div class="rec-see-all"><a href="#">See All</a></div>
     <br style="clear: both;">
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress-text">Start Now</div>
-    </div>
 
+    <%="User ID: "+request.getAttribute("userId") %>
 
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress-text">Start Now</div>
-    </div>
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress-text">Start Now</div>
-    </div>
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress-text">Start Now</div>
-    </div>
+    <!------- load courses here ---------->
+
     <br style="clear:both;" />
 </div>
 </body>
