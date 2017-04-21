@@ -1,4 +1,4 @@
-<%--
+<%@ page import="org.springframework.ui.ModelMap" %><%--
   Created by IntelliJ IDEA.
   User: Spartanrme
   Date: 2/7/2017
@@ -41,12 +41,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="main"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+        <a href="main?email=${email}"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="main?email=${email}">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
         <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
         <!--<div class="input-group">-->

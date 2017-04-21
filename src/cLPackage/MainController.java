@@ -40,6 +40,7 @@ public class MainController {
         //save user id for further use
         System.out.print(userId);
         model.addAttribute("userId",userId);
+        model.addAttribute("email",email);
         return "main"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 }
