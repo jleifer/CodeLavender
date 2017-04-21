@@ -42,7 +42,6 @@ public class AddModuleServlet extends HttpServlet {
             List<Course>courseList= ObjectifyService.ofy().load().type(Course.class).list();
             for (int i = 0 ; i< courseList.size();i++){
                 if(courseList.get(i).id.longValue() == courseId.longValue()){
-                    System.out.println("GOt course ha");
                     curCourse = courseList.get(i);
                 }
             }

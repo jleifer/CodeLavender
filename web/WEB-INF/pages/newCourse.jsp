@@ -106,17 +106,18 @@
             </span>
             <%--<button class="add_field_button">Add More Fields</button>--%>
             <div>
-                <span class="btn glyphicon glyphicon-edit" title="edit"></span>
+                <span class="btn glyphicon glyphicon-edit" title="edit"onclick="location.href='/newModule?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(0).id%>';"></span>
                 Name:<input type="text" name="course_name" value = "<%=moduleList.get(0).getName()%>" disabled>
             </div>
 
             <!------  Start Dynamically loading ----------->
             <% for (int i = 1 ; i<moduleList.size();i++){%>
             <div>
-                <span class="btn glyphicon glyphicon-edit" title="edit"></span>
+                <span class="btn glyphicon glyphicon-edit" title="edit"
+                onclick="location.href='/newModule?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';"></span>
                 Name:<input type="text" name="course_name" value="<%=moduleList.get(i).getName()%>" disabled>
                 <a href="#" class="remove_field"
-                   onclick="location.href='/RemoveModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';">
+                   onclick="location.href='/DeleteModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';">
                     <span class="remove_field glyphicon glyphicon-minus-sign"></span>
                 </a>
             </div>

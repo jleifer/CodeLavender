@@ -29,12 +29,12 @@
         <url-pattern>/AddModuleServlet</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>RemoveModuleServlet</servlet-name>
-        <servlet-class>cLPackage.RemoveModuleServlet</servlet-class>
+        <servlet-name>DeleteModuleServlet</servlet-name>
+        <servlet-class>cLPackage.DeleteModuleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RemoveModuleServlet</servlet-name>
-        <url-pattern>/RemoveModuleServlet</url-pattern>
+        <servlet-name>DeleteModuleServlet</servlet-name>
+        <url-pattern>/DeleteModuleServlet</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>UpdateModuleServlet</servlet-name>
@@ -44,6 +44,23 @@
         <servlet-name>UpdateModuleServlet</servlet-name>
         <url-pattern>/UpdateModuleServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AddTopicServlet</servlet-name>
+        <servlet-class>cLPackage.AddTopicServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTopicServlet</servlet-name>
+        <url-pattern>/AddTopicServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteTopicServlet</servlet-name>
+        <servlet-class>cLPackage.DeleteTopicServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteTopicServlet</servlet-name>
+        <url-pattern>/DeleteTopicServlet</url-pattern>
+    </servlet-mapping>
+
 
     <filter>
         <filter-name>ObjectifyFilter</filter-name>

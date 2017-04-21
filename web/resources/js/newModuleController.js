@@ -9,6 +9,7 @@ $(document).ready(function() {
     var add_button      = $(".add_field_button"); //Add button ID
 
     var x = 1; //initlal text box count
+    /*
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
@@ -32,4 +33,5 @@ $(document).ready(function() {
     $(".glyphicon-edit").click(function () {
         location.href = "/newTopic";
     });
+    */
 });

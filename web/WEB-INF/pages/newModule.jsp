@@ -1,4 +1,9 @@
-<%--
+<%@ page import="cLPackage.dataStore.Course" %>
+<%@ page import="cLPackage.dataStore.Module" %>
+<%@ page import="cLPackage.dataStore.Topic" %>
+<%@ page import="com.googlecode.objectify.Key" %>
+<%@ page import="com.googlecode.objectify.ObjectifyService" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Spartanrme
   Date: 2/7/2017
@@ -7,6 +12,23 @@
   from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%
+    String userId = (String)request.getParameter("userId").toString();
+    String courseId = (String)request.getParameter("courseId").toString();
+    String moduleId = (String)request.getParameter("moduleId").toString();
+    System.out.println(userId+","+courseId+","+moduleId);
+    Key<Course> courseKey = Key.create(Course.class,Long.parseLong(courseId));
+    List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
+    Module module = null;
+    for(int i = 0; i<moduleList.size();i++){
+        if(moduleList.get(i).getId()==Long.parseLong(moduleId)){
+            module = moduleList.get(i);
+        }
+    }
+    Key<Module> moduleKey = Key.create(Module.class,Long.parseLong(moduleId));
+    List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
+    System.out.println("Topic List size: "+topicList.size());
+%>
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -61,7 +83,7 @@
         <!---------!Module Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Module Name</span>
-            <input type="text" class="form-control" disabled placeholder="eg - Module #" aria-describedby="sizing-addon1">
+            <input type="text" class="form-control" value="<%=module.getName()%>" aria-describedby="sizing-addon1">
         </div>
         <br>
         <br>
@@ -69,17 +91,35 @@
         <div class="input_fields_wrap">
             <label class="control-label">Add Topics</label>
             <span class="add_field_button">
-                <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
+                <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"
+                        onclick="location.href='/AddTopicServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(0).id%>';"></button>
             </span>
             <%--<button class="add_field_button">Add More Fields</button>--%>
             <div>
-                <span class="btn glyphicon glyphicon-edit" title="edit"></span>
-                Name:<input type="text" name="module_name"/>
+                <span class="btn glyphicon glyphicon-edit" title="edit"
+                      onclick="location.href='/newTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>&topicId=<%=topicList.get(0).id%>';"></span>
+                Name:<input type="text" name="module_name" value="<%=topicList.get(0).getName()%>"/>
             </div>
+            <!------  Start Dynamically loading ----------->
+            <% for (int i = 1 ; i<topicList.size();i++){%>
+            <div>
+                <span class="btn glyphicon glyphicon-edit" title="edit"
+                      onclick="location.href='/newTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>&topicId=<%=topicList.get(i).id%>';"></span>
+                Name:<input type="text" name="course_name" value="<%=topicList.get(i).getName()%>" disabled>
+                <a href="#" class="remove_field"
+                   onclick="location.href='/DeleteTopicServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>&topicId=<%=topicList.get(i).id%>';">
+                    <span class="remove_field glyphicon glyphicon-minus-sign"></span>
+                </a>
+            </div>
+            <% }%>
+            <!------ END Start Dynamically loading END----------->
         </div>
 
         <span class="input-group-btn" style="display: block; margin-top: 20px;" title="Submit">
                 <button class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+
+                <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
+                        onclick="location.href='newCourse?courseId=<%=courseId%>&userId=<%=userId%>';">&nbsp;Back</button>
         </span>
     </div>
 </div>
