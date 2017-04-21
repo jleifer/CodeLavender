@@ -11,6 +11,7 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
+    ObjectifyService.register(Course.class);
     String email = (String)request.getParameter("email").toString();
     User user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
     List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
