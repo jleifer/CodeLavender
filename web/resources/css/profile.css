@@ -88,3 +88,19 @@
     }
 
 }
+
+.courseCreated{
+    width: 590px;
+    height: 50px;
+    line-height:50px;
+}
+.courseCreated span{
+    cursor: pointer;
+}
+.courseCreated:hover{
+    background-color: lavender;
+}
+.courseCreated:hover span{
+    font-weight: bold;
+    text-decoration: underline;
+}

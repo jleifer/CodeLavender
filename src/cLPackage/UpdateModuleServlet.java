@@ -3,7 +3,11 @@
  */
 package cLPackage;
 
-import cLPackage.dataStore.Module;
+import cLPackage.dataStore.Course;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.http.HttpServlet;
@@ -18,21 +22,33 @@ public class UpdateModuleServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
-        String moduleIdString =req.getParameter("moduleId");
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);
-        Long moduleId = Long.parseLong(moduleIdString);
         //get the module object
-        Module module = null;
-        List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).list();
-        for (int i = 0 ; i < moduleList.size(); i++){
-            if(moduleList.get(i).id.longValue()==moduleId.longValue()){
-                module = moduleList.get(i);
+        Course course = null;
+        List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
+        for (int i = 0 ; i < courseList.size(); i++){
+            if(courseList.get(i).id.longValue()==courseId.longValue()){
+                course = courseList.get(i);
             }
         }
-        System.out.print("deleting "+module.id);
+        System.out.print("updating "+course.id);
+        //change attributes
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
+        Entity Course = new Entity("Course",course.id,userKey);
+        Course.setIndexedProperty("name","Edited");
+        Course.setIndexedProperty("ownerFirst",course.getOwnerFirst());
+        Course.setIndexedProperty("ownerLast",course.getOwnerLast());
+        Course.setIndexedProperty("isPublic",course.getIsPublic());
+        Course.setIndexedProperty("endorsedByUsers",course.getEndorsedByUsers());
+        Course.setIndexedProperty("endorsedByInstructors",course.getEndorsedByInstructors());
+        Course.setIndexedProperty("description",course.getDescription());
+        Course.setIndexedProperty("imgURL",course.getImgURL());
+        ObjectifyService.ofy().delete().entity(course).now();
+        datastore.put(Course);
         //delete it
-        ObjectifyService.ofy().delete().entity(module).now();
 
         HttpSession session = req.getSession();
         session.setAttribute("userId",userId.longValue());

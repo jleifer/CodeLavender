@@ -14,8 +14,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
 
-    String userId = (String)session.getAttribute("userId").toString();
-    String courseId = (String)session.getAttribute("courseId").toString();
+    String userId = (String)request.getParameter("userId").toString();
+    String courseId = (String)request.getParameter("courseId").toString();
     List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
     Course course = null;
     for(int i = 0; i<courseList.size();i++){
@@ -122,7 +122,11 @@
         </div>
 
         <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
-                <button class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+                <button class="btn btn-success glyphicon glyphicon-ok" type="button"
+                        onclick="location.href='UpdateModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>';">&nbsp;Submit</button>
+
+                <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
+                        onclick="location.href='profile?userId=<%=userId%>';">&nbsp;Back</button>
         </span>
     </div>
 </div>

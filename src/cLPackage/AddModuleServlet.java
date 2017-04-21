@@ -61,32 +61,32 @@ public class AddModuleServlet extends HttpServlet {
             session.setAttribute("userId",userId.longValue());
             session.setAttribute("courseId",courseId.longValue());
             resp.sendRedirect("newCourse?userId="+userId.longValue()+"&courseId="+courseId.longValue());
-            return;
+        }else {
+
+            //create a course / module / topic for curUser, and save into datastore.
+            Course newCourse = new Course("No Course Name", curUser.getFirstName(), curUser.getLastName(),
+                    0, 0, 0, "This user is to lazy to put a description", curUser);
+            ObjectifyService.ofy().save().entity(newCourse).now();
+
+            Module newModule = new Module("Default Module", ObjectifyService.ofy().load().entity(newCourse).now());
+            ObjectifyService.ofy().save().entity(newModule).now();
+
+            Topic newTopic = new Topic("Default Topic", 0, "No Content", ObjectifyService.ofy().load().entity(newModule).now());
+            ObjectifyService.ofy().save().entity(newTopic).now();
+
+            String options[] = {"True", "False"};
+            MultipleChoices newMulti = new MultipleChoices("Default Question Text", 2, 1
+                    , options, ObjectifyService.ofy().load().entity(newTopic).now());
+            ObjectifyService.ofy().save().entity(newMulti).now();
+
+            //get newCourse ID,
+            Long newCourseId = ObjectifyService.ofy().load().entity(newCourse).now().id;
+
+            //set data for future use
+            HttpSession session = req.getSession();
+            session.setAttribute("userId", userId.longValue());
+            session.setAttribute("courseId", newCourseId.longValue());
+            resp.sendRedirect("newCourse?userId=" + userId.longValue() + "&courseId=" + newCourseId.longValue());
         }
-
-        //create a course / module / topic for curUser, and save into datastore.
-        Course newCourse = new Course("No Course Name", curUser.getFirstName(), curUser.getLastName(),
-                0, 0, 0, "This user is to lazy to put a description", curUser);
-        ObjectifyService.ofy().save().entity(newCourse).now();
-
-        Module newModule = new Module("Default Module", ObjectifyService.ofy().load().entity(newCourse).now());
-        ObjectifyService.ofy().save().entity(newModule).now();
-
-        Topic newTopic = new Topic("Default Topic", 0, "No Content", ObjectifyService.ofy().load().entity(newModule).now());
-        ObjectifyService.ofy().save().entity(newTopic).now();
-
-        String options[] = {"True", "False"};
-        MultipleChoices newMulti = new MultipleChoices("Default Question Text", 2, 1
-                , options,ObjectifyService.ofy().load().entity(newTopic).now());
-        ObjectifyService.ofy().save().entity(newMulti).now();
-
-        //get newCourse ID,
-        Long newCourseId = ObjectifyService.ofy().load().entity(newCourse).now().id;
-
-        //set data for future use
-        HttpSession session = req.getSession();
-        session.setAttribute("userId",userId.longValue());
-        session.setAttribute("courseId",newCourseId.longValue());
-        resp.sendRedirect("newCourse?userId="+userId.longValue()+"&courseId="+newCourseId.longValue());
     }
 }
