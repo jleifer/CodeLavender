@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="../../resources/css/profile.css">
     <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
+    <!-- JSP Taglib -->
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
     <title>DevRoot</title>
 </head>
 <body>
@@ -68,10 +71,38 @@
 <!----------- !Navbar End ------------>
 
 <div class="course-page-all">
+
+    <!--
+    <div id="course-page-name"><h1><c:out value="${course.name}"></c:out></h1></div>
+
+    <c:forEach items="${moduleList}" var="module" varStatus="moduleIndex">
+        <div class="module_active">
+            <div class="module-name"><h3><c:out value="${module.name}"></c:out></h3></div>
+
+            <hr/>
+
+            <c:forEach items="${topicList[moduleIndex]}" var="topic" varStatus="topicIndex">
+                <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
+                <div class="topic">
+                    <div class="topic-name"><a href="#">Topic <c:out value="${topicIndex + 1}"></c:out></a></div>
+                        <div class="score"><span class="passed">100%</span></div>
+                    <c:out value="${topic.name}"></c:out>
+                    <br/>
+                </div>
+                <br/>
+            </c:forEach>
+            <hr />
+            <div class="topic-name"><a href="#" style="margin-left: 30px;">Module Test</a></div>
+            <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
+        </div>
+    </c:forEach>
+
+    -->
+
     <div id="course-page-name"><h1>Sample Course</h1></div>
 
     <div class="module_active">
-        <div style="width: 100px; margin:auto; "><h3>Module 1</h3></div>
+        <div class="module-name"><h3>Module 1</h3></div>
 
         <hr/>
 
@@ -79,12 +110,11 @@
         <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
         <div class="topic">
             <div class="topic-name"><a href="#">Topic 1</a></div>
-            <div class="score"><span class="passed">100%</span></div>
-
-            <br style="clear: both;" />
-            <div style="margin-top: 10px;">This topic will cover basic Java syntax, and some other material</div>
+                <div class="score"><span class="passed">100%</span></div>
+            Test Name
+            <br/>
         </div>
-        <br style="clear: both;" />
+        <br/>
 
         <!--<div class="check_bar"></div>-->
         <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
@@ -92,26 +122,24 @@
             <div class="topic-name"><a href="#">Topic 2</a></div>
             <div class="score"><span class="passed">100%</span></div>
 
-            <br style="clear: both;" />
-            <div style="margin-top: 10px;">This topic will cover basic Java syntax, and some other material</div>
+            <br/>
         </div>
-        <br style="clear: both;" />
+        <br/>
         <!--<div class="check_bar"></div>-->
         <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
         <div class="topic">
             <div class="topic-name"><a href="#">Topic 3</a></div>
             <div class="score"><span class="passed">80%</span></div>
 
-            <br style="clear: both;" />
-            <div style="margin-top: 10px;">This topic will cover basic Java syntax, and some other material</div>
+            <br/>
         </div>
-        <br style="clear: both;" />
+        <br/>
 
 
         <hr />
         <div class="topic-name"><a href="#" style="margin-left: 30px;">Module Test</a></div>
     <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
-    <br style="clear: both;" />
+    <br/>
 </div>
 
 </div>

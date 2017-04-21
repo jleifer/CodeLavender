@@ -21,6 +21,11 @@
     box-shadow: 5px 5px 2px #888888;
     float: left;
 }
+
+.module-name {
+    width: 100px;
+    margin:auto;
+}
 .lock{
     display: block;
     position: absolute;
@@ -28,14 +33,14 @@
     left: 55px;
     z-index: 3;
 }
-.topic-name{
-    width: 120px;
+.topic-title{
+    width: 70%;
     float: left;
     font-weight: bold;
     font-family: bold;
 }
 .score{
-    width: 50px;
+    width: 30%;
     float: right;
     text-align: right;
 }
@@ -91,6 +96,13 @@ a{
     box-shadow: 5px 5px 2px #888888;
     float: left;
 }
+br {
+    clear: both;
+}
+hr {
+    color: black;
+    font-weight: normal;
+}
 .topic{
     float: right;
     padding: 5px;
@@ -104,10 +116,12 @@ a{
 }
 .check-sign, .cross-sign {
     float: left;
+    margin-top: 10px;
     margin-left: 10px;
+    margin-right: 5px;
     width: 40px;
     height: 40px;
-    font-size: 4em;
+    font-size: 2em;
 }
 .check_bar{
     float: left;

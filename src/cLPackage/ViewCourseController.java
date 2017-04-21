@@ -1,4 +1,4 @@
-package cLPackage.dataStore;
+package cLPackage;
 
 import cLPackage.dataStore.*;
 import com.googlecode.objectify.ObjectifyService;
