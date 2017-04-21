@@ -1,8 +1,10 @@
 package cLPackage.dataStore;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Parent;
 
 /**
  * Created by Yifang Cao on 4/20/2017.
@@ -11,6 +13,9 @@ import com.googlecode.objectify.annotation.Index;
 public class MultipleChoices {
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
+    @Parent
+    @Index private Key<Topic> topic;
+
     @Id
     public Long id;
 
@@ -27,7 +32,8 @@ public class MultipleChoices {
         options[0] = "True";
         options[1]="False";
     }
-    public MultipleChoices(String questionText,int optionNumber, int answer, String options[]){
+    public MultipleChoices(String questionText,int optionNumber, int answer, String options[],Topic topic){
+        this.topic = Key.create(Topic.class, topic.id);
         this.optionNumber = optionNumber;
         this.answer = answer;
         this.questionText = questionText;

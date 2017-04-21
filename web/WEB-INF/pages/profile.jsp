@@ -63,7 +63,7 @@
         <!----new course button---->
         <div align="right">
             <button type="button" class="btn btn-outline-primary"
-                    onclick="location.href = 'newCourse?userId=<%=request.getAttribute("userId")%>';">
+                    onclick="location.href = 'AddModuleServlet?courseId=-1&userId=<%=request.getAttribute("userId")%>';">
                 <span class="glyphicon glyphicon-plus"></span> Add course
             </button>
         </div>

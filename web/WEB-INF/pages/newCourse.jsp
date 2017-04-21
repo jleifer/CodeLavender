@@ -1,6 +1,9 @@
 <%@ page import="cLPackage.dataStore.Course" %>
 <%@ page import="cLPackage.dataStore.Module" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="com.googlecode.objectify.Key" %>
+<%@ page import="com.googlecode.objectify.ObjectifyService" %>
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: Spartanrme
   Date: 2/7/2017
@@ -10,11 +13,22 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
-    Long userId = (Long) request.getAttribute("userId");
-    Long courseId = (Long) request.getAttribute("courseId");
-    Course course = (Course) request.getAttribute("courseObj");
 
+    String userId = (String)session.getAttribute("userId").toString();
+    String courseId = (String)session.getAttribute("courseId").toString();
+    List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
+    Course course = null;
+    for(int i = 0; i<courseList.size();i++){
+        if(courseList.get(i).getId()==Long.parseLong(courseId)){
+            course = courseList.get(i);
+        }
+    }
+    Key<Course> courseKey = Key.create(Course.class,course.id);
+    List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
+    System.out.println("list sfze +"+moduleList.size());
 %>
+
+
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -75,19 +89,36 @@
         </div>
         <br>
         <br>
+
+        <div>
+            Description:<br/><textarea rows="8" cols="50" name="course_description"><%=course.getDescription()%></textarea><br/><br/>
+            Cover Image URL:<input type="text" name="course_img_url" value = "<%=course.getImgURL()%>">
+        </div>
+        <hr/>
         <!---------!Modules ---------->
         <div class="input_fields_wrap">
             <label class="control-label">Add Modules</label>
-            <span class="add_field_button">
+            <span class="add_field_button" onclick="location.href='AddModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>';">
                 <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
             </span>
             <%--<button class="add_field_button">Add More Fields</button>--%>
             <div>
                 <span class="btn glyphicon glyphicon-edit" title="edit"></span>
-                Name:<input type="text" name="course_name">
-                Description:<input type="text" name="course_description">
-                Cover Image URL:<input type="text" name="course_img_url">
+                Name:<input type="text" name="course_name" value = "<%=moduleList.get(0).getName()%>">
             </div>
+
+            <!------  Start Dynamically loading ----------->
+            <% for (int i = 1 ; i<moduleList.size();i++){%>
+            <div>
+                <span class="btn glyphicon glyphicon-edit" title="edit"></span>
+                Name:<input type="text" name="course_name" value="<%=moduleList.get(i).getName()%>">
+                <a href="#" class="remove_field"
+                   onclick="location.href='/RemoveModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';">
+                    <span class="remove_field glyphicon glyphicon-minus-sign"></span>
+                </a>
+            </div>
+            <% }%>
+            <!------ END Start Dynamically loading END----------->
         </div>
 
         <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
@@ -95,8 +126,6 @@
         </span>
     </div>
 </div>
-<%=userId.toString()%><br/>
-<%=courseId.toString()%><br/>
 <br/>
 <br/>
 </body>

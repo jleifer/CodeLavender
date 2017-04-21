@@ -20,6 +20,31 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddModuleServlet</servlet-name>
+        <servlet-class>cLPackage.AddModuleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddModuleServlet</servlet-name>
+        <url-pattern>/AddModuleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RemoveModuleServlet</servlet-name>
+        <servlet-class>cLPackage.RemoveModuleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveModuleServlet</servlet-name>
+        <url-pattern>/RemoveModuleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateModuleServlet</servlet-name>
+        <servlet-class>cLPackage.UpdateModuleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateModuleServlet</servlet-name>
+        <url-pattern>/UpdateModuleServlet</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
