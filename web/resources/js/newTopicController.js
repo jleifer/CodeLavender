@@ -5,8 +5,14 @@ var cur_quiz_type = "TorF";
 var topic_quiz_num = 0;
 var quizes = [];
 $(document).ready(function() {
+
+    $(".text_field_option").on("change",function () {
+        changeMultiChoice($(this));
+    });
+
     $('#cur_quiz_type').on('change', function() {
         cur_quiz_type = this.value;
+        $("#hidden_quiz_type").val(cur_quiz_type);
         console.log( cur_quiz_type );
         /*
         multi_4
@@ -17,6 +23,9 @@ $(document).ready(function() {
     });
 
     $('#add_quiz_btn').click(function(){
+
+        $("#hidden_form_for_creation").submit();
+
         topic_quiz_num++; //increment quiz numer
         //make a quiz
         var $quiz_question_div = $("<div>",{"class":"quiz_question"});
@@ -92,7 +101,7 @@ $(document).ready(function() {
         //make the quiz object
         quizes.push();
         console.log("quiz ans: " +quizes );
-        $("#quiz_total_num").html("Total: "+topic_quiz_num);
+        //$("#quiz_total_num").html("Total: "+topic_quiz_num);
     });
 
 });
@@ -100,7 +109,7 @@ $(document).ready(function() {
 function removeQuiz(whichOne){
     $(".quiz_question:nth-child("+ whichOne+" )").remove();
     topic_quiz_num--;
-    $("#quiz_total_num").html("Total: "+topic_quiz_num);
+   // $("#quiz_total_num").html("Total: "+topic_quiz_num);
 }
 function changeMultiChoice(input){
     var cur_val = input.val();

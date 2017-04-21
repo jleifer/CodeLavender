@@ -38,9 +38,34 @@ public class MultipleChoices {
         this.answer = answer;
         this.questionText = questionText;
         if(options!=null && optionNumber>2){
+            this.options = new String[optionNumber];
             for (int i = 0; i<optionNumber;i++){
                 this.options[i]= new String(options[i]);
             }
         }
+    }
+    public int getOptionNumber(){
+        return this.optionNumber;
+    }
+    public void setOptionNumber(int optionNumber){
+        this.optionNumber =optionNumber;
+    }
+    public String getQuestionText(){
+        return this.questionText;
+    }
+    public void setQuestionText(String questionText){
+        this.questionText =questionText;
+    }
+    public String[] getOptions(){
+        return this.options;
+    }
+    public void setOptions(String[] options){
+        this.options =options;
+    }
+    public int getAnswer(){
+        return this.answer;
+    }
+    public void setAnswer(int answer){
+        this.answer =answer;
     }
 }

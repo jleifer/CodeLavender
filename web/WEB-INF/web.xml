@@ -60,7 +60,22 @@
         <servlet-name>DeleteTopicServlet</servlet-name>
         <url-pattern>/DeleteTopicServlet</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>AddQuizServlet</servlet-name>
+        <servlet-class>cLPackage.AddQuizServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddQuizServlet</servlet-name>
+        <url-pattern>/AddQuizServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteQuizServlet</servlet-name>
+        <servlet-class>cLPackage.DeleteQuizServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteQuizServlet</servlet-name>
+        <url-pattern>/DeleteQuizServlet</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>ObjectifyFilter</filter-name>

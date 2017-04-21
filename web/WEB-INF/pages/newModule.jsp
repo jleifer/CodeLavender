@@ -56,12 +56,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="main"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+                <a href="main?email=<%=request.getAttribute("email")%>"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="main?email=<%=request.getAttribute("email")%>">Homepage <span class="sr-only">(current)</span></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -70,7 +70,7 @@
                             <img class="profImg" src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="profile">Profile</a></li>
+                            <li><a href="profile?userId=<%=request.getAttribute("userId")%>">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a onclick="signOut();">Sign Out</a></li>
                         </ul>
@@ -98,7 +98,7 @@
             <div>
                 <span class="btn glyphicon glyphicon-edit" title="edit"
                       onclick="location.href='/newTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>&topicId=<%=topicList.get(0).id%>';"></span>
-                Name:<input type="text" name="module_name" value="<%=topicList.get(0).getName()%>"/>
+                Name:<input type="text" name="module_name" value="<%=topicList.get(0).getName()%>" disabled/>
             </div>
             <!------  Start Dynamically loading ----------->
             <% for (int i = 1 ; i<topicList.size();i++){%>
