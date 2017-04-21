@@ -1,12 +1,24 @@
-<%@ page import="org.springframework.ui.ModelMap" %><%--
-  Created by IntelliJ IDEA.
-  User: Spartanrme
+
+<%@ page import="org.springframework.ui.ModelMap" %>
+<%@ page import="cLPackage.dataStore.Course" %>
+<%@ page import="cLPackage.dataStore.Module" %>
+<%@ page import="com.googlecode.objectify.ObjectifyService" %>
+<%@ page import="java.util.List" %>
+<%--
+<%@ page import="com.googlecode.objectify.ObjectifyService" %>  Created by IntelliJ IDEA.
+<%@ page import="java.util.List" %>  User: Spartanrme
   Date: 2/7/2017
   Time: 8:07 PM
   To change this template use File | Settings | File Templates.
   from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%
+  ObjectifyService.register(Course.class);
+  List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
+  request.setAttribute("courseList", courseList);
+
+%>
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -133,11 +145,12 @@
         <div class="progress"><div class="progress_unfill"></div><div class="progress_minMark"></div></div>
         <div class="progress-text">25%</div>
     </div>
-    <br style="clear:both;" />
-
-    <!--  User Recommendations  -->
-    <div class="main-page-all-recommendation-name">Best Classes by Users</div>
-    <div class="rec-see-all"><a href="#">See All</a></div>
+    <c:forEach items="${courseList}" var="course">
+        <tr><br style="clear:both;" />
+            <td>Employee ID: <c:out value="${course.name}"/></td>
+            <td>Employee Pass: <c:out value="${employee.ename}"/></td>  <!--  User Recommendations  -->
+        </tr><div class="main-page-all-recommendation-name">Best Classes by Users</div>
+    </c:forEach><div class="rec-see-all"><a href="#">See All</a></div>
     <br style="clear: both;">
 
     <%="User ID: "+request.getAttribute("userId") %>
