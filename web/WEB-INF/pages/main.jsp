@@ -1,12 +1,9 @@
-
-<%@ page import="org.springframework.ui.ModelMap" %>
 <%@ page import="cLPackage.dataStore.Course" %>
-<%@ page import="cLPackage.dataStore.Module" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="java.util.List" %>
-<%--
-<%@ page import="com.googlecode.objectify.ObjectifyService" %>  Created by IntelliJ IDEA.
-<%@ page import="java.util.List" %>  User: Spartanrme
+<%@ page import="cLPackage.dataStore.User" %><%--
+  Created by IntelliJ IDEA.
+  User: Spartanrme
   Date: 2/7/2017
   Time: 8:07 PM
   To change this template use File | Settings | File Templates.
@@ -14,10 +11,12 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
-  ObjectifyService.register(Course.class);
-  List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
-  request.setAttribute("courseList", courseList);
-
+    String email = (String)request.getParameter("email").toString();
+    User user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
+    List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
+    System.out.println("How many courses: "+courseList.size());
+    System.out.print("user Lst: "+user.getLastName());
+    Long userId = user.getId();
 %>
 <html>
 <head>
@@ -145,19 +144,43 @@
         <div class="progress"><div class="progress_unfill"></div><div class="progress_minMark"></div></div>
         <div class="progress-text">25%</div>
     </div>
-    <c:forEach items="${courseList}" var="course">
-        <tr><br style="clear:both;" />
-            <td>Employee ID: <c:out value="${course.name}"/></td>
-            <td>Employee Pass: <c:out value="${employee.ename}"/></td>  <!--  User Recommendations  -->
-        </tr><div class="main-page-all-recommendation-name">Best Classes by Users</div>
-    </c:forEach><div class="rec-see-all"><a href="#">See All</a></div>
+    <br style="clear:both;" />
+
+    <!--  User Recommendations  -->
+    <div class="main-page-all-recommendation-name">Best Classes by Users</div>
+    <div class="rec-see-all"><a href="#">See All</a></div>
     <br style="clear: both;">
 
-    <%="User ID: "+request.getAttribute("userId") %>
+
+    <!----------- Dynamically change ------------->
 
     <!------- load courses here ---------->
+    <% for (int i  = 0; i<courseList.size();i++){%>
+    <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=<%=userId%>&courseId=<%=courseList.get(i).getId()%>';">
+        <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
+        <div class="rec-class-name"><%=courseList.get(i).getName()%></div>
+        <div class="rec-creator-name"><%=courseList.get(i).getOwnerFirst()+" "+courseList.get(i).getOwnerLast()%></div>
+        <div class="rec-class-intro"><%=courseList.get(i).getDescription()%>
+        </div>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style="margin-left:10px; color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style=" color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style="color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style=" color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style=" color:lavender;"></span>
+        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
+        <div class="progress-text">Start Now</div>
+    </div>
+    <%}%>
+    <!------------- END Dynamically generate here END ----------------------->
+
 
     <br style="clear:both;" />
+    <br><br><br><br><br><br>
 </div>
 </body>
 </html>
