@@ -33,8 +33,8 @@ public class UpdateModuleServlet extends HttpServlet {
             }
         }
         System.out.print("updating "+course.id);
-        //change attributes
 
+        //change attributes
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
         Entity Course = new Entity("Course",course.id,userKey);

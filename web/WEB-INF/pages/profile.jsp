@@ -120,10 +120,15 @@
             &nbsp;<h2>Course Created</h2>
             <hr />
             <!--------- Start Dyanamic generating ------------>
-            <% for (int i =0; i<courseList.size();i++){  %>
+            <% for (int i =0; i<courseList.size();i++){
+                    String visibility = " (Not Published)";
+                    if(courseList.get(i).getIsPublic()==1){
+                        visibility = "";
+                    }
+            %>
             <div class="courseCreated">
                 <span onclick="location.href = 'newCourse?courseId=<%=courseList.get(i).id%>&userId=<%=request.getAttribute("userId")%>';">
-                    <%=courseList.get(i).getName()%>
+                    <%=courseList.get(i).getName()+visibility%>
                 </span>
             </div>
             <% }%>

@@ -26,6 +26,8 @@
     Key<Course> courseKey = Key.create(Course.class,course.id);
     List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
     System.out.println("list sfze +"+moduleList.size());
+
+    String isPublished = (course.getIsPublic()==0)? "":"checked";
 %>
 
 
@@ -92,7 +94,8 @@
 
         <div>
             Description:<br/><textarea rows="8" cols="50" name="course_description"><%=course.getDescription()%></textarea><br/><br/>
-            Cover Image URL:<input type="text" name="course_img_url" value = "<%=course.getImgURL()%>">
+            Cover Image URL:<input type="text" name="course_img_url" value = "<%=course.getImgURL()%>"><br/><br/>
+            Publish: <input type="checkbox" name="isPublished" style="width:20px; height: 20px;" <%=isPublished%>>
         </div>
         <hr/>
         <!---------!Modules ---------->
@@ -104,14 +107,14 @@
             <%--<button class="add_field_button">Add More Fields</button>--%>
             <div>
                 <span class="btn glyphicon glyphicon-edit" title="edit"></span>
-                Name:<input type="text" name="course_name" value = "<%=moduleList.get(0).getName()%>">
+                Name:<input type="text" name="course_name" value = "<%=moduleList.get(0).getName()%>" disabled>
             </div>
 
             <!------  Start Dynamically loading ----------->
             <% for (int i = 1 ; i<moduleList.size();i++){%>
             <div>
                 <span class="btn glyphicon glyphicon-edit" title="edit"></span>
-                Name:<input type="text" name="course_name" value="<%=moduleList.get(i).getName()%>">
+                Name:<input type="text" name="course_name" value="<%=moduleList.get(i).getName()%>" disabled>
                 <a href="#" class="remove_field"
                    onclick="location.href='/RemoveModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';">
                     <span class="remove_field glyphicon glyphicon-minus-sign"></span>
