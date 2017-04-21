@@ -1,4 +1,7 @@
-<%@ page import="org.springframework.ui.ModelMap" %><%--
+<%@ page import="cLPackage.dataStore.Course" %>
+<%@ page import="com.googlecode.objectify.ObjectifyService" %>
+<%@ page import="java.util.List" %>
+<%@ page import="cLPackage.dataStore.User" %><%--
   Created by IntelliJ IDEA.
   User: Spartanrme
   Date: 2/7/2017
@@ -7,6 +10,14 @@
   from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%
+    String email = (String)request.getParameter("email").toString();
+    User user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
+    List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
+    System.out.println("How many courses: "+courseList.size());
+    System.out.print("user Lst: "+user.getLastName());
+    Long userId = user.getId();
+%>
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -140,11 +151,36 @@
     <div class="rec-see-all"><a href="#">See All</a></div>
     <br style="clear: both;">
 
-    <%="User ID: "+request.getAttribute("userId") %>
+
+    <!----------- Dynamically change ------------->
 
     <!------- load courses here ---------->
+    <% for (int i  = 0; i<courseList.size();i++){%>
+    <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=<%=userId%>&courseId=<%=courseList.get(i).getId()%>';">
+        <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
+        <div class="rec-class-name"><%=courseList.get(i).getName()%></div>
+        <div class="rec-creator-name"><%=courseList.get(i).getOwnerFirst()+" "+courseList.get(i).getOwnerLast()%></div>
+        <div class="rec-class-intro"><%=courseList.get(i).getDescription()%>
+        </div>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style="margin-left:10px; color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style=" color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style="color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style=" color:red;"></span>
+        <span class="glyphicon glyphicon-star"
+              aria-hidden="true" style=" color:lavender;"></span>
+        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
+        <div class="progress-text">Start Now</div>
+    </div>
+    <%}%>
+    <!------------- END Dynamically generate here END ----------------------->
+
 
     <br style="clear:both;" />
+    <br><br><br><br><br><br>
 </div>
 </body>
 </html>
