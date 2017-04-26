@@ -1,7 +1,9 @@
 <%@ page import="cLPackage.dataStore.Course" %>
 <%@ page import="cLPackage.dataStore.Module" %>
+<%@ page import="cLPackage.dataStore.Topic" %>
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Jonathan
@@ -13,8 +15,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ObjectifyService.register(Course.class);
-    ObjectifyService.register(Module.class);
     String userId = (String)request.getParameter("userId").toString();
     String courseId = (String)request.getParameter("courseId").toString();
     List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
@@ -29,6 +29,15 @@
     System.out.println("How many Modules: "+moduleList.size());
     request.setAttribute("moduleList",moduleList);
     request.setAttribute("course",course);
+
+    ArrayList<List<Topic>> topicList = new ArrayList<List<Topic>>(moduleList.size());
+    for(int i = 0; i<moduleList.size();i++){
+        Key<Module> moduleKey = Key.create(Module.class, moduleList.get(i).getId());
+        List<Topic> topics = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
+        topicList.set(i,topics);
+    }
+    request.setAttribute("topicList",topicList);
+    System.out.println("How Many here: "+topicList.size());
 %>
 <html>
 <head>
@@ -101,7 +110,8 @@
         <div class="module_active">
             <div class="module-name"><h3><c:out value="${module.name}"></c:out></h3></div>
             <hr/>
-            <c:forEach items="${topicList.get(0)}" var="topic" varStatus="topicIndex">
+
+            <c:forEach items="${topicList.get(moduleIndex.index)}" var="topic" varStatus="topicIndex">
                 <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
                 <div class="topic">
                     <div class="topic-name"><a href="#">Topic <c:out value="${topicIndex + 1}"></c:out></a></div>
@@ -111,12 +121,14 @@
                 </div>
                 <br/>
             </c:forEach>
+
             <hr />
             <div class="topic-name"><a href="#" style="margin-left: 30px;">Module Test</a></div>
             <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
         </div>
     </c:forEach>
 
+    <!-------
 
     <div id="course-page-name"><h1>Sample Course</h1></div>
 
@@ -125,7 +137,6 @@
 
         <hr/>
 
-        <!--<div class="check_bar"></div>-->
         <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
         <div class="topic">
             <div class="topic-name"><a href="#">Topic 1</a></div>
@@ -135,7 +146,6 @@
         </div>
         <br/>
 
-        <!--<div class="check_bar"></div>-->
         <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
         <div class="topic">
             <div class="topic-name"><a href="#">Topic 2</a></div>
@@ -144,7 +154,6 @@
             <br/>
         </div>
         <br/>
-        <!--<div class="check_bar"></div>-->
         <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
         <div class="topic">
             <div class="topic-name"><a href="#">Topic 3</a></div>
@@ -160,6 +169,7 @@
         <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
         <br/>
     </div>
+ -->
 
 </div>
 
