@@ -102,9 +102,18 @@
         <div class="row" style="width: 650px; float:left;margin-left:40px; margin-top:2px;">
             <div class="col-lg-6">
                 <div class="input-group" >
-                    <input type="text" class="form-control" placeholder="Search by Class or Name..."
+                    <input id = "searchBox" type="text" class="form-control" placeholder="Search by Class or Name..."
                            style=" width:550px; ">
-                    <span class="input-group-btn"><button class="btn btn-default" type="button">Go!</button></span>
+                    <script>
+                        var searchString = "";
+                           $("#searchBox").on("change",function(){
+                                   searchString = $("#searchBox").val();
+                                           $("#GoButooon").attr("onclick","location.href='search?searchStr="+searchString+"&email=${email}"+"'");
+
+
+                           })
+                    </script>
+                    <span id="GoButooon" class="input-group-btn"><button class="btn btn-default" type="button" onclick="location.href='search?searchStr='+searchString">Go!</button></span>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->

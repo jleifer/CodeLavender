@@ -15,8 +15,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String userId = (String)request.getParameter("userId").toString();
-    String courseId = (String)request.getParameter("courseId").toString();
+    ObjectifyService.register(Course.class);
+    ObjectifyService.register(Module.class);
+    ObjectifyService.register(Topic.class);
+    String userId = request.getParameter("userId").toString();
+    String courseId = request.getParameter("courseId").toString();
     List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
     Course course = null;
     for(int i = 0; i<courseList.size();i++){
@@ -111,7 +114,7 @@
             <div class="module-name"><h3><c:out value="${module.name}"></c:out></h3></div>
             <hr/>
 
-            <c:forEach items="${topicList.get(moduleIndex.index)}" var="topic" varStatus="topicIndex">
+            <c:forEach items="${topicList.get(0)}" var="topic" varStatus="topicIndex">
                 <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
                 <div class="topic">
                     <div class="topic-name"><a href="#">Topic <c:out value="${topicIndex + 1}"></c:out></a></div>
