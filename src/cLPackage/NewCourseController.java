@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping({"/newCourse.jsp","/newCourse"})
 public class NewCourseController {
-
     @RequestMapping(method = RequestMethod.GET)
     public String getNewCoursePage(ModelMap model) {
         return "newCourse"; //Name of the jsp - using a different name will result in a different jsp being loaded.
