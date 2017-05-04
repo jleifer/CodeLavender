@@ -1,4 +1,4 @@
-package cLPackage;
+package cLPackage.controller;
 
 import cLPackage.dataStore.User;
 import com.googlecode.objectify.ObjectifyService;
@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Date;
 
 @Controller
-@RequestMapping({"/main.jsp","/main"})
 public class MainController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index","/index.jsp"}, method = RequestMethod.GET)
+    public String getRootPage(ModelMap model) {
+        return "index"; //Name of the jsp - using a different name will result in a different jsp being loaded.
+    }
+
+    @RequestMapping(value = {"/main.jsp","/main"}, method = RequestMethod.GET)
     public String getMainPage(ModelMap model,
                               @ModelAttribute("email")String email,
                               @ModelAttribute("firstName")String firstName,
