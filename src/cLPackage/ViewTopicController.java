@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by Jonathan on 4/21/2017.
  */
 @Controller
-public class ViewCourseController {
+public class ViewTopicController {
 
-    @RequestMapping(value = {"/viewCourse", "/viewCourse.jsp"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/viewTopic", "/viewTopic.jsp"}, method = RequestMethod.GET)
     public String getCoursePage(ModelMap model) {
-        return "course";
+        return "viewTopic";
     }
 }

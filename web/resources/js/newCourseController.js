@@ -7,9 +7,11 @@ $(document).ready(function() {
     var add_button      = $(".add_field_button"); //Add button ID
 
     var x = 1; //initlal text box count
+    /*
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
-        if(x < max_fields){ //max input box allowed
+        if(x < max_fields){
+            //max input box allowed
             x++; //text box increment
             $(wrapper).append('<div>' +
                 '<span class="btn glyphicon glyphicon-edit" title="edit"></span>'+
@@ -18,7 +20,7 @@ $(document).ready(function() {
                 'Cover Image URL:<input type="text" name="course_img_url">'+
                 '<a href="#" class="remove_field">' +
                 '<span class="remove_field glyphicon glyphicon-minus-sign"></span></a>' +
-                '</div>'); //add input box
+                '</div>');
         }
         $(".glyphicon-edit").click(function () {
             location.href = "/newModule";
@@ -32,4 +34,5 @@ $(document).ready(function() {
     $(".glyphicon-edit").click(function () {
         location.href = "/newModule";
     });
+     */
 });
