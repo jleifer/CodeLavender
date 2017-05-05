@@ -2,8 +2,11 @@ package cLPackage.dataStore;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by Jonathan on 5/4/2017.
@@ -108,5 +111,32 @@ public class DataManager {
         List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).ancestor(userKey).list();
 
         return courseList;
+    }
+
+
+    /**
+     * Returns list of courses whose names contain the given string,
+     * case insensitive.
+     *
+     * @param courseNameStr String containing part of the name of the
+     *              Course entities desired from the datastore
+     * @return List List containing Course entities whose names contain
+     * the given course name string, case insensitive.
+     */
+    public List<Course> getCourseListContainingName(String courseNameStr) {
+        List<Course> result = new ArrayList<Course>();
+
+        /* Create the pattern to match the course names */
+        Pattern namePattern = Pattern.compile(courseNameStr, Pattern.CASE_INSENSITIVE);
+        List<Course> courseListToSearch = dm.getCourseList();
+
+        /* Use Regex Pattern to search for courses with matching names */
+        for (Course c : courseListToSearch) {
+            if (namePattern.matcher(c.getName()).find()){
+                result.add(c);
+            }
+        }
+
+        return result;
     }
 }
