@@ -27,7 +27,7 @@
     List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
     System.out.println("list sfze +"+moduleList.size());
 
-    String isPublished = (course.getIsPublic()==0)? "":"checked";
+    String isPublished = (course.getIsPublic()==0)? "unchecked":"checked";
 %>
 
 
@@ -86,16 +86,16 @@
         <!---------!Course Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Course Name</span>
-            <input type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="<%=course.getName()%>">
+            <input id="course_name_field" type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="<%=course.getName()%>">
 
         </div>
         <br>
         <br>
 
         <div>
-            Description:<br/><textarea rows="8" cols="50" name="course_description"><%=course.getDescription()%></textarea><br/><br/>
-            Cover Image URL:<input type="text" name="course_img_url" value = "<%=course.getImgURL()%>"><br/><br/>
-            Publish: <input type="checkbox" name="isPublished" style="width:20px; height: 20px;" <%=isPublished%>>
+            Description:<br/><textarea id="course_description" rows="8" cols="50" name="course_description"><%=course.getDescription()%></textarea><br/><br/>
+            Cover Image URL:<input id="img_url" type="text" name="course_img_url" value = "<%=course.getImgURL()%>"><br/><br/>
+            Publish: <input id="isPubshed"  type="checkbox" name="isPublished" style="width:20px; height: 20px;" <%=isPublished%>>
         </div>
         <hr/>
         <!---------!Modules ---------->
@@ -127,8 +127,28 @@
 
         <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
                 <button class="btn btn-success glyphicon glyphicon-ok" type="button"
-                        onclick="location.href='UpdateModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>';">&nbsp;Submit</button>
+                id ="submit_btn">&nbsp;Submit</button>
+                <script>
+                    $("#submit_btn").click(function(){
+                        alert();
+                        var course_name = $("#course_name_field").val();
+                        var course_description = $("#course_description").val();
+                        var img_url = $("#img_url").val();
+                        var isPubshed =0;
+                        if($("#isPubshed").is(':checked')){
+                            isPubshed = 1; //1 = true
+                        }
 
+                        var page_to_go = 'UpdateModuleServlet?' +
+                            'userId=<%=userId%>&courseId=<%=courseId%>' +
+                            '&course_name='+course_name+
+                            '&course_description='+course_description+
+                            '&img_url='+img_url+
+                            '&isPubshed='+isPubshed;
+                        alert(page_to_go);
+                        location.href=page_to_go;
+                    });
+                </script>
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='profile?userId=<%=userId%>';">&nbsp;Back</button>
         </span>

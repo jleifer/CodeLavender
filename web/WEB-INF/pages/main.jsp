@@ -102,9 +102,16 @@
         <div class="row" style="width: 650px; float:left;margin-left:40px; margin-top:2px;">
             <div class="col-lg-6">
                 <div class="input-group" >
-                    <input type="text" class="form-control" placeholder="Search by Class or Name..."
+                    <input id = "searchBox" type="text" class="form-control" placeholder="Search by Class or Name..."
                            style=" width:550px; ">
-                    <span class="input-group-btn"><button class="btn btn-default" type="button">Go!</button></span>
+                    <span id="GoButooon" class="input-group-btn"><button class="btn btn-default" type="button" >Go!</button></span>
+
+                    <script>
+                        $("#GoButooon").click(function(){
+                            var  searchString = $("#searchBox").val();
+                            location.href="search?searchStr="+searchString+"&email=${email}";
+                        });
+                    </script>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
@@ -154,7 +161,6 @@
 
 
     <!----------- Dynamically change ------------->
-
     <!------- load courses here ---------->
     <% for (int i  = 0; i<courseList.size();i++){%>
     <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=<%=userId%>&courseId=<%=courseList.get(i).getId()%>';">
@@ -178,8 +184,6 @@
     </div>
     <%}%>
     <!------------- END Dynamically generate here END ----------------------->
-
-
     <br style="clear:both;" />
     <br><br><br><br><br><br>
 </div>
