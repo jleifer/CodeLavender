@@ -5,6 +5,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * NewModuleController
+ * The controller for the "newModule" page.
+ */
 @Controller
 @RequestMapping({"/newModule.jsp","/newModule"})
 public class NewModuleController {

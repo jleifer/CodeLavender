@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by Jonathan on 4/21/2017.
+ * ViewCourseController
+ * The controller for the "course" page.
  */
 @Controller
 public class ViewCourseController {

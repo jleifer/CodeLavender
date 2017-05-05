@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.ModelMap;
 
+/**
+ * RootController
+ * The controller for the "index" page.
+ */
 @Controller
 @RequestMapping({"/", "/index","/index.jsp"})
 public class RootController {

@@ -5,6 +5,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * NewCourseController
+ * The controller for the "newCourse" page.
+ */
 @Controller
 @RequestMapping({"/newCourse.jsp","/newCourse"})
 public class NewCourseController {

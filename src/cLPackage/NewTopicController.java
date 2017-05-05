@@ -5,6 +5,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * NewTopicController
+ * The controller for the "newTopic" page.
+ */
 @Controller
 @RequestMapping({"/newTopic.jsp","/newTopic"})
 public class NewTopicController {

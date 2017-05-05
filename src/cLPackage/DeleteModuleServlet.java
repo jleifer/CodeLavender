@@ -1,5 +1,8 @@
 /**
  * Created by Yifang on 2/11/2017.
+ * DeleteModuleServlet
+ * The purpose of this servlet is to allow a user to delete a module that they own.
+ * This will also delete any topics that belong to said module.
  */
 package cLPackage;
 
@@ -16,13 +19,15 @@ import java.util.List;
 public class DeleteModuleServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        //Obtaining data from forms.
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
         String moduleIdString =req.getParameter("moduleId");
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);
         Long moduleId = Long.parseLong(moduleIdString);
-        //get the module object
+
+        //Obtain the module from the datastore.
         Module module = null;
         List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).list();
         for (int i = 0 ; i < moduleList.size(); i++){
@@ -31,9 +36,11 @@ public class DeleteModuleServlet extends HttpServlet {
             }
         }
         System.out.print("deleting "+module.id);
-        //delete it
+
+        //Delete it.
         ObjectifyService.ofy().delete().entity(module).now();
 
+        //Send user to the course belonging to the module.
         HttpSession session = req.getSession();
         session.setAttribute("userId",userId.longValue());
         session.setAttribute("courseId",courseId.longValue());

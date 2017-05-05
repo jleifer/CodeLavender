@@ -17,14 +17,21 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * UpdateCourseServlet
+ * The purpose of this servlet is to allow a user to edit and update the information of an existing course
+ * that they own.
+ */
 public class UpdateModuleServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        //Obtaining data from the forms.
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);
-        //get the module object
+
+        //Obtain the course from the datastore.
         Course course = null;
         List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
         for (int i = 0 ; i < courseList.size(); i++){
@@ -34,7 +41,7 @@ public class UpdateModuleServlet extends HttpServlet {
         }
         System.out.print("updating "+course.id);
 
-        //change attributes
+        //Change attributes.
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
         Entity Course = new Entity("Course",course.id,userKey);
@@ -46,10 +53,10 @@ public class UpdateModuleServlet extends HttpServlet {
         Course.setIndexedProperty("endorsedByInstructors",course.getEndorsedByInstructors());
         Course.setIndexedProperty("description",course.getDescription());
         Course.setIndexedProperty("imgURL",course.getImgURL());
-        ObjectifyService.ofy().delete().entity(course).now();
-        datastore.put(Course);
-        //delete it
+        ObjectifyService.ofy().delete().entity(course).now(); //Delete the old course.
+        datastore.put(Course); //Add the new updated one.
 
+        //Send user to the new course.
         HttpSession session = req.getSession();
         session.setAttribute("userId",userId.longValue());
         session.setAttribute("courseId",courseId.longValue());

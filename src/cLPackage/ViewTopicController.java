@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by Jonathan on 4/21/2017.
+ * ViewTopicController
+ * The controller for the "viewTopic" page.
  */
 @Controller
 public class ViewTopicController {
