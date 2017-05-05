@@ -22,6 +22,17 @@ public class UpdateModuleServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
+
+        String course_name =req.getParameter("course_name");
+        String course_description =req.getParameter("course_description");
+        String img_url =req.getParameter("img_url");
+        String isPubshed =req.getParameter("isPubshed");
+        boolean isPubshed_bool = false;
+        if(isPubshed.equals("1")){
+            isPubshed_bool = true;
+        }
+
+
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);
         //get the module object
@@ -38,14 +49,14 @@ public class UpdateModuleServlet extends HttpServlet {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
         Entity Course = new Entity("Course",course.id,userKey);
-        Course.setIndexedProperty("name","Edited");
+        Course.setIndexedProperty("name",course_name);
         Course.setIndexedProperty("ownerFirst",course.getOwnerFirst());
         Course.setIndexedProperty("ownerLast",course.getOwnerLast());
-        Course.setIndexedProperty("isPublic",course.getIsPublic());
+        Course.setIndexedProperty("isPublic",isPubshed);
         Course.setIndexedProperty("endorsedByUsers",course.getEndorsedByUsers());
         Course.setIndexedProperty("endorsedByInstructors",course.getEndorsedByInstructors());
-        Course.setIndexedProperty("description",course.getDescription());
-        Course.setIndexedProperty("imgURL",course.getImgURL());
+        Course.setIndexedProperty("description",course_description);
+        Course.setIndexedProperty("imgURL",img_url);
         ObjectifyService.ofy().delete().entity(course).now();
         datastore.put(Course);
         //delete it
