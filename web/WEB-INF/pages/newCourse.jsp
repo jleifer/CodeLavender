@@ -27,7 +27,7 @@
     List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
     System.out.println("list sfze +"+moduleList.size());
 
-    String isPublished = (course.getIsPublic()==0)? "":"checked";
+    String isPublished = (course.getIsPublic()==0)? "unchecked":"checked";
 %>
 
 
@@ -36,7 +36,6 @@
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
 
     <link rel="stylesheet" href="../../resources/css/profile.css">
-    <link rel="stylesheet" href="../../resources/css/newCourse-style.css">
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../../resources/js/jquery-3.1.1.js"></script>
@@ -84,21 +83,19 @@
         </nav>
         <!----------- !Navbar End ------------>
 
-        <!---------!content ---------->
-        <div class="edit-content">
         <!---------!Course Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Course Name</span>
-            <input type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="<%=course.getName()%>">
+            <input id="course_name_field" type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="<%=course.getName()%>">
 
         </div>
         <br>
         <br>
 
         <div>
-            Description:<br/><textarea rows="8" cols="50" name="course_description"><%=course.getDescription()%></textarea><br/><br/>
-            Cover Image URL:<input type="text" name="course_img_url" value = "<%=course.getImgURL()%>"><br/><br/>
-            Publish: <input type="checkbox" name="isPublished" style="width:20px; height: 20px;" <%=isPublished%>>
+            Description:<br/><textarea id="course_description" rows="8" cols="50" name="course_description"><%=course.getDescription()%></textarea><br/><br/>
+            Cover Image URL:<input id="img_url" type="text" name="course_img_url" value = "<%=course.getImgURL()%>"><br/><br/>
+            Publish: <input id="isPubshed"  type="checkbox" name="isPublished" style="width:20px; height: 20px;" <%=isPublished%>>
         </div>
         <hr/>
         <!---------!Modules ---------->
@@ -129,8 +126,8 @@
         </div>
 
         <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
-                <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="button"
-                        onclick="location.href='UpdateModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>';">&nbsp;Submit</button>
+                <button class="btn btn-success glyphicon glyphicon-ok" type="button"
+                id ="submit_btn">&nbsp;Submit</button>
                 <script>
                     $("#submit_btn").click(function(){
                         alert();
@@ -155,7 +152,6 @@
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='profile?userId=<%=userId%>';">&nbsp;Back</button>
         </span>
-        </div>
     </div>
 </div>
 <br/>
