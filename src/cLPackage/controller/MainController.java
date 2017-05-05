@@ -1,14 +1,12 @@
 package cLPackage.controller;
 
+import cLPackage.dataStore.DataManager;
 import cLPackage.dataStore.User;
-import com.googlecode.objectify.ObjectifyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.Date;
 
 @Controller
 public class MainController {
@@ -24,7 +22,7 @@ public class MainController {
                               @ModelAttribute("firstName")String firstName,
                               @ModelAttribute("lastName")String lastName) {
         //register class first
-        ObjectifyService.register(User.class);
+        /*ObjectifyService.register(User.class);
 
         //prepare paras for creating new user.
         Date date = new Date();
@@ -40,8 +38,18 @@ public class MainController {
             userId = ObjectifyService.ofy().load().entity(user).now().id;
         }else{
             userId = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0).id;
+        }*/
+        /* Retrieve data manager */
+        DataManager dm = DataManager.getDataManager();
+
+        //Retrieve User entity from datastore
+        User user = dm.getUserWithEmail(email);
+        if (user == null) {
+            /* Create new user entity in the datastore when a new user signs in */
+            dm.createUser(firstName, lastName, email);
+            user = dm.getUserWithEmail(email);
         }
-        //save user id for further use
+        Long userId = user.getId();
         System.out.print(userId);
         model.addAttribute("userId",userId);
         model.addAttribute("email",email);
