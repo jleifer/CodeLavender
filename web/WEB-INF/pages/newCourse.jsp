@@ -36,6 +36,7 @@
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
 
     <link rel="stylesheet" href="../../resources/css/profile.css">
+    <link rel="stylesheet" href="../../resources/css/newCourse-style.css">
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../../resources/js/jquery-3.1.1.js"></script>
@@ -83,6 +84,8 @@
         </nav>
         <!----------- !Navbar End ------------>
 
+        <!---------!content ---------->
+        <div class="edit-content">
         <!---------!Course Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Course Name</span>
@@ -126,12 +129,33 @@
         </div>
 
         <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
-                <button class="btn btn-success glyphicon glyphicon-ok" type="button"
+                <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="button"
                         onclick="location.href='UpdateModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>';">&nbsp;Submit</button>
+                <script>
+                    $("#submit_btn").click(function(){
+                        alert();
+                        var course_name = $("#course_name_field").val();
+                        var course_description = $("#course_description").val();
+                        var img_url = $("#img_url").val();
+                        var isPubshed =0;
+                        if($("#isPubshed").is(':checked')){
+                            isPubshed = 1; //1 = true
+                        }
 
+                        var page_to_go = 'UpdateModuleServlet?' +
+                            'userId=<%=userId%>&courseId=<%=courseId%>' +
+                            '&course_name='+course_name+
+                            '&course_description='+course_description+
+                            '&img_url='+img_url+
+                            '&isPubshed='+isPubshed;
+                        alert(page_to_go);
+                        location.href=page_to_go;
+                    });
+                </script>
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='profile?userId=<%=userId%>';">&nbsp;Back</button>
         </span>
+        </div>
     </div>
 </div>
 <br/>
