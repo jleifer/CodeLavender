@@ -114,7 +114,7 @@
             <% for (int i = 1 ; i<moduleList.size();i++){%>
             <div>
                 <span class="btn glyphicon glyphicon-edit" title="edit"
-                onclick="location.href='/newModule?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';"></span>
+                      onclick="location.href='/newModule?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';"></span>
                 Name:<input type="text" name="course_name" value="<%=moduleList.get(i).getName()%>" disabled>
                 <a href="#" class="remove_field"
                    onclick="location.href='/DeleteModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';">
@@ -127,7 +127,7 @@
 
         <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
                 <button class="btn btn-success glyphicon glyphicon-ok" type="button"
-                id ="submit_btn">&nbsp;Submit</button>
+                        id ="submit_btn">&nbsp;Submit</button>
                 <script>
                     $("#submit_btn").click(function(){
                         alert();
