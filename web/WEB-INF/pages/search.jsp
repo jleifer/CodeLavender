@@ -6,20 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="cLPackage.dataStore.Course" %>
-<%@ page import="com.googlecode.objectify.ObjectifyService" %>
-<%@ page import="java.util.List" %>
-<%@ page import="cLPackage.dataStore.User" %>
-
-<%
-    String str = request.getParameter("searchStr").trim();
-    ObjectifyService.register(Course.class);
-    String email = request.getParameter("email");
-    User user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
-    List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
-    Long userId = user.getId();
-    int courseFound =0;
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -56,12 +44,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="main?email=${email}"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+        <a href="main"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="main?email=${email}">Homepage <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
         <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
         <!--<div class="input-group">-->
@@ -76,7 +64,7 @@
                     <img class="profImg" src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="profile?userId=<%=request.getAttribute("userId")%>">Profile</a></li>
+                    <li><a href="profile">Profile</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a onclick="signOut();">Sign Out</a></li>
                 </ul>
@@ -87,40 +75,38 @@
 <!----------- !Navbar End ------------>
 
 <div style=" width:600px; margin:auto;">
-    <h1>Search Results</h1>
-<br style="clear: both;">
-<% for (int i  = 0; i<courseList.size();i++){
-    if(str.toLowerCase().equals(courseList.get(i).getName().toLowerCase()) ){
-        courseFound++;
-%>
-<div class="main-page-single-rec" onclick="location.href='viewCourse?userId=<%=userId%>&courseId=<%=courseList.get(i).getId()%>';">
-    <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
-    <div class="rec-class-name"><%=courseList.get(i).getName()%></div>
-    <div class="rec-creator-name"><%=courseList.get(i).getOwnerFirst()+" "+courseList.get(i).getOwnerLast()%></div>
-    <div class="rec-class-intro"><%=courseList.get(i).getDescription()%>
-    </div>
-    <span class="glyphicon glyphicon-star"
-          aria-hidden="true" style="margin-left:10px; color:red;"></span>
-    <span class="glyphicon glyphicon-star"
-          aria-hidden="true" style=" color:red;"></span>
-    <span class="glyphicon glyphicon-star"
-          aria-hidden="true" style="color:red;"></span>
-    <span class="glyphicon glyphicon-star"
-          aria-hidden="true" style=" color:red;"></span>
-    <span class="glyphicon glyphicon-star"
-          aria-hidden="true" style=" color:lavender;"></span>
-    <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-    <div class="progress-text">Start Now</div>
-    <br style="clear:both;" />
-    <br><br><br><br><br><br>
+    <h1>Search Results "${searchStr}"</h1>
+    <br style="clear: both;">
+    <c:choose>
+        <c:when test="${fn:length(courseList) == 0}">
+            <h1>No Results Found</h1>
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="course" begin="0" items="${courseList}">
+                <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}'">
+                    <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
+                    <div class="rec-class-name">${course.name}</div>
+                    <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
+                    <div class="rec-class-intro">${course.description}</div>
+
+                    <span class="glyphicon glyphicon-star"
+                          aria-hidden="true" style="margin-left:10px; color:red;"></span>
+                    <span class="glyphicon glyphicon-star"
+                          aria-hidden="true" style=" color:red;"></span>
+                    <span class="glyphicon glyphicon-star"
+                          aria-hidden="true" style="color:red;"></span>
+                    <span class="glyphicon glyphicon-star"
+                          aria-hidden="true" style=" color:red;"></span>
+                    <span class="glyphicon glyphicon-star"
+                          aria-hidden="true" style=" color:lavender;"></span>
+                    <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
+                    <div class="progress-text">Start Now</div>
+                    <br style="clear:both;" />
+                    <br/><br/><br/><br/><br/><br/>
+                </div>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
 </div>
-</div>
-<%
-        }
-    }
-    if(courseFound==0){
-%><h1>No Results Found</h1><%
-    }
-%>
 </body>
 </html>

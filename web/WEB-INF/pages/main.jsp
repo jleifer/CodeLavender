@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <!-- Start our file -->
     <script src="../../resources/js/googleLogin.js"></script>
+    <script src="../../resources/js/courseSearch.js"></script>
     <link rel="stylesheet" href="../../resources/css/hello-style.css">
     <link rel="stylesheet" href="../../resources/css/profile.css">
     <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
@@ -93,9 +94,11 @@
         <div class="row" style="width: 650px; float:left;margin-left:40px; margin-top:2px;">
             <div class="col-lg-6">
                 <div class="input-group" >
-                    <input type="text" class="form-control" placeholder="Search by Class or Name..."
-                           style=" width:550px; ">
-                    <span class="input-group-btn"><button class="btn btn-default" type="button">Go!</button></span>
+                    <form action="/search" method="get">
+                        <input id="searchBox" type="text" name="searchStr" class="form-control" placeholder="Search by Course Name..."
+                               style=" width:550px; ">
+                        <span class="input-group-btn"><input id="GoButooon" class="btn btn-default" type="submit" value="Go!"></span>
+                    </form>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
