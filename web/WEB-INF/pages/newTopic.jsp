@@ -168,20 +168,21 @@
                            quiz_label_text = "Question Type: (MultipleChoices("+optionNumber+"))";
                        }
                 %>
+                <input type='hidden' value="<%=quizList.get(i).id%>" id="<%="quizId_"+i%>" />
                 <div class="quiz_question">
                     <label class="quiz_label"><%=quiz_label_text%></label>
                     <span style="color:red;cursor:pointer;margin-left:10px;"
                           onclick="location.href='DeleteQuizServlet?courseId=<%=courseId%>&userId=<%=userId%>&moduleId=<%=moduleId%>&topicId=<%=topicId%>&quizId=<%=quizList.get(i).id%>';">Delete</span>
                     <br />
-                    <textarea rows="3" cols="70" style="width:600px;display:block; margin:auto;"><%=quizList.get(i).getQuestionText()%></textarea>
+                    <textarea id="quizDescription_<%=i%>" rows="3" cols="70" style="width:600px;display:block; margin:auto;"><%=quizList.get(i).getQuestionText()%></textarea>
                     <% for(int k = 0 ; k<options.length; k++){ %>
                     <div class="mutic">
-                        <input type="text" class="text_field_option" value="<%=options[k]%>">
+                        <input id="quizOption_<%=i%>_<%=k%>" type="text" class="text_field_option" value="<%=options[k]%>">
 
                     </div>
                     <% } %>
                     <label class="quiz_label">Answer: </label>
-                    <select>
+                    <select id="quizAns_<%=i%>">
                         <% for(int k = 0 ; k<options.length; k++){
                             String selected = (k==(answer-1))? "selected":"";
                         %>
@@ -217,10 +218,19 @@
         <script>
             $("#submit_edit").click(function(){
                 var topic_name = $("#topic_name").val();
-                var topic_description = $("#topic_description").html();
+                var topic_description = $("#topic_description").val();
                 var quiz_total_num = $("#quiz_total_num").val();
                 var href_to_go = "UpdateTopicQuiz?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>&topicId=<%=topicId%>"+
-                    "&topic_name="+topic_name+"&topic_description"+topic_description;
+                    "&topic_name="+topic_name+"&topic_description="+topic_description+
+                    "&quiz_total_num=<%=quizList.size()%>";
+                for(var i =0 ; i<<%=quizList.size()%>;i++){
+                    href_to_go += "&quiz_id_"+i+"="+$("#quizId_"+i).val()
+                        +"&quizDescription_"+i+"="+$("#quizDescription_"+i).val();
+                    for(var k =0 ; typeof $("#quizOption_"+i+"_"+k).val() !== "undefined";k++){
+                        href_to_go += "&quizOption_"+i+"_"+k+"="+$("#quizOption_"+i+"_"+k).val();
+                    }
+                    href_to_go += "&quizAns_"+i+"="+$( "#quizAns_"+i+" option:selected" ).html();
+                }
                 alert(href_to_go);
                 location.href = href_to_go;
             });
