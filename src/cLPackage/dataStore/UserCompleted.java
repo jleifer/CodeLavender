@@ -1,3 +1,6 @@
+/* A user completed keeps track of what courses a user has completed. It also tracks the progress of a course a user
+ * is taking by tracking the quizzes they have taken within the course.
+ */
 package cLPackage.dataStore;
 
 import com.googlecode.objectify.Key;
@@ -13,19 +16,20 @@ import com.googlecode.objectify.annotation.Parent;
 @Entity
 public class UserCompleted {
     /* IDs which user this belongs to. */
-    @Parent @Index private Key<User> user;
+    @Parent @Index private Key<User> user; // What user this user completed belongs to.
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Id public Long id;
 
     // 5 attributes
-    @Index private long moduleID;
-    @Index private long topicID;
-    @Index private int moduleLevel;
-    @Index private int topicLevel;
-    @Index private int completed;
+    @Index private long moduleID; // The module ID belonging to the course.
+    @Index private long topicID; // The topic ID belonging to the course.
+    @Index private int moduleLevel; // The amount of module quizzes a user has completed within the course.
+    @Index private int topicLevel; // The amount of topic quizzes a user has completed within the course.
+    @Index private int completed; /* 0 - false, 1 - true; If a user completed a course - true when all quizzes
+    * have been completed. */
 
-    //Default constructor
+    // Default constructor
     public UserCompleted(){
         this.moduleID = 0L;
         this.topicID = 0L;
@@ -34,7 +38,7 @@ public class UserCompleted {
         this.completed = 0;
     }
 
-    //Constructor
+    // Constructor
     public UserCompleted(long moduleID, long topicID, int moduleLevel,
                   int topicLevel, int completed, User u){
         this();
@@ -56,7 +60,7 @@ public class UserCompleted {
         }
     }
 
-    //Getters and setters
+    // Getters and setters
     public Key<User> getParentUser() {
         return user;
     }

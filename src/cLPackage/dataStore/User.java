@@ -1,3 +1,4 @@
+/* A user is a person that registers their account with the website using their Google email. */
 package cLPackage.dataStore;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -12,30 +13,29 @@ import java.util.Date;
  */
 @Entity
 public class User {
-    //Primary Key
+    // Primary Key
     @Id public Long id;
-    // 5 attributes
-    /* A user has a name, their owner (Google account), if they are an instructor,
-     * when the account was created, and what courses they have endorsed.
-     */
-    @Index private String firstName;
-    @Index private String lastName;
-    @Index private int isInstructor;
-    @Index private Date created;
-    @Index private String email;
-    @Index private int[] endorsed;
+    // 6 attributes
 
-    //Default constructor
+    @Index private String firstName; // A user's first name.
+    @Index private String lastName; // A user's last name.
+    @Index private int isInstructor; // If the user is an instructor. For now this is simply a label for some users.
+    // An instructor is requested by a user through email.
+    @Index private Date created; // The date that the user was registered on.
+    @Index private String email; // The user's email address. This is automatically obtained from the login page.
+    @Index private int[] endorsed; // What courses a user has endorsed.
+
+    // Default constructor
     public User(){
         this.firstName = "default";
         this.lastName = "last";
         this.isInstructor = 0;
         this.created = new Date();
         this.email = "no email";
-        this.endorsed = new int[100];
+        this.endorsed = new int[100]; // Only 100 endorses.
     }
 
-    //Constructor
+    // Constructor
     public User(String firstName, String lastName, int isInstructor, String email, Date created, int[] endorsed){
         this();
         if(firstName != null){

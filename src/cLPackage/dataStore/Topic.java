@@ -1,3 +1,6 @@
+/* A topic is is what contains the information that is to be taught to users taking a course, related to the module
+ * they are currently in.
+ */
 package cLPackage.dataStore;
 
 import com.googlecode.objectify.Key;
@@ -12,25 +15,23 @@ import com.googlecode.objectify.annotation.Parent;
  */
 @Entity
 public class Topic {
-    /* IDs what module this topic belongs to */
-    @Parent @Index private Key<Module> module;
+    @Parent @Index private Key<Module> module; // What module this topic belongs to.
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Id public Long id;
-    // 2 attributes
-    /* A topic has a name, their content, and if it has a test. */
-    @Index private String name;
-    @Index private int hasTest; //How we prevent users from skipping topics.
-    @Index private String content;
+    // 3 attributes
+    @Index private String name; // Name of the topic.
+    @Index private int hasTest; // If the topic has a quiz.
+    @Index private String content; // The content of a topic.
 
-    //Default constructor
+    // Default constructor
     public Topic(){
         this.name = "default";
         this.hasTest = 0;
         this.content = "topic";
     }
 
-    //Constructor
+    // Constructor
     public Topic(String name, int hasTest, String content, Module m){
         this();
         module = Key.create(Module.class, m.id);
@@ -45,7 +46,7 @@ public class Topic {
         }
     }
 
-    //Getters and setters
+    // Getters and setters
     public Long getId() {
         return id;
     }

@@ -1,3 +1,7 @@
+/* A module is is a collection of related topics (and their associated quizzes). A module can have a quiz associated
+ * with it.
+ * Each module has at least one topic.
+ */
 package cLPackage.dataStore;
 
 import com.googlecode.objectify.Key;
@@ -12,23 +16,21 @@ import com.googlecode.objectify.annotation.Parent;
  */
 @Entity
 public class Module {
-    /* IDs what course this module belongs to. */
-    @Parent @Index private Key<Course> course;
+    @Parent @Index private Key<Course> course; // What course this module belongs to.
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Id public Long id;
     // 2 attributes
-    /* A module has a name, if it has a test.*/
-    @Index private String name;
-    @Index private int hasTest;
+    @Index private String name; // The name of the module.
+    @Index private int hasTest; // If the module has a test.
 
-    //Default constructor
+    // Default constructor
     public Module(){
         this.name = "default";
         this.hasTest = 0;
     }
 
-    //Constructor
+    // Constructor
     public Module(String name, Course c){
         this();
         course = Key.create(Course.class, c.id);
@@ -40,7 +42,7 @@ public class Module {
         }
     }
 
-    //Getters and setters
+    // Getters and setters
     public Long getId() {
         return id;
     }

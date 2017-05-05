@@ -1,3 +1,6 @@
+/* A multiple choice is a type of question found on quizzes. They consist of a customizable amount of answers to a
+ * customizable question. A quiz can have any number amount of multiple choice questions.
+ */
 package cLPackage.dataStore;
 
 import com.googlecode.objectify.Key;
@@ -11,20 +14,21 @@ import com.googlecode.objectify.annotation.Parent;
  */
 @Entity
 public class MultipleChoices {
+
+    @Parent
+    @Index private Key<Topic> topic; // What topic this multiple choice belongs to.
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
-    @Parent
-    @Index private Key<Topic> topic;
-
     @Id
     public Long id;
 
-    //Attributes
-    @Index private int optionNumber;
-    @Index private String questionText;
-    @Index private String options[];
-    @Index private int answer;
+    // 4 attributes
+    @Index private int optionNumber; // What number question this is.
+    @Index private String questionText; // The description of the question being asked.
+    @Index private String options[]; // The possible answers to the question. Option 1 = Index 0 and so on.
+    @Index private int answer; // Which index is the correct answer.
 
+    // Default constructor
     public MultipleChoices(){
         optionNumber = 2; //True or False question by default.
         questionText = "no question text input";
@@ -32,6 +36,8 @@ public class MultipleChoices {
         options[0] = "True";
         options[1]="False";
     }
+
+    // Constructor
     public MultipleChoices(String questionText,int optionNumber, int answer, String options[],Topic topic){
         this.topic = Key.create(Topic.class, topic.id);
         this.optionNumber = optionNumber;
@@ -44,6 +50,8 @@ public class MultipleChoices {
             }
         }
     }
+
+    // Getters and setters
     public int getOptionNumber(){
         return this.optionNumber;
     }
