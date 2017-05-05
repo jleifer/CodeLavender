@@ -1,6 +1,7 @@
 <%@ page import="cLPackage.dataStore.Course" %>
 <%@ page import="cLPackage.dataStore.Module" %>
 <%@ page import="cLPackage.dataStore.Topic" %>
+<%@ page import="cLPackage.dataStore.User" %>
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="java.util.ArrayList" %>
@@ -15,11 +16,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ObjectifyService.register(Course.class);
     ObjectifyService.register(Module.class);
     ObjectifyService.register(Topic.class);
-    String userId = request.getParameter("userId").toString();
-    String courseId = request.getParameter("courseId").toString();
+    ObjectifyService.register(User.class);
+    String userId = (String)request.getParameter("userId").toString();
+    String courseId = (String)request.getParameter("courseId").toString();
     List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
     Course course = null;
     for(int i = 0; i<courseList.size();i++){
@@ -35,12 +36,14 @@
 
     ArrayList<List<Topic>> topicList = new ArrayList<List<Topic>>(moduleList.size());
     for(int i = 0; i<moduleList.size();i++){
+
+        System.out.println("wwfwf : "+moduleList);
         Key<Module> moduleKey = Key.create(Module.class, moduleList.get(i).getId());
         List<Topic> topics = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
-        topicList.set(i,topics);
+        topicList.add(topics);
+        System.out.println("How Many here: "+topics.size());
     }
     request.setAttribute("topicList",topicList);
-    System.out.println("How Many here: "+topicList.size());
 %>
 <html>
 <head>
@@ -109,28 +112,34 @@
 
 
     <div id="course-page-name"><h1><c:out value="${course.name}"></c:out></h1></div>
-    <c:forEach items="${moduleList}" var="module" varStatus="moduleIndex">
+    <%  for (int i = 0; i<moduleList.size();i++){%>
         <div class="module_active">
-            <div class="module-name"><h3><c:out value="${module.name}"></c:out></h3></div>
+            <div class="module-name"><h3><%=moduleList.get(i).getName()%></h3></div>
             <hr/>
-
-            <c:forEach items="${topicList.get(0)}" var="topic" varStatus="topicIndex">
+            <%
+                Key<Module> moduleKey = Key.create(Module.class, moduleList.get(i).getId());
+                List<Topic> topics = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
+                for (int k = 0; k<topics.size();k++){
+            %>
                 <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
                 <div class="topic">
-                    <div class="topic-name"><a href="#">Topic <c:out value="${topicIndex + 1}"></c:out></a></div>
+                    <div class="topic-name">
+                        <a href="viewTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>&topicId=<%=topics.get(k).id%>">
+                            Topic <%=k+1%>
+                        </a>
+                    </div>
                         <div class="score"><span class="passed">100%</span></div>
-                    <c:out value="${topic.name}"></c:out>
+                    <%=topics.get(k).getName()%>
                     <br/>
                 </div>
                 <br/>
-            </c:forEach>
+            <%}%>
 
             <hr />
             <div class="topic-name"><a href="#" style="margin-left: 30px;">Module Test</a></div>
             <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
         </div>
-    </c:forEach>
-
+    <% }%>
     <!-------
 
     <div id="course-page-name"><h1>Sample Course</h1></div>
