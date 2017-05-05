@@ -1,7 +1,8 @@
-<%@ page import="com.googlecode.objectify.Key" %>
+<%--<%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="java.util.List" %>
-<%@ page import="cLPackage.dataStore.*" %><%--
+<%@ page import="cLPackage.dataStore.*" %>--%>
+<%--
   Created by IntelliJ IDEA.
   User: Spartanrme
   Date: 2/7/2017
@@ -10,7 +11,9 @@
   from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%--<%
     //register classes first
     ObjectifyService.register(User.class);
     ObjectifyService.register(Course.class);
@@ -29,7 +32,7 @@
     Key<User> userKey = Key.create(User.class,curUser.id);
     List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).ancestor(userKey).list();
     System.out.println("list sfze +"+courseList.size());
-%>
+%>--%>
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -54,12 +57,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="main?email=${email}"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+                <a href="main?firstName=${firstName}&lastName=${lastName}&email=${email}"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="main?email=${email}">Homepage <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="main?firstName=${firstName}&lastName=${lastName}&email=${email}">Homepage <span class="sr-only">(current)</span></a></li>
                 </ul>
                 <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
                 <!--<div class="input-group">-->
@@ -74,7 +77,7 @@
                             <img class="profImg" src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="profile?userId=<%=request.getAttribute("userId")%>">Profile</a></li>
+                            <li><a href="profile?userId=${userId}">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a onclick="signOut();">Sign Out</a></li>
                         </ul>
@@ -86,7 +89,7 @@
         <!----new course button---->
         <div align="right">
             <button type="button" class="btn btn-outline-primary"
-                    onclick="location.href = 'AddModuleServlet?courseId=-1&userId=<%=request.getAttribute("userId")%>';">
+                    onclick="location.href = 'AddModuleServlet?courseId=-1&userId=${userId}';">
                 <span class="glyphicon glyphicon-plus"></span> Add course
             </button>
         </div>
@@ -120,7 +123,17 @@
             &nbsp;<h2>Course Created</h2>
             <hr />
             <!--------- Start Dyanamic generating ------------>
-            <% for (int i =0; i<courseList.size();i++){
+            <c:forEach var="course" begin="0" items="${courseList}">
+                <div class="courseCreated">
+                    <span onclick="location.href = 'newCourse?courseId=${course.id}&userId=${userId}'">
+                        ${course.name}
+                        <c:if test="${course.isPublic != 1}">
+                            (Not Published)
+                        </c:if>
+                    </span>
+                </div>
+            </c:forEach>
+            <%--<% for (int i =0; i<courseList.size();i++){
                     String visibility = " (Not Published)";
                     if(courseList.get(i).getIsPublic()==1){
                         visibility = "";
@@ -131,7 +144,7 @@
                     <%=courseList.get(i).getName()+visibility%>
                 </span>
             </div>
-            <% }%>
+            <% }%>--%>
             <!----------------END generating ------------------->
         </div>
     </div>
