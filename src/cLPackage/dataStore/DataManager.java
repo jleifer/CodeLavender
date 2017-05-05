@@ -1,5 +1,6 @@
 package cLPackage.dataStore;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,9 @@ public class DataManager {
         /* Register the necessary data classes in the Google DataStore */
         ObjectifyService.register(User.class);
         ObjectifyService.register(Course.class);
+        ObjectifyService.register(Module.class);
+        ObjectifyService.register(Topic.class);
+        ObjectifyService.register(MultipleChoices.class);
     }
 
     public static DataManager getDataManager(){
@@ -25,12 +29,12 @@ public class DataManager {
     }
 
     /**
-     * Retrieve datastore ID for user with matching email address
+     * Retrieve User datastore entity for user with matching email address.
      *
      * @param email String containing the unique email for the user to find
      *              in the datastore
-     * @return Long This returns the userId of the user whose email matches,
-     * or -1 otherwise
+     * @return User This returns the User entity whose email matches,
+     * or null otherwise
      */
     public User getUserWithEmail(String email) {
         User user;
@@ -43,6 +47,20 @@ public class DataManager {
         }
         else{
             user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
+        }
+
+        return user;
+    }
+
+    public User getUserWithUserId(Long userId) {
+        User user = null;
+
+        List<User> userList = ObjectifyService.ofy().load().type(User.class).list();
+        for (User u: userList) {
+            if (u.getId().equals(userId)) {
+                user = u;
+                break;
+            }
         }
 
         return user;
@@ -73,5 +91,22 @@ public class DataManager {
      */
     public List<Course> getCourseList() {
         return ObjectifyService.ofy().load().type(Course.class).list();
+    }
+
+    /**
+     * Returns a list of all Course entities in the datastore created by
+     * the user with the given user id.
+     *
+     * @param userId User Id of the User entity in the datastore
+     * @return List List of all Course entities from the datastore created
+     * by the user with the given user id.
+     */
+    public List<Course> getCourseListCreatedByUserID(Long userId) {
+        /* Create the key to search for the user in the datastore */
+        Key<User> userKey = Key.create(User.class, userId);
+
+        List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).ancestor(userKey).list();
+
+        return courseList;
     }
 }

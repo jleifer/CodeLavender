@@ -1,7 +1,3 @@
-<%--<%@ page import="cLPackage.dataStore.Course" %>
-<%@ page import="com.googlecode.objectify.ObjectifyService" %>
-<%@ page import="java.util.List" %>
-<%@ page import="cLPackage.dataStore.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: Spartanrme
@@ -14,15 +10,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%--<%
-    ObjectifyService.register(Course.class);
-    String email = (String)request.getParameter("email").toString();
-    User user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
-    List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
-    System.out.println("How many courses: "+courseList.size());
-    System.out.print("user Lst: "+user.getLastName());
-    Long userId = user.getId();
-%>--%>
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -62,7 +49,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="main?email=${email}">Homepage <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href=href="main?firstName=${firstName}&lastName=${lastName}&email=${email}">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
         <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
         <!--<div class="input-group">-->
@@ -77,7 +64,7 @@
                     <img class="profImg" src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="profile?userId=<%=request.getAttribute("userId")%>">Profile</a></li>
+                    <li><a href="profile?userId=${userId}">Profile</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a onclick="signOut();">Sign Out</a></li>
                 </ul>
