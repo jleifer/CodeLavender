@@ -65,4 +65,13 @@ public class DataManager {
         User user = new User(firstName,lastName,isInstructor,email,date,null);
         ObjectifyService.ofy().save().entity(user).now();
     }
+
+    /**
+     * Returns a list of all Course entities in the datastore.
+     *
+     * @return List List of all Course object entities from the datastore.
+     */
+    public List<Course> getCourseList() {
+        return ObjectifyService.ofy().load().type(Course.class).list();
+    }
 }

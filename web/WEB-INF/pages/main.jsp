@@ -1,7 +1,8 @@
-<%@ page import="cLPackage.dataStore.Course" %>
+<%--<%@ page import="cLPackage.dataStore.Course" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="java.util.List" %>
-<%@ page import="cLPackage.dataStore.User" %><%--
+<%@ page import="cLPackage.dataStore.User" %>
+<%--
   Created by IntelliJ IDEA.
   User: Spartanrme
   Date: 2/7/2017
@@ -10,7 +11,10 @@
   from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%--<%
     ObjectifyService.register(Course.class);
     String email = (String)request.getParameter("email").toString();
     User user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
@@ -18,7 +22,7 @@
     System.out.println("How many courses: "+courseList.size());
     System.out.print("user Lst: "+user.getLastName());
     Long userId = user.getId();
-%>
+%>--%>
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -53,7 +57,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href="main?email=${email}"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+        <a href="main?firstName=${firstName}&lastName=${lastName}&email=${email}"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -156,27 +160,26 @@
     <!----------- Dynamically change ------------->
 
     <!------- load courses here ---------->
-    <% for (int i  = 0; i<courseList.size();i++){%>
-    <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=<%=userId%>&courseId=<%=courseList.get(i).getId()%>';">
-        <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name"><%=courseList.get(i).getName()%></div>
-        <div class="rec-creator-name"><%=courseList.get(i).getOwnerFirst()+" "+courseList.get(i).getOwnerLast()%></div>
-        <div class="rec-class-intro"><%=courseList.get(i).getDescription()%>
+    <c:forEach var="course" begin="0" items="${courseList}">
+        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}'">
+            <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
+            <div class="rec-class-name">${course.name}</div>
+            <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
+            <div class="rec-class-intro">${course.description}</div>
+            <span class="glyphicon glyphicon-star"
+                  aria-hidden="true" style="margin-left:10px; color:red;"></span>
+            <span class="glyphicon glyphicon-star"
+                  aria-hidden="true" style=" color:red;"></span>
+            <span class="glyphicon glyphicon-star"
+                  aria-hidden="true" style="color:red;"></span>
+            <span class="glyphicon glyphicon-star"
+                  aria-hidden="true" style=" color:red;"></span>
+            <span class="glyphicon glyphicon-star"
+                  aria-hidden="true" style=" color:lavender;"></span>
+            <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
+            <div class="progress-text">Start Now</div>
         </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress-text">Start Now</div>
-    </div>
-    <%}%>
+    </c:forEach>
     <!------------- END Dynamically generate here END ----------------------->
 
 

@@ -1,5 +1,6 @@
 package cLPackage.controller;
 
+import cLPackage.dataStore.Course;
 import cLPackage.dataStore.DataManager;
 import cLPackage.dataStore.User;
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -21,24 +24,7 @@ public class MainController {
                               @ModelAttribute("email")String email,
                               @ModelAttribute("firstName")String firstName,
                               @ModelAttribute("lastName")String lastName) {
-        //register class first
-        /*ObjectifyService.register(User.class);
 
-        //prepare paras for creating new user.
-        Date date = new Date();
-        int isInstructor = 0;
-
-        //first check if the user has already exists
-        boolean isUsrExist = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().isEmpty();
-        Long userId;
-        if(isUsrExist==true){
-            //create new User Object and load into datastore
-            User user = new User(firstName,lastName,isInstructor,email,date,null);
-            ObjectifyService.ofy().save().entity(user).now();
-            userId = ObjectifyService.ofy().load().entity(user).now().id;
-        }else{
-            userId = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0).id;
-        }*/
         /* Retrieve data manager */
         DataManager dm = DataManager.getDataManager();
 
@@ -50,9 +36,15 @@ public class MainController {
             user = dm.getUserWithEmail(email);
         }
         Long userId = user.getId();
+
+        /* Retrieve the list of all Course entities from the datastore */
+        List<Course> courseList = dm.getCourseList();
+
+        /* Set attributes into the model for dynamic loading */
         System.out.print(userId);
         model.addAttribute("userId",userId);
         model.addAttribute("email",email);
+        model.addAttribute("courseList", courseList);
         return "main"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 }
