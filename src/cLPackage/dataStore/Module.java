@@ -22,7 +22,7 @@ public class Module {
     @Id public Long id;
     // 2 attributes
     @Index private String name; // The name of the module.
-    @Index private int hasTest; // If the module has a test.
+    @Index private int hasTest; // 0 - false, 1 - true. If the module has a test.
 
     // Default constructor
     public Module(){

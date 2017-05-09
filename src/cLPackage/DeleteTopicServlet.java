@@ -1,5 +1,6 @@
 package cLPackage;
 
+import cLPackage.dataStore.MultipleChoices;
 import cLPackage.dataStore.Topic;
 import com.googlecode.objectify.ObjectifyService;
 
@@ -28,11 +29,25 @@ public class DeleteTopicServlet extends HttpServlet {
 
         //Obtain the topic from the datastore.
         List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).list();
-        for (int i = 0 ; i < topicList.size(); i++){
-            if(topicList.get(i).id.longValue()==topicId.longValue()){
+        for (int i = 0 ; i < topicList.size(); i++) {
+            if (topicList.get(i).id.longValue() == topicId.longValue()) {
                 topic = topicList.get(i);
+                //Now that we have the topic, let's check to see if it has a quiz.
+                if(topic.getHasTest() == 1){
+                    //Delete the quiz.
+                    List<MultipleChoices> quizList = ObjectifyService.ofy().load().type(MultipleChoices.class).list();
+                    for (int j = 0 ; j < quizList.size(); j++){
+                        if(quizList.get(j).getParentTopicID().longValue() == topic.id){
+                            System.out.println("deleting "+quizList.get(j).id);
+                            ObjectifyService.ofy().delete().entity(quizList.get(j));
+                            break;
+                        }
+                    }
+                }
+                break;
             }
         }
+        //Now we need to find and delete the topic's quiz.
         System.out.print("deleting "+topic.id);
 
         //Delete it.

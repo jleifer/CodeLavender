@@ -21,7 +21,7 @@ public class Topic {
     @Id public Long id;
     // 3 attributes
     @Index private String name; // Name of the topic.
-    @Index private int hasTest; // If the topic has a quiz.
+    @Index private int hasTest; // 0 - false, 1 - true. If the topic has a quiz.
     @Index private String content; // The content of a topic.
 
     // Default constructor

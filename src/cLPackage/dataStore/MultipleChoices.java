@@ -27,6 +27,7 @@ public class MultipleChoices {
     @Index private String questionText; // The description of the question being asked.
     @Index private String options[]; // The possible answers to the question. Option 1 = Index 0 and so on.
     @Index private int answer; // Which index is the correct answer.
+    @Index private Long parentTopicID; // The topic ID that the parent belongs to.
 
     // Default constructor
     public MultipleChoices(){
@@ -76,4 +77,6 @@ public class MultipleChoices {
     public void setAnswer(int answer){
         this.answer =answer;
     }
+    public void setParentTopicID(Long parentTopicID) { this.parentTopicID = parentTopicID; }
+    public Long getParentTopicID() { return parentTopicID; }
 }

@@ -33,6 +33,7 @@ public class DeleteModuleServlet extends HttpServlet {
         for (int i = 0 ; i < moduleList.size(); i++){
             if(moduleList.get(i).id.longValue()==moduleId.longValue()){
                module = moduleList.get(i);
+               //Now let's delete all the topics and topic quizzes associated.
             }
         }
         System.out.print("deleting "+module.id);
