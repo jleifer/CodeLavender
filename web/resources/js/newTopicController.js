@@ -6,6 +6,8 @@ var topic_quiz_num = 0;
 var quizes = [];
 $(document).ready(function() {
 
+
+
     $(".text_field_option").on("change",function () {
         changeMultiChoice($(this));
     });

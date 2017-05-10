@@ -130,7 +130,7 @@
         <!---------!Topic Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Topic Name</span>
-            <input type="text" class="form-control" value="<%=topic.getName()%>" aria-describedby="sizing-addon1" >
+            <input id="topic_name" type="text" class="form-control" value="<%=topic.getName()%>" aria-describedby="sizing-addon1" >
         </div>
 
         <br>
@@ -139,7 +139,7 @@
         <div class="input_fields_wrap" style="width: 1000px;margin:auto; background-color: rgba(230,230,250,0.9);
 			font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
             <label class="control-label">Topic Content</label>
-            <textarea rows="10" cols="100" name="topic_text" style="display: block;">
+            <textarea id="topic_description" rows="10" cols="100" name="topic_text" style="display: block;">
                 <%=topic.getContent()%>
             </textarea>
         </div>
@@ -168,20 +168,21 @@
                            quiz_label_text = "Question Type: (MultipleChoices("+optionNumber+"))";
                        }
                 %>
+                <input type='hidden' value="<%=quizList.get(i).id%>" id="<%="quizId_"+i%>" />
                 <div class="quiz_question">
                     <label class="quiz_label"><%=quiz_label_text%></label>
                     <span style="color:red;cursor:pointer;margin-left:10px;"
                           onclick="location.href='DeleteQuizServlet?courseId=<%=courseId%>&userId=<%=userId%>&moduleId=<%=moduleId%>&topicId=<%=topicId%>&quizId=<%=quizList.get(i).id%>';">Delete</span>
                     <br />
-                    <textarea rows="3" cols="70" style="width:600px;display:block; margin:auto;"><%=quizList.get(i).getQuestionText()%></textarea>
+                    <textarea id="quizDescription_<%=i%>" rows="3" cols="70" style="width:600px;display:block; margin:auto;"><%=quizList.get(i).getQuestionText()%></textarea>
                     <% for(int k = 0 ; k<options.length; k++){ %>
                     <div class="mutic">
-                        <input type="text" class="text_field_option" value="<%=options[k]%>">
+                        <input id="quizOption_<%=i%>_<%=k%>" type="text" class="text_field_option" value="<%=options[k]%>">
 
                     </div>
                     <% } %>
                     <label class="quiz_label">Answer: </label>
-                    <select>
+                    <select id="quizAns_<%=i%>">
                         <% for(int k = 0 ; k<options.length; k++){
                             String selected = (k==(answer-1))? "selected":"";
                         %>
@@ -208,13 +209,32 @@
                 <br clear="both;">
             </div>
             <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
-                <button class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+                <button id="submit_edit" class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='newModule?courseId=<%=courseId%>&userId=<%=userId%>&moduleId=<%=moduleId%>';">&nbsp;Back</button>
             </span>
         </div>
         <!---------END Add Topic Quiz Control END------------>
-
+        <script>
+            $("#submit_edit").click(function(){
+                var topic_name = $("#topic_name").val();
+                var topic_description = $("#topic_description").val();
+                var quiz_total_num = $("#quiz_total_num").val();
+                var href_to_go = "UpdateTopicQuiz?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>&topicId=<%=topicId%>"+
+                    "&topic_name="+topic_name+"&topic_description="+topic_description+
+                    "&quiz_total_num=<%=quizList.size()%>";
+                for(var i =0 ; i<<%=quizList.size()%>;i++){
+                    href_to_go += "&quiz_id_"+i+"="+$("#quizId_"+i).val()
+                        +"&quizDescription_"+i+"="+$("#quizDescription_"+i).val();
+                    for(var k =0 ; typeof $("#quizOption_"+i+"_"+k).val() !== "undefined";k++){
+                        href_to_go += "&quizOption_"+i+"_"+k+"="+$("#quizOption_"+i+"_"+k).val();
+                    }
+                    href_to_go += "&quizAns_"+i+"="+$( "#quizAns_"+i+" option:selected" ).html();
+                }
+                alert(href_to_go);
+                location.href = href_to_go;
+            });
+        </script>
 
         <div class="bot_buffer_div" style="clear: both">
             <form action="AddQuizServlet" method="get" id="hidden_form_for_creation">

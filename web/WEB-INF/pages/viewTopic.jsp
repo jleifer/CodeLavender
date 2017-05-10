@@ -154,10 +154,27 @@
         </div>
         <%  String options[] = quizList.get(i).getOptions();
             for (int k = 0 ; k<options.length;k++){
-        %>
-        <div class="mutic"><b style="font-size: 20px;"><%=options[k]%></b></div>
+                if(quizList.get(i).getAnswer()==k){
+                    %>
+        <div onclick="correct(1)" class="mutic"><b style="font-size: 20px; cursor: pointer;"><%=options[k]%></b></div>
+        <%
+                }else{
+                    %>
+        <div onclick="correct(3)" class="mutic"><b style="font-size: 20px; cursor: pointer;"><%=options[k]%></b></div>
+        <%
+                }
+        %><% } %>
         <% } %>
-        <% } %>
+        <script>
+            function correct(num){
+                if(num==1){
+                    alert("correct");
+                }else{
+                    alert("worng");
+                }
+            }
+
+        </script>
         <!---------------ENd Generating ----------->
 
         <!--

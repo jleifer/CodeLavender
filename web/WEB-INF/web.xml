@@ -44,6 +44,25 @@
         <servlet-name>UpdateModuleServlet</servlet-name>
         <url-pattern>/UpdateModuleServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateModuleName</servlet-name>
+        <servlet-class>cLPackage.UpdateModuleName</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateModuleName</servlet-name>
+        <url-pattern>/UpdateModuleName</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UpdateTopicQuiz</servlet-name>
+        <servlet-class>cLPackage.UpdateTopicQuiz</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateTopicQuiz</servlet-name>
+        <url-pattern>/UpdateTopicQuiz</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>AddTopicServlet</servlet-name>
         <servlet-class>cLPackage.AddTopicServlet</servlet-class>

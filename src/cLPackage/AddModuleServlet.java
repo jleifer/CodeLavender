@@ -39,7 +39,7 @@ public class AddModuleServlet extends HttpServlet {
                 curUser = userList.get(i);
             }
         }
-        
+
         //Add module only.
         if(courseId.longValue()>0){
             //getCurrent course

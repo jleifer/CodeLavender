@@ -83,7 +83,7 @@
         <!---------!Module Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Module Name</span>
-            <input type="text" class="form-control" value="<%=module.getName()%>" aria-describedby="sizing-addon1">
+            <input id="module_name_field" type="text" class="form-control" value="<%=module.getName()%>" aria-describedby="sizing-addon1">
         </div>
         <br>
         <br>
@@ -114,9 +114,29 @@
             <% }%>
             <!------ END Start Dynamically loading END----------->
         </div>
+        <div class="checkbox">
+            <label><input id="hasTest" type="checkbox" value="">Test</label>
+        </div>
+        <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
+                <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+                <script>
+                    $("#submit_btn").click(function(){
+                        alert();
+                        var module_name = $("#module_name_field").val();
+                        var hasTest =0;
+                        if($("#hasTest").is(':checked')){
+                            hasTest = 1; //1 = true
+                        }
 
-        <span class="input-group-btn" style="display: block; margin-top: 20px;" title="Submit">
-                <button class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+                        var page_to_go = 'UpdateModuleName?' +
+                            'userId=<%=userId%>&courseId=<%=courseId%>' +
+                            '&moduleId=<%=moduleId%>' +
+                            '&module_name='+module_name+
+                            '&hasTest='+hasTest;
+                        alert(page_to_go);
+                        location.href=page_to_go;
+                    });
+                </script>
 
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='newCourse?courseId=<%=courseId%>&userId=<%=userId%>';">&nbsp;Back</button>
