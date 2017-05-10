@@ -44,7 +44,6 @@ public class MainController {
         req.getSession().setAttribute("email", user.getEmail());
         req.getSession().setAttribute("firstName", user.getFirstName());
         req.getSession().setAttribute("lastName", user.getLastName());
-
         System.out.println("Servlet setting in session succeeded.");
 
         return "redirect:/main";
