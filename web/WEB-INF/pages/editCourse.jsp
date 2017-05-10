@@ -1,8 +1,3 @@
-<%--<%@ page import="cLPackage.dataStore.Course" %>
-<%@ page import="cLPackage.dataStore.Module" %>
-<%@ page import="com.googlecode.objectify.Key" %>
-<%@ page import="com.googlecode.objectify.ObjectifyService" %>
-<%@ page import="java.util.List" %>--%>
 <%--
   Created by IntelliJ IDEA.
   User: Spartanrme
@@ -14,24 +9,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%--<%
-
-    String userId = (String)request.getParameter("userId").toString();
-    String courseId = (String)request.getParameter("courseId").toString();
-    List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
-    Course course = null;
-    for(int i = 0; i<courseList.size();i++){
-        if(courseList.get(i).getId()==Long.parseLong(courseId)){
-            course = courseList.get(i);
-        }
-    }
-    Key<Course> courseKey = Key.create(Course.class,course.id);
-    List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
-    System.out.println("list sfze +"+moduleList.size());
-
-    String isPublished = (course.getIsPublic()==0)? "unchecked":"checked";
-%>--%>
-
 
 <html>
 <head>
@@ -66,7 +43,7 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="main">Homepage</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -86,95 +63,54 @@
         <!----------- !Navbar End ------------>
 
         <!---------!Course Name ---------->
-        <div class="input-group input-group-lg col-xs-5">
-            <span class="input-group-addon" id="sizing-addon1">Course Name</span>
-            <%--<input id="course_name_field" type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="<%=course.getName()%>">--%>
-            <input id="course_name_field" type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="${courseToEdit.name}">
+        <form action="/updateCourse?courseId=${courseToEdit.id}" method="post">
+            <div class="input-group input-group-lg col-xs-5">
+                <span class="input-group-addon" id="sizing-addon1">Course Name</span>
+                <input name="courseEditName" id="course_name_field" type="text" class="form-control" placeholder="eg - CSE 215" aria-describedby="sizing-addon1" value="${courseToEdit.name}">
 
-        </div>
-        <br>
-        <br>
+            </div>
+            <br>
+            <br>
 
-        <div>
-            <%--Description:<br/><textarea id="course_description" rows="8" cols="50" name="course_description"><%=course.getDescription()%></textarea><br/><br/>
-            Cover Image URL:<input id="img_url" type="text" name="course_img_url" value = "<%=course.getImgURL()%>"><br/><br/>
-            Publish: <input id="isPubshed"  type="checkbox" name="isPublished" style="width:20px; height: 20px;" <%=isPublished%>>--%>
-            Description:<br/><textarea id="course_description" rows="8" cols="50" name="course_description">${courseToEdit.description}</textarea><br/><br/>
-            Cover Image URL:<input id="img_url" type="text" name="course_img_url" value = "${courseToEdit.imgURL}"><br/><br/>
-            Publish: <input id="isPublic"  type="checkbox" name="isPublic" style="width:20px; height: 20px;" ${coursePublished}>
-        </div>
-        <hr/>
-        <!---------!Modules ---------->
-        <div class="input_fields_wrap">
-            <label class="control-label">Add Modules</label>
-            <%--<span class="add_field_button" onclick="location.href='AddModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>';">
-                <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
-            </span>--%>
-            <%-- To add modules and navigate back to current course edit page --%>
-            <span class="add_field_button" onclick="location.href='/editCourse?courseId=${courseToEdit.id}';">
+            <div>
+                Description:<br/><textarea id="course_description" rows="8" cols="50" name="courseEditDescription">${courseToEdit.description}</textarea><br/><br/>
+                Cover Image URL:<input id="img_url" type="text" name="courseEditImgURL" value = "${courseToEdit.imgURL}"><br/><br/>
+                Publish: <input id="isPublic" type="checkbox" name="courseEditIsPublic" style="width:20px; height: 20px;" ${coursePublished}>
+            </div>
+            <hr/>
+            <!---------!Modules ---------->
+            <div class="input_fields_wrap">
+                <label class="control-label">Add Modules</label>
+                <%-- To add modules and navigate back to current course edit page --%>
+                <span class="add_field_button" onclick="location.href='/editCourse?courseId=${courseToEdit.id}';">
                 <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
             </span>
-            <%--<button class="add_field_button">Add More Fields</button>--%>
-            <%--<div>
-                span class="btn glyphicon glyphicon-edit" title="edit"onclick="location.href='/newModule?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(0).id%>';"></span>
-                Name:<input type="text" name="course_name" value = "<%=moduleList.get(0).getName()%>" disabled>
-            </div>--%>
 
-            <!------  Start Dynamically loading ----------->
-            <%--<% for (int i = 1 ; i<moduleList.size();i++){%>
-            <div>
-                <span class="btn glyphicon glyphicon-edit" title="edit"
-                      onclick="location.href='/newModule?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';"></span>
-                Name:<input type="text" name="course_name" value="<%=moduleList.get(i).getName()%>" disabled>
-                <a href="#" class="remove_field"
-                   onclick="location.href='/DeleteModuleServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>';">
-                    <span class="remove_field glyphicon glyphicon-minus-sign"></span>
-                </a>
-            </div>
-            <% }%>--%>
-            <c:forEach var="module" begin="0" items="${moduleList}">
-                <div>
+                <!------  Start Dynamically loading ----------->
+                <c:forEach var="module" begin="0" items="${moduleList}">
+                    <div>
                     <span class="btn glyphicon glyphicon-edit" title="edit"
                           onclick="location.href='/newModule?courseId=${courseToEdit.id}&moduleId=${module.id}'"></span>
-                    Name:<input type="text" name="course_name" value="${module.name}" disabled>
-                    <a href="#" class="remove_field" onclick="location.href='/DeleteModuleServlet?courseId=${courseToEdit.id}&moduleId=${module.id}'">
-                        <span class="remove_field glyphicon glyphicon-minus-sign"></span>
-                    </a>
-                </div>
-            </c:forEach>
-            <!------ END Start Dynamically loading END----------->
-        </div>
+                        Name:<input type="text" name="course_name" value="${module.name}" disabled>
+                        <a href="#" class="remove_field" onclick="location.href='/DeleteModuleServlet?courseId=${courseToEdit.id}&moduleId=${module.id}'">
+                            <span class="remove_field glyphicon glyphicon-minus-sign"></span>
+                        </a>
+                    </div>
+                </c:forEach>
+                <!------ END Start Dynamically loading END----------->
+            </div>
 
-        <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
-                <button class="btn btn-success glyphicon glyphicon-ok" type="button"
+            <span class="input-group-btn" style="display: block; margin-top: 20px" title="Submit">
+                <button class="btn btn-success glyphicon glyphicon-ok" type="submit"
                         id ="submit_btn">&nbsp;Submit
                 </button>
-                <%--<script>
-                    $("#submit_btn").click(function(){
-                        alert();
-                        var course_name = $("#course_name_field").val();
-                        var course_description = $("#course_description").val();
-                        var img_url = $("#img_url").val();
-                        var isPubshed =0;
-                        if($("#isPubshed").is(':checked')){
-                            isPubshed = 1; //1 = true
-                        }
-
-                        var page_to_go = 'UpdateModuleServlet?' +
-                            'userId=<%=userId%>&courseId=<%=courseId%>' +
-                            '&course_name='+course_name+
-                            '&course_description='+course_description+
-                            '&img_url='+img_url+
-                            '&isPubshed='+isPubshed;
-                        alert(page_to_go);
-                        location.href=page_to_go;
-                    });
-                </script>--%>
 
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='profile';">&nbsp;Back
                 </button>
-        </span>
+            </span>
+        </form>
+
     </div>
 </div>
 <br/>

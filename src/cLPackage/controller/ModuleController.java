@@ -19,7 +19,7 @@ public class ModuleController {
         return "newModule"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 
-    @RequestMapping(value = {"deleteModule"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/deleteModule"}, method = RequestMethod.GET)
     public String deleteModule(ModelMap model,
                                @ModelAttribute("moduleId") Long moduleId) {
         /* Retrieve Data manager. */
@@ -32,7 +32,7 @@ public class ModuleController {
         return "redirect:/editCourse";
     }
 
-    @RequestMapping(value = {"deleteTopic"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/deleteSelectedTopic"}, method = RequestMethod.GET)
     public String deleteTopic(ModelMap model,
                                @ModelAttribute("topicId") Long topicId) {
         /* Retrieve Data manager. */

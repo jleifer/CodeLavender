@@ -1,11 +1,11 @@
 package cLPackage.dataStore;
 
-import com.google.appengine.repackaged.com.google.common.base.Flag;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
-import com.sun.org.apache.xpath.internal.operations.Mult;
-import org.springframework.web.multipart.MultipartException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +43,7 @@ public class DataManager {
      * @return User This returns the User entity whose email matches,
      * or null otherwise
      */
-    public User getUserWithEmail(Flag.String email) {
+    public User getUserWithEmail(String email) {
         User user;
 
         // First check if the user has already exists
@@ -180,6 +180,14 @@ public class DataManager {
         Course course = dm.getCourseWithCourseId(courseId);
 
         /* Create new Module object and save it to the datastore */
+        if(course == null){
+            try {
+                Thread.sleep(1000);
+                course = dm.getCourseWithCourseId(courseId);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         Module newModule = new Module("Default Module", course);
         ObjectifyService.ofy().save().entity(newModule).now();
 
@@ -193,6 +201,14 @@ public class DataManager {
         Module module = dm.getModuleWithModuleId(moduleId);
 
         /* Create new Topic entity and save it to the datastore */
+        if(module == null){
+            try {
+                Thread.sleep(1000);
+                module = dm.getModuleWithModuleId(moduleId);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         Topic newTopic = new Topic("Default Topic", 0, "No Content", module);
         ObjectifyService.ofy().save().entity(newTopic).now();
 
@@ -203,7 +219,14 @@ public class DataManager {
     public void createTopicQuizQuestion(Long topicId) {
         /* Retrieve data needed for creation of new topic */
         Topic topic = dm.getTopicWithTopicId(topicId);
-
+        if(topic == null){
+            try {
+                Thread.sleep(1000);
+                topic = dm.getTopicWithTopicId(topicId);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         String[] defaultChoices = {"True", "False"};
         MultipleChoices newMC = new MultipleChoices("Default Question Text", 2, 1
                 , defaultChoices, topic);
@@ -211,14 +234,39 @@ public class DataManager {
 
     }
 
+    public void updateCourse(Long userId, Long courseId, String courseEditName, String courseEditDescription, String courseEditImgURL, int isPublic) {
+        /* Retrieve course to update */
+        Course courseToUpdate = dm.getCourseWithCourseId(courseId);
+
+        /* Access the datastore to update the entity fields without changing the course id */
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
+        Entity Course = new Entity("Course",courseToUpdate.id,userKey);
+        Course.setIndexedProperty("name",courseEditName);
+        Course.setIndexedProperty("ownerFirst",courseToUpdate.getOwnerFirst());
+        Course.setIndexedProperty("ownerLast",courseToUpdate.getOwnerLast());
+        Course.setIndexedProperty("isPublic",isPublic);
+        Course.setIndexedProperty("endorsedByUsers",courseToUpdate.getEndorsedByUsers());
+        Course.setIndexedProperty("endorsedByInstructors",courseToUpdate.getEndorsedByInstructors());
+        Course.setIndexedProperty("description",courseEditDescription);
+        Course.setIndexedProperty("imgURL",courseEditImgURL);
+
+        /* Update the entity associated with the current course id */
+        ObjectifyService.ofy().delete().entity(courseToUpdate).now();
+        datastore.put(Course);
+    }
+
+    public Long getCourseOwner(Long courseId){
+        Course course = ObjectifyService.ofy().load().type(Course.class).id(courseId).now();
+        return course.getTheParentUser().getId();
+    }
+
     /**
      * Returns a list of all Course entities in the datastore.
      *
      * @return List List of all Course object entities from the datastore.
      */
-    public List<Course> getCourseList() {
-        return ObjectifyService.ofy().load().type(Course.class).list();
-    }
+    public List<Course> getCourseList() { return ObjectifyService.ofy().load().type(Course.class).list(); }
 
     /**
      * Returns a list of all Course entities in the datastore created by
