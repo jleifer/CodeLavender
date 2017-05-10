@@ -120,5 +120,5 @@ function changeMultiChoice(input){
     parent = parent.parent();
     var select = parent.find("select");
     var option  = select.children()[cur_index];
-    $(option).html((cur_index+1)+". "+cur_val)
+    $(option).html(" "+(cur_index+1)+":"+cur_val)
 }

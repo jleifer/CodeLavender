@@ -46,6 +46,7 @@ public class UpdateTopicQuiz extends HttpServlet {
 
         //update module with new attributes
         com.google.appengine.api.datastore.Key moduleKey = KeyFactory.createKey("Module", moduleId);
+
         Entity Topic = new Entity("Topic",topic.id,moduleKey);
         Topic.setIndexedProperty("name",topic_name);
         Topic.setIndexedProperty("content",topic_description);
@@ -53,7 +54,6 @@ public class UpdateTopicQuiz extends HttpServlet {
         ObjectifyService.ofy().delete().entity(topic).now();
         datastore.put(Topic);
         //delete it
-
         //update quizes
         String quiz_total_num =req.getParameter("quiz_total_num");
         ArrayList<String> quiz_id_list = new ArrayList<String>();
@@ -75,18 +75,42 @@ public class UpdateTopicQuiz extends HttpServlet {
             MC.setIndexedProperty("questionText",quizDescription);
             MC.setIndexedProperty("optionNumber",mc.getOptionNumber());
 
-
             int ans = Character.getNumericValue(req.getParameter("quizAns_"+i).charAt(1));
             MC.setIndexedProperty("answer",ans);
             String ooptions[]=new String[mc.getOptionNumber()];
             for(int k = 0 ; k<mc.getOptionNumber();k++){
-                System.out.print("OptioNssss "+req.getParameter("quizOption_"+i+"_"+k));
                 ooptions[k]= new String(req.getParameter("quizOption_"+i+"_"+k));
+                System.out.print("OptioNsssssssssssss: "+ooptions[k]);
             }
-            //if(mc.getOptionNumber()>2)
-            //MC.setIndexedProperty("options",ooptions);
             ObjectifyService.ofy().delete().entity(mc).now();
-            datastore.put(MC);
+
+            if(mc.getOptionNumber()>2){
+                /****************/
+                //create Quize
+                Topic curtopic = null;
+                List<Topic> curtopicList = null;
+                curtopicList=null;
+                /*
+                while(curtopic==null){
+                    curtopicList=ObjectifyService.ofy().load().type(Topic.class).list();
+                    for (int k = 0 ; k < curtopicList.size(); k++){
+                        if(curtopicList.get(k).id.longValue()==topicId.longValue()){
+                            curtopic = curtopicList.get(k);
+                        }
+                    }
+                    System.out.println("cur Size:"+curtopicList.size()+"ID:"+topicId.longValue());
+                }
+                System.out.println("Final Size of CurList: "+curtopicList.size());
+                */
+                System.out.println("Topic :"+topic.id);
+                MultipleChoices newMulti = new MultipleChoices(quizDescription, ooptions.length, ans
+                        , ooptions, topic);
+                ObjectifyService.ofy().save().entity(newMulti).now();
+                /****************/
+               // MC.setIndexedProperty("options", ooptions);
+            }else{
+                datastore.put(MC);
+            }
             //delete it and replace it with a new one
         }
 

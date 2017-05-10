@@ -139,9 +139,7 @@
         <div class="input_fields_wrap" style="width: 1000px;margin:auto; background-color: rgba(230,230,250,0.9);
 			font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
             <label class="control-label">Topic Content</label>
-            <textarea id="topic_description" rows="10" cols="100" name="topic_text" style="display: block;">
-                <%=topic.getContent()%>
-            </textarea>
+            <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;"><%=topic.getContent()%></textarea>
         </div>
         <!---------END Add Topic Text END---------->
         <br style="clear: both;">
