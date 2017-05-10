@@ -7,13 +7,12 @@ import cLPackage.dataStore.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jonathan on 4/21/2017.
@@ -25,11 +24,6 @@ public class CourseController {
     public String getCoursePage(ModelMap model) {
         return "course";
     }
-
-    /*@RequestMapping(value = {"/newCourse.jsp","/newCourse"}, method = RequestMethod.GET)
-    public String getNewCoursePage(ModelMap model) {
-        return "newCourse"; //Name of the jsp - using a different name will result in a different jsp being loaded.
-    }*/
 
     @RequestMapping(value = {"/newCourse", "/newCourse.jsp"}, method = RequestMethod.GET)
     public String createNewCourse(ModelMap model,
@@ -45,10 +39,25 @@ public class CourseController {
     }
 
     @RequestMapping(value = {"/updateCourse"}, method = RequestMethod.POST)
-    public String updateCourse() {
+    public String updateCourse(ModelMap model,
+                               @SessionAttribute("userId") Long userId,
+                               @ModelAttribute("courseId") Long courseId,
+                               @RequestBody MultiValueMap<String, String> body) {
+
         /* Retrieve Data manager to create new course */
         DataManager dm = DataManager.getDataManager();
 
+        /* Retrieve parameters needed to update course */
+        String courseEditName = body.get("courseEditName").get(0);
+        String courseEditDescription = body.get("courseEditDescription").get(0);
+        String courseEditImgURL = body.get("courseEditImgURL").get(0);
+        int isPublic = (body.keySet().contains("courseEditIsPublic")) ? 1 : 0;
+
+
+        dm.updateCourse(userId, courseId, courseEditName, courseEditDescription, courseEditImgURL, isPublic);
+
+        /* Return to the edit course page with the changes committed */
+        model.addAttribute("courseId", courseId);
         return "redirect:/editCourse";
     }
 

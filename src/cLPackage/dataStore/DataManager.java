@@ -1,5 +1,9 @@
 package cLPackage.dataStore;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 
@@ -181,6 +185,28 @@ public class DataManager {
                 , defaultChoices, topic);
         ObjectifyService.ofy().save().entity(newMC).now();
 
+    }
+
+    public void updateCourse(Long userId, Long courseId, String courseEditName, String courseEditDescription, String courseEditImgURL, int isPublic) {
+        /* Retrieve course to update */
+        Course courseToUpdate = dm.getCourseWithCourseId(courseId);
+
+        /* Access the datastore to update the entity fields without changing the course id */
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
+        Entity Course = new Entity("Course",courseToUpdate.id,userKey);
+        Course.setIndexedProperty("name",courseEditName);
+        Course.setIndexedProperty("ownerFirst",courseToUpdate.getOwnerFirst());
+        Course.setIndexedProperty("ownerLast",courseToUpdate.getOwnerLast());
+        Course.setIndexedProperty("isPublic",isPublic);
+        Course.setIndexedProperty("endorsedByUsers",courseToUpdate.getEndorsedByUsers());
+        Course.setIndexedProperty("endorsedByInstructors",courseToUpdate.getEndorsedByInstructors());
+        Course.setIndexedProperty("description",courseEditDescription);
+        Course.setIndexedProperty("imgURL",courseEditImgURL);
+
+        /* Update the entity associated with the current course id */
+        ObjectifyService.ofy().delete().entity(courseToUpdate).now();
+        datastore.put(Course);
     }
 
     /**

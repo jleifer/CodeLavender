@@ -103,7 +103,7 @@
             <!--------- Start Dyanamic generating ------------>
             <c:forEach var="course" begin="0" items="${courseList}">
                 <div class="courseCreated">
-                    <span onclick="location.href = 'newCourse?courseId=${course.id}&userId=${userId}'">
+                    <span onclick="location.href = 'editCourse?courseId=${course.id}'">
                         ${course.name}
                         <c:if test="${course.isPublic != 1}">
                             (Not Published)
