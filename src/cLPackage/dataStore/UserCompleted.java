@@ -21,28 +21,36 @@ public class UserCompleted {
     //Primary Key
     @Id public Long id;
 
-    // 5 attributes
-    @Index private long moduleID; // The module ID belonging to the course.
-    @Index private long topicID; // The topic ID belonging to the course.
+    // 7 attributes
+    @Index private long courseID; // The course that contains the module and topics.
+    @Index private long moduleID; // The module belonging to the course.
+    @Index private long topicID; // The topic belonging to the course.
     @Index private int moduleLevel; // The amount of module quizzes a user has completed within the course.
     @Index private int topicLevel; // The amount of topic quizzes a user has completed within the course.
     @Index private int completed; /* 0 - false, 1 - true; If a user completed a course - true when all quizzes
     * have been completed. */
+    @Index private int rating; // An int with value 0 - 5; Denotes the rating a user gave the course.
+    // If the rating is -1 then the user hasn't rated the course yet.
 
     // Default constructor
     public UserCompleted(){
+        this.courseID = 0L;
         this.moduleID = 0L;
         this.topicID = 0L;
         this.moduleLevel = 0;
         this.topicLevel = 0;
         this.completed = 0;
+        this.rating = 0;
     }
 
     // Constructor
-    public UserCompleted(long moduleID, long topicID, int moduleLevel,
-                  int topicLevel, int completed, User u){
+    public UserCompleted(long courseID, long moduleID, long topicID, int moduleLevel,
+                  int topicLevel, int completed, int rating, User u){
         this();
         user = Key.create(User.class, u.id);
+        if(courseID >= 0L){
+            this.courseID = courseID;
+        }
         if(moduleID >= 0L){
             this.moduleID = moduleID;
         }
@@ -58,6 +66,9 @@ public class UserCompleted {
         if(completed >= 0){
             this.completed = completed;
         }
+        if(rating >= -1 && rating <= 5){
+            this.rating = rating;
+        }
     }
 
     // Getters and setters
@@ -68,6 +79,10 @@ public class UserCompleted {
     public Long getId() {
         return id;
     }
+
+    public void setCourseID(long courseID) { this.courseID = courseID; }
+
+    public long getCourseID() { return courseID; }
 
     public long getModuleID() {
         return moduleID;
@@ -112,4 +127,8 @@ public class UserCompleted {
     public void setCompleted(int completed) {
         this.completed = completed;
     }
+
+    public void setRating(int rating) { this.rating = rating; }
+
+    public int getRating() { return rating; }
 }
