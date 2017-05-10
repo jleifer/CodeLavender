@@ -2,7 +2,10 @@ package cLPackage.dataStore;
 
 import com.google.appengine.repackaged.com.google.common.base.Flag;
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
+import com.sun.org.apache.xpath.internal.operations.Mult;
+import org.springframework.web.multipart.MultipartException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,6 +87,11 @@ public class DataManager {
         return course;
     }
 
+    public Long getModuleParent(Long moduleId){
+        Module module = getModuleWithModuleId(moduleId);
+        return module.getTheParentCourse().getId();
+    }
+
     public Module getModuleWithModuleId(Long moduleId) {
         Module module = null;
 
@@ -98,6 +106,11 @@ public class DataManager {
         return module;
     }
 
+    public Long getTopicParent(Long topicId){
+        Topic topic = getTopicWithTopicId(topicId);
+        return topic.getTheParentModule().getId();
+    }
+
     public Topic getTopicWithTopicId(Long topicId) {
         Topic topic = null;
 
@@ -110,6 +123,20 @@ public class DataManager {
         }
 
         return topic;
+    }
+
+    public MultipleChoices getMultipleChoiceFromMultipleChoiceID(Long mcId){
+        MultipleChoices mc = null;
+
+        List<MultipleChoices> mcList = ObjectifyService.ofy().load().type(MultipleChoices.class).list();
+        for (MultipleChoices m : mcList){
+            if(m.getID().equals(mcId)){
+                mc = m;
+                break;
+            }
+        }
+
+        return mc;
     }
 
     /**
@@ -244,5 +271,65 @@ public class DataManager {
         List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
 
         return moduleList;
+    }
+
+    public List<Topic> getTopicsFromModule(Long moduleId){
+        /* Create the key to search for the topics in the datstore. */
+        Key<Module> moduleKey = Key.create(Module.class, moduleId);
+
+        List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
+
+        return topicList;
+    }
+
+    public Long getMCParent(Long mcId){
+        MultipleChoices mc = getMultipleChoiceFromMultipleChoiceID(mcId);
+        return mc.getParentTopicID();
+    }
+
+    public List<MultipleChoices> getMCFromTopic(Long topicId){
+        /* Create the key to search for the MCs in the datastore. */
+        Key<Topic> topicKey = Key.create(Topic.class, topicId);
+
+        List<MultipleChoices> mc = ObjectifyService.ofy().load().type(MultipleChoices.class).ancestor(topicKey).list();
+
+        return mc;
+    }
+
+    public void deleteCourse(Long courseId){
+        /* Now delete the modules associated with this course first. */
+        List<Module> moduleList = dm.getModulesFromCourse(courseId);
+        for (Module m : moduleList){
+            /* Each module will handle deletion of it's own topics. */
+            dm.deleteModule(m.getId());
+        }
+        /* Now delete it. */
+        ObjectifyService.ofy().delete().type(Course.class).id(courseId).now();
+    }
+
+    public void deleteModule(Long moduleId){
+        /* Now delete the topics associated with this module first. */
+        List<Topic> topicList = dm.getTopicsFromModule(moduleId);
+        for(Topic t : topicList){
+            /* Each topic will handle deletion of it's own MCs. */
+            dm.deleteTopic(t.getId());
+        }
+        /* Now delete it. */
+        ObjectifyService.ofy().delete().type(Module.class).id(moduleId).now();
+    }
+
+    public void deleteTopic(Long topicId){
+        /* Now delete the MCs associated with this topic first. */
+        List<MultipleChoices> mc = dm.getMCFromTopic(topicId);
+        for(MultipleChoices m : mc){
+            /* Each MC will delete itself. */
+            dm.deleteMC(m.getID());
+        }
+        /* Now delete it. */
+        ObjectifyService.ofy().delete().type(Topic.class).id(topicId).now();
+    }
+
+    public void deleteMC(Long mcId){
+        ObjectifyService.ofy().delete().type(MultipleChoices.class).id(mcId).now();
     }
 }

@@ -79,4 +79,5 @@ public class MultipleChoices {
     }
     public void setParentTopicID(Long parentTopicID) { this.parentTopicID = parentTopicID; }
     public Long getParentTopicID() { return parentTopicID; }
+    public Long getID() { return id; }
 }
