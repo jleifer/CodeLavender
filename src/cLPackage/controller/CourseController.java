@@ -2,8 +2,8 @@ package cLPackage.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
 /**
  * Created by Jonathan on 4/21/2017.
  */
@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class CourseController {
 
     @RequestMapping(value = {"/viewCourse", "/viewCourse.jsp"}, method = RequestMethod.GET)
-    public String getCoursePage(ModelMap model) {
+    public String getCoursePage(ModelMap model,
+                         @ModelAttribute("userId") String userId,
+                         @ModelAttribute("courseId") String courseId) {
+        model.addAttribute("userId", userId);
+        model.addAttribute("courseId", courseId);
         return "course";
     }
 

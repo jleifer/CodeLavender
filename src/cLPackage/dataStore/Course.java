@@ -25,6 +25,7 @@ public class Course {
     @Index private String ownerLast;
     @Index private int isPublic; // 0 - private, 1 - public
     @Index private int endorsedByUsers;
+    @Index private int totalEndorsers;
     @Index private int endorsedByInstructors;
     @Index private String description;
     @Index private String imgURL;
@@ -36,6 +37,7 @@ public class Course {
         this.ownerLast = "Last";
         this.isPublic = 0;
         this.endorsedByUsers = 0;
+        this.totalEndorsers = 0;
         this.endorsedByInstructors = 0;
         this.description = "No Description";
         this.imgURL = "../../resources/img/rec-img.jpeg";
@@ -61,6 +63,8 @@ public class Course {
         if(endorsedByUsers >= 0){
             this.endorsedByUsers = endorsedByUsers;
         }
+        totalEndorsers = 0;
+
         if(endorsedByInstructors >= 0){
             this.endorsedByInstructors = endorsedByInstructors;
         }
@@ -113,6 +117,14 @@ public class Course {
 
     public void setEndorsedByUsers(int endorsedByUsers) {
         this.endorsedByUsers = endorsedByUsers;
+    }
+
+    public int getTotalEndorsers() {
+        return totalEndorsers;
+    }
+
+    public void setTotalEndorsers(int totalEndorsers) {
+        this.totalEndorsers = totalEndorsers;
     }
 
     public String getDescription(){return this.description;}

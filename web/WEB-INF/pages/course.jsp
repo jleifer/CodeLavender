@@ -57,6 +57,7 @@
     <script src="../../resources/js/bootstrap.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="../../resources/js/googleLogin.js" async defer></script>
+    <script src="../../resources/js/ratingController.js" async defer></script>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
     <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <!-- Start our file -->
@@ -182,6 +183,20 @@
         <br/>
     </div>
  -->
+    <br><br>
+    <div class="star-container">
+        <div class="row">
+            <h3>Rate this course !!</h3>
+        </div>
+        <div class="row lead">
+            <div id="stars" class="starrr"></div>
+            You gave a rating of <span id="count">0</span> star(s)
+        </div>
+        <button type="button" class="btn btn-outline-primary"
+                onclick="rateCourse(${courseId},${userId})">
+            <span class="glyphicon glyphicon-plus"></span> Submit Rating
+        </button>
+    </div>
 
 </div>
 

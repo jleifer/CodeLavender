@@ -94,6 +94,10 @@
                     </div>
                 </div>
             </div>
+            <button type="button" class="btn btn-outline-primary"
+                    onclick="location.href='MailServlet'">
+                <span class="glyphicon glyphicon-plus"></span> Request prof status
+            </button>
         </div>
 
         <div style="width:600px; height:800px; float: left; border: 1px solid lightgrey; margin-left: 30px;">

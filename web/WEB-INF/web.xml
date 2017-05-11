@@ -88,6 +88,24 @@
         <url-pattern>/DeleteQuizServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>MailServlet</servlet-name>
+        <servlet-class>cLPackage.MailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MailServlet</servlet-name>
+        <url-pattern>/MailServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RatingServlet</servlet-name>
+        <servlet-class>cLPackage.RatingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RatingServlet</servlet-name>
+        <url-pattern>/RatingServlet</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
