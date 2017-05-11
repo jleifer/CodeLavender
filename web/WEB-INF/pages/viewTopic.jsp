@@ -70,6 +70,13 @@
             text-align: center;
             background-color: rgb(101,165,183);
             line-height: 40px;
+            cursor:pointer;
+        }
+        .mutic:hover{
+            background-color: rgb(81,135,143);
+        }
+        .mutic b{
+            font-size:20px;
         }
     </style>
 </head>
@@ -120,7 +127,7 @@
 
 
         <h1 style="margin-left: 50px;"><%=topic.getName()%></h1>
-
+        <div style="display: block;"><div>
         <div style="width: 800px;margin-left: 50px;
 			background-color: rgba(230,230,250,0.9);
 			font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888;">
@@ -156,11 +163,11 @@
             for (int k = 0 ; k<options.length;k++){
                 if(quizList.get(i).getAnswer()==k){
                     %>
-        <div onclick="correct(1)" class="mutic"><b style="font-size: 20px; cursor: pointer;"><%=options[k]%></b></div>
+        <div onclick="correct(1)" class="mutic"><b ><%=options[k]%></b></div>
         <%
                 }else{
                     %>
-        <div onclick="correct(3)" class="mutic"><b style="font-size: 20px; cursor: pointer;"><%=options[k]%></b></div>
+        <div onclick="correct(3)" class="mutic"><b ><%=options[k]%></b></div>
         <%
                 }
         %><% } %>

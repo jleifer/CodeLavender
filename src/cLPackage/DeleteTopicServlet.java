@@ -33,6 +33,7 @@ public class DeleteTopicServlet extends HttpServlet {
         ObjectifyService.ofy().delete().entity(topic).now();
 
         HttpSession session = req.getSession();
+
         resp.sendRedirect("newModule?userId="+userIdString+"&courseId="+courseIdString+"&moduleId="+moduleIdString);
     }
 }
