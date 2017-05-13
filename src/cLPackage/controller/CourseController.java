@@ -62,8 +62,22 @@ public class CourseController {
                              @ModelAttribute("courseId") Long courseId) {
         /* Retrieve Data manager */
         DataManager dm = DataManager.getDataManager();
-
-        Course courseToEdit = dm.getCourseWithCourseId(courseId);
+        Course courseToEdit = null;
+        try{
+            courseToEdit = dm.getCourseWithCourseId(courseId);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            if(courseToEdit == null){
+                /* Wait and try again */
+                try {
+                    Thread.currentThread().sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                courseToEdit = dm.getCourseWithCourseId(courseId);
+            }
+        }
         List<Module> moduleList = dm.getModulesFromCourse(courseId);
         String coursePublished = (courseToEdit.getIsPublic() == 0) ? "unchecked" : "checked";
 

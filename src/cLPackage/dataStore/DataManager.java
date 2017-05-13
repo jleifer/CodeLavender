@@ -45,15 +45,35 @@ public class DataManager {
      */
     public User getUserWithEmail(String email) {
         User user;
+        user = null;
 
         // First check if the user has already exists
-        boolean newUser = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().isEmpty();
+        boolean newUser = false;
+        try{
+            newUser = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().isEmpty();
+        }catch(Exception ex){
+            System.out.println("Error in obtaining if user exists.\n" + "Exception: " + ex.getMessage());
+        }
         if(newUser) {
             // Indicate that user is new
             user = null;
         }
         else{
-            user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
+            try{
+                user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
+            }catch(Exception ex){
+                System.out.println("Error in obtaining user.\n" + "Exception: " + ex.getMessage());
+            }finally{
+                if(user == null){
+                    /* Let's wait and try again. */
+                    try {
+                        Thread.currentThread().sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    user = ObjectifyService.ofy().load().type(User.class).filter("email = ",email).list().get(0);
+                }
+            }
         }
 
         return user;
@@ -170,14 +190,16 @@ public class DataManager {
         System.out.println("New Course Created.");
         System.out.println(newCourse.getId());
         /* Create initial Module and Topic entities within the new Course entity */
-        dm.createModule(newCourse.getId());
+        dm.createModule(newCourse.getId(), newCourse);
 
         return newCourse;
     }
 
-    public void createModule(Long courseId) {
+    public void createModule(Long courseId, Course course) {
         /* Retrieve data needed for creation of new module */
-        Course course = dm.getCourseWithCourseId(courseId);
+        if(course == null) {
+            course = dm.getCourseWithCourseId(courseId);
+        }
 
         /* Create new Module object and save it to the datastore */
         if(course == null){
@@ -192,13 +214,15 @@ public class DataManager {
         ObjectifyService.ofy().save().entity(newModule).now();
 
         Long newModuleId = ObjectifyService.ofy().load().entity(newModule).now().id;
-        dm.createTopic(newModuleId);
+        dm.createTopic(newModuleId, newModule);
 
     }
 
-    public void createTopic(Long moduleId) {
+    public void createTopic(Long moduleId, Module module) {
         /* Retrieve data needed for creation of new topic */
-        Module module = dm.getModuleWithModuleId(moduleId);
+        if(module == null){
+            module = dm.getModuleWithModuleId(moduleId);
+        }
 
         /* Create new Topic entity and save it to the datastore */
         if(module == null){
@@ -213,12 +237,15 @@ public class DataManager {
         ObjectifyService.ofy().save().entity(newTopic).now();
 
         Long newTopicId = ObjectifyService.ofy().load().entity(newTopic).now().id;
-        dm.createTopicQuizQuestion(newTopicId);
+        dm.createTopicQuizQuestion(newTopicId, newTopic);
     }
 
-    public void createTopicQuizQuestion(Long topicId) {
+    public void createTopicQuizQuestion(Long topicId, Topic topic) {
         /* Retrieve data needed for creation of new topic */
-        Topic topic = dm.getTopicWithTopicId(topicId);
+        if(topic == null){
+            topic = dm.getTopicWithTopicId(topicId);
+        }
+
         if(topic == null){
             try {
                 Thread.sleep(1000);
