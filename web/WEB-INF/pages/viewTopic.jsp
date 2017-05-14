@@ -2,7 +2,8 @@
 <%@ page import="cLPackage.dataStore.Topic" %>
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: AjaxSurangama
   Date: 4/21/2017
@@ -10,6 +11,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
     ObjectifyService.register(MultipleChoices.class);
     String userId = (String)request.getParameter("userId").toString();
@@ -26,6 +29,12 @@
     }
     Key<Topic> topicKey = Key.create(Topic.class,Long.parseLong(topicId));
     List<MultipleChoices> quizList = ObjectifyService.ofy().load().type(MultipleChoices.class).ancestor(topicKey).list();
+
+    session.setAttribute("quizList",quizList);
+    session.setAttribute("userId",userId);
+    session.setAttribute("courseId",courseId);
+    session.setAttribute("moduleId",moduleId);
+    session.setAttribute("topicId",topicId);
     System.out.println("quizList size"+quizList.size());
 %>
 
@@ -48,37 +57,12 @@
     <script src="../../resources/js/googleLogin.js"></script>
     <link rel="stylesheet" href="../../resources/css/hello-style.css">
     <link rel="stylesheet" href="../../resources/css/profile.css">
+    <link rel="stylesheet" href="../../resources/css/viewTopic-style.css">
     <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
+    <script src="../../resources/js/viewTopic.js"></script>
     <title>DevRoot</title>
 
-    <style type="text/css">
-        .prevnext{
-            width: 150px;
-            height: 25px;
-            border:1px solid grey;
-            background-color: rgb(190,190,210);
-            text-align: center;
-            position: relative;
-            top: 35px;
-        }
-        .mutic{
-            width: 400px;
-            height: 40px;
-            border-radius: 10px;
-            margin: auto;
-            margin-top: 3px;
-            text-align: center;
-            background-color: rgb(101,165,183);
-            line-height: 40px;
-            cursor:pointer;
-        }
-        .mutic:hover{
-            background-color: rgb(81,135,143);
-        }
-        .mutic b{
-            font-size:20px;
-        }
-    </style>
+
 </head>
 <body onload="loadAuth()">
 
@@ -98,12 +82,7 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="main?email=${email}">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
-        <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" class="search-box" placeholder="Search">-->
-        <!--<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>-->
-        <!--</div>-->
-        <!--</form>-->
+
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle navbar-img" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -161,13 +140,13 @@
         </div>
         <%  String options[] = quizList.get(i).getOptions();
             for (int k = 0 ; k<options.length;k++){
-                if(quizList.get(i).getAnswer()==k){
+                if(quizList.get(i).getAnswer()==k+1){
                     %>
-        <div onclick="correct(1)" class="mutic"><b ><%=options[k]%></b></div>
+        <div id="quiz_<%=i+1%>_<%=k+1%>" onclick="selectOption(<%=i+1%>,<%=k+1%>,1)" class="mutic"><b ><%=options[k]%></b></div>
         <%
                 }else{
                     %>
-        <div onclick="correct(3)" class="mutic"><b ><%=options[k]%></b></div>
+        <div id="quiz_<%=i+1%>_<%=k+1%>" onclick="selectOption(<%=i+1%>,<%=k+1%>,0)" class="mutic"><b ><%=options[k]%></b></div>
         <%
                 }
         %><% } %>
@@ -229,12 +208,55 @@ public class HelloWorld {
         </div>
     -->
 
+            <!--prepare back btn url-->
+            <c:url var="backUrl" value="/viewCourse">
+                <c:param name="userId" value="${userId}"/>
+                <c:param name="courseId" value="${courseId}"/>
+            </c:url>
+
     </div>
     <br><br>
+    <span class="input-group-btn" style="display: block; margin-top: 20px;margin:auto;width:150px;" title="Submit">
+        <button class="btn btn-success glyphicon glyphicon-ok" type="button"
+                id ="submit_quiz_btn">&nbsp;Submit Quiz</button>
 
-
-
+        <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 320px;"
+                id ="back_btn" onclick="location.href='${backUrl}'">&nbsp;Back</button>
+    </span>
+    <br><br>
 </div>
 
+    </div>
+</div>
+
+<!-- Quiz Answer Response -->
+<div class="quizResponse" id="quizResponse">
+    <h1 >Quiz Results</h1>
+    <h2 id="quiz_proficiency">Proficiency:</h2>
+    <br><br>
+    <c:forEach var="i" begin="1" end="${fn:length(quizList)}">
+        <h2 id="quizResponse${i}" style="background:lawngreen;">Quiz 1:</h2>
+    </c:forEach>
+    <br><br>
+    <span class="input-group-btn" style="display: block; margin-top: 20px;margin:auto;width:90px;" title="Submit">
+        <button class="btn btn-success glyphicon glyphicon-ok" type="button"
+                id ="ok_btn">&nbsp;OK</button>
+    </span>
+</div>
+
+<!--Hidden Form for recording and submitting quiz answers-->
+
+<form id="takeQuizForm" action="TakeTopicQuizServlet" method="POST">
+    <input type="hidden" name="quizNum"  id="quizNum"  value="<c:out value="${fn:length(quizList)}"/>">
+    <input type="hidden" name="userId" value="<c:out value="${userId}" />">
+    <input type="hidden" name="courseId" value="<c:out value="${courseId}" />">
+    <input type="hidden" name="moduleId" value="<c:out value="${moduleId}" />">
+    <input type="hidden" name="topicId" value="<c:out value="${topicId}" />">
+    <input type="hidden" id="topicProficiency" name="topicProficiency" value="0">
+    <c:forEach var="i" begin="1" end="${fn:length(quizList)}">
+        <input type="hidden" id="quizAnswer${i}" name="quizAnswer${i}" value="-1"> "><!-- val=-1 not answered yet -->
+    </c:forEach>
+
+</form>
 </body>
 </html>

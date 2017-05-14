@@ -150,11 +150,13 @@ hr {
     padding-bottom: 20px;
     box-shadow:5px 5px 2px #888888;
     border: 1px solid black;
+    min-height: 600px;
 }
 
 .masonry-container div {
     display: inline-block;
 }
+
 .well {
     position:relative;
     display: block;

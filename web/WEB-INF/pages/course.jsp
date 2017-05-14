@@ -112,9 +112,10 @@
 
 
     <div id="course-page-name"><h1><c:out value="${course.name}"></c:out></h1></div>
-    <div class="masonry-container">
+   <!-- <div class="masonry-container">-->
+    <div style=" width: 1100px; padding-bottom: 20px;">
     <%  for (int i = 0; i<moduleList.size();i++){%>
-        <div class="module_active">
+        <div class="module_active" >
             <div class="well">
             <div class="module-name"><h3><%=moduleList.get(i).getName()%></h3></div>
             <hr/>

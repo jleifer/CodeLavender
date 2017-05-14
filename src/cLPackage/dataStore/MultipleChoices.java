@@ -5,12 +5,13 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
+import java.io.Serializable;
 
 /**
  * Created by Yifang Cao on 4/20/2017.
  */
 @Entity
-public class MultipleChoices {
+public class MultipleChoices implements Serializable  {
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Parent

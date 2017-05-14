@@ -1,3 +1,40 @@
+.prevnext{
+    width: 150px;
+    height: 25px;
+    border:1px solid grey;
+    background-color: rgb(190,190,210);
+    text-align: center;
+    position: relative;
+    top: 35px;
+}
 .mutic{
-    cursor: pointer;
+    width: 400px;
+    height: 40px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 3px;
+    text-align: center;
+    background-color: rgb(101,165,183);
+    line-height: 40px;
+    cursor:pointer;
+}
+.mutic:hover{
+    background-color: rgb(81,135,143);
+}
+.mutic b{
+    font-size:20px;
+}
+.quizResponse{
+    position: fixed;
+    background-color: #ffffff;
+    width: 500px;
+    margin-left: -250px;
+    border: 1px solid red;
+    top:15%;
+    left:50%;
+    box-shadow:1px 1px 10px #888888;
+    font-size:18px;
+    padding: 10px;
+    display: none;
+    z-index: 88;
 }

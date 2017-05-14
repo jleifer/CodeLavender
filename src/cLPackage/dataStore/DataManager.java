@@ -25,6 +25,8 @@ public class DataManager {
         ObjectifyService.register(Module.class);
         ObjectifyService.register(Topic.class);
         ObjectifyService.register(MultipleChoices.class);
+        ObjectifyService.register(UserCompleted.class);
+
     }
 
     public static DataManager getDataManager(){
@@ -111,6 +113,21 @@ public class DataManager {
         List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).ancestor(userKey).list();
 
         return courseList;
+    }
+
+    /**
+     * Returns a list of UserCompleted in the datastore created by
+     * the user with the given user id.
+     *
+     * @param userId User Id of the User entity in the datastore
+     * @return List List of UserCompleted entities from the datastore created
+     * by the user with the given user id.
+     */
+    public List<UserCompleted> getUserCompletedListCreatedByUserID(Long userId){
+        /* Create the key to search for the user in the datastore */
+        Key<User> userKey = Key.create(User.class, userId);
+        List<UserCompleted> UserCompletedList = ObjectifyService.ofy().load().type(UserCompleted.class).ancestor(userKey).list();
+        return UserCompletedList;
     }
 
 

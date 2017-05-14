@@ -96,23 +96,39 @@
             </div>
         </div>
 
-        <div style="width:600px; height:800px; float: left; border: 1px solid lightgrey; margin-left: 30px;">
-            &nbsp;<h2>Course Created</h2>
-            <hr />
-            <!--------- Start Dyanamic generating ------------>
-            <c:forEach var="course" begin="0" items="${courseList}">
-                <div class="courseCreated">
-                    <span onclick="location.href = 'newCourse?courseId=${course.id}&userId=${userId}'">
-                        ${course.name}
-                        <c:if test="${course.isPublic != 1}">
-                            (Not Published)
-                        </c:if>
-                    </span>
-                </div>
-            </c:forEach>
-            <!----------------END generating ------------------->
+        <div style="width:700px; height:auto; padding-bottom: 20px; float: left; margin-left: 30px; ">
+            <div style="width:600px; height:auto; padding-bottom: 20px;  border: 1px solid lightgrey; margin-left: 10px; ">
+                &nbsp;<h2>Course Created</h2>
+                <hr />
+                <!--------- Start Dyanamic generating ------------>
+                <c:forEach var="course" begin="0" items="${courseList}">
+                    <div class="courseCreated">
+                        <span onclick="location.href = 'newCourse?courseId=${course.id}&userId=${userId}'">
+                            ${course.name}
+                            <c:if test="${course.isPublic != 1}">
+                                (Not Published)
+                            </c:if>
+                        </span>
+                    </div>
+                </c:forEach>
+                <!----------------END generating ------------------->
+            </div>
+
+            <div style="width:600px; height:auto; margin-top: 30px; padding-bottom: 20px; border: 1px solid lightgrey; margin-left: 10px;">
+                &nbsp;<h2>Course Started</h2>
+                <hr />
+                <!--------- Start Dyanamic generating ------------>
+                <c:forEach var="course" begin="0" items="${courseStarted}">
+                    <div class="courseCreated">
+                        <span onclick="location.href = 'viewCourse?courseId=${course.id}&userId=${userId}'">
+                            ${course.name}
+                        </span>
+                    </div>
+                </c:forEach>
+                <!----------------END generating ------------------->
+            </div>
         </div>
-    </div>
+        </div>
 </div>
 </body>
 </html>

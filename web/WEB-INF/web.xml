@@ -95,6 +95,14 @@
         <servlet-name>DeleteQuizServlet</servlet-name>
         <url-pattern>/DeleteQuizServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>TakeTopicQuizServlet</servlet-name>
+        <servlet-class>cLPackage.TakeTopicQuizServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TakeTopicQuizServlet</servlet-name>
+        <url-pattern>/TakeTopicQuizServlet</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>ObjectifyFilter</filter-name>

@@ -19,6 +19,7 @@ public class UserCompleted {
     @Id public Long id;
 
     // 5 attributes
+    @Index private long courseID;
     @Index private long moduleID;
     @Index private long topicID;
     @Index private int moduleLevel;
@@ -27,6 +28,7 @@ public class UserCompleted {
 
     //Default constructor
     public UserCompleted(){
+        this.courseID = 0L;
         this.moduleID = 0L;
         this.topicID = 0L;
         this.moduleLevel = 0;
@@ -35,10 +37,13 @@ public class UserCompleted {
     }
 
     //Constructor
-    public UserCompleted(long moduleID, long topicID, int moduleLevel,
+    public UserCompleted(long courseID,long moduleID, long topicID, int moduleLevel,
                   int topicLevel, int completed, User u){
         this();
         user = Key.create(User.class, u.id);
+        if(courseID >= 0L){
+            this.courseID = courseID;
+        }
         if(moduleID >= 0L){
             this.moduleID = moduleID;
         }
@@ -108,4 +113,8 @@ public class UserCompleted {
     public void setCompleted(int completed) {
         this.completed = completed;
     }
+
+    public void setCourseID(long courseID){this.courseID = courseID;}
+
+    public long getCourseID(){return this.courseID;}
 }
