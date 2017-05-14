@@ -47,6 +47,8 @@ public class MultipleChoices implements Serializable  {
             }
         }
     }
+
+    public Long getParentTopicID() { return topic.getId(); }
     public int getOptionNumber(){
         return this.optionNumber;
     }
@@ -71,4 +73,5 @@ public class MultipleChoices implements Serializable  {
     public void setAnswer(int answer){
         this.answer =answer;
     }
+    public Long getID() { return id; }
 }
