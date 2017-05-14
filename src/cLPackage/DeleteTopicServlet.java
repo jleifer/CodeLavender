@@ -55,6 +55,7 @@ public class DeleteTopicServlet extends HttpServlet {
 
         //Return the user to the module.
         HttpSession session = req.getSession();
+
         resp.sendRedirect("newModule?userId="+userIdString+"&courseId="+courseIdString+"&moduleId="+moduleIdString);
     }
 }

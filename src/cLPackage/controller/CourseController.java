@@ -17,7 +17,10 @@ import java.util.List;
 public class CourseController {
 
     @RequestMapping(value = {"/viewCourse", "/viewCourse.jsp"}, method = RequestMethod.GET)
-    public String getCoursePage(ModelMap model) {
+    public String getCoursePage(ModelMap model,
+                                @SessionAttribute("userId") Long userId,
+                                @ModelAttribute("courseId") Long courseId) {
+        model.addAttribute("courseId", courseId);
         return "course";
     }
 

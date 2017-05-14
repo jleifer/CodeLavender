@@ -12,8 +12,8 @@
 
 .module_active{
     position: relative;
-    width:250px ;
-    height:460px;
+    width:290px ;
+    /*height:460px;*/
     border: 1px solid grey;
     background-color: rgba(230,230,250,0.9);
     margin-left: 55px;
@@ -136,4 +136,29 @@ hr {
     width: 40px;
     height: 105px;
 // background-image: url("./cross.png");
+}
+
+.masonry-container {
+    -moz-column-count: 3;
+    -moz-column-gap: 10px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 10px;
+    column-count: 3;
+    column-gap: 10px;
+    width: 1260px;
+    margin-bottom: 100px;
+    padding-bottom: 20px;
+    box-shadow:5px 5px 2px #888888;
+    border: 1px solid black;
+    min-height: 600px;
+}
+
+.masonry-container div {
+    display: inline-block;
+}
+
+.well {
+    position:relative;
+    display: block;
+    background-color: inherit;
 }

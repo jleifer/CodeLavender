@@ -92,7 +92,7 @@
             <label class="control-label">Add Topics</label>
             <span class="add_field_button">
                 <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"
-                        onclick="location.href='/AddTopicServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(0).id%>';"></button>
+                        onclick="location.href='/AddTopicServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>';"></button>
             </span>
             <%--<button class="add_field_button">Add More Fields</button>--%>
             <div>

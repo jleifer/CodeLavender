@@ -113,8 +113,11 @@
 
 
     <div id="course-page-name"><h1><c:out value="${course.name}"></c:out></h1></div>
+   <!-- <div class="masonry-container">-->
+    <div style=" width: 1100px; padding-bottom: 20px;">
     <%  for (int i = 0; i<moduleList.size();i++){%>
-        <div class="module_active">
+        <div class="module_active" >
+            <div class="well">
             <div class="module-name"><h3><%=moduleList.get(i).getName()%></h3></div>
             <hr/>
             <%
@@ -122,16 +125,19 @@
                 List<Topic> topics = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
                 for (int k = 0; k<topics.size();k++){
             %>
-                <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
-                <div class="topic">
-                    <div class="topic-name">
-                        <a href="viewTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>&topicId=<%=topics.get(k).id%>">
-                            Topic <%=k+1%>
-                        </a>
+                <div >
+                    <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
+                    <div class="topic">
+                        <div class="topic-name">
+                            <a href="viewTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>&topicId=<%=topics.get(k).id%>">
+                                Topic <%=k+1%>
+                            </a>
+                        </div>
+                            <div class="score"><span class="passed">100%</span></div>
+                        <br/>
+                        <%=topics.get(k).getName()%>
+                        <br/>
                     </div>
-                        <div class="score"><span class="passed">100%</span></div>
-                    <%=topics.get(k).getName()%>
-                    <br/>
                 </div>
                 <br/>
             <%}%>
@@ -139,8 +145,10 @@
             <hr />
             <div class="topic-name"><a href="#" style="margin-left: 30px;">Module Test</a></div>
             <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
+            </div>
         </div>
     <% }%>
+    </div>
     <!-------
 
     <div id="course-page-name"><h1>Sample Course</h1></div>
