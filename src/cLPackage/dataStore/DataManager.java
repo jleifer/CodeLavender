@@ -391,11 +391,6 @@ public class DataManager {
         return topicList;
     }
 
-    public Long getMCParent(Long mcId){
-        MultipleChoices mc = getMultipleChoiceFromMultipleChoiceID(mcId);
-        return mc.getParentTopicID();
-    }
-
     public List<MultipleChoices> getMCFromTopic(Long topicId){
         /* Create the key to search for the MCs in the datastore. */
         Key<Topic> topicKey = Key.create(Topic.class, topicId);

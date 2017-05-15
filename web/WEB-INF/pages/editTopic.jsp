@@ -144,8 +144,7 @@
                             <c:set var="qCount" value="1"/>
                             <div class="quiz_question">
                                 <label class="quiz_label"></label>
-                                <span style="color:red;cursor:pointer;margin-left:10px;"
-                                      onclick="location.href='/deleteMC?mcId=${quiz.ID}';">Delete</span>
+                                <span style="color:red;cursor:pointer;margin-left:10px;">Delete</span>
                                 <br />
                                 <textarea id="quizDescription_${qCount}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
                                 <c:forEach var="quizOption" begin="0" items="${quiz.options}">
@@ -164,9 +163,15 @@
                                     <c:set var="qOptCount" value="${qOptCount+1}"/>
                                 </c:forEach>
                                 <label class="quiz_label">Answer: </label>
-                                <select id="quizAns_${qCount}">
-                                    <option ${quiz.answer}> </option>
+                                <select id="quizAns_{qCount}">
+                                    <!-- Correct answer option -->
+                                    <c:forEach var="quizOption" begin="0" items="${quiz.options}">
+                                        <c:set var="opt" value="0"/>
+                                        <option value="quizAnsOption_${qCount}_${opt}"> ${quizOption}</option>
+                                        <c:set var="opt" value="${opt+1}"/>
+                                    </c:forEach>
                                 </select>
+
                             </div>
                             <c:set var="qCount" value="${qCount+1}"/>
                         </c:forEach>
@@ -177,7 +182,8 @@
             </div>
             <div style="height: 30px; margin-top:30px;">
                 <span class="add_field_button" id="add_quiz_btn"  style="display: block; float: left;" >
-                        <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
+                        <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"
+                                onclick="location.href='/addMC?topicId=${topicId}"></button>
                         New Quiz:&nbsp;
                 </span>
                 <select id="cur_quiz_type">
@@ -197,7 +203,7 @@
         </div>
         <!---------END Add Topic Quiz Control END------------>
         <script>
-            $("#submit_edit").click(function(){
+        $("#submit_edit").click(function(){
                 var topic_name = $("#topic_name").val();
                 var topic_description = $("#topic_description").val();
                 var quiz_total_num = $("#quiz_total_num").val();
