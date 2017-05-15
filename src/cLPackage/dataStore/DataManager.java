@@ -285,6 +285,23 @@ public class DataManager {
         datastore.put(Course);
     }
 
+    public void updateModule(Long moduleId, String moduleEditName, int hasTest) {
+        /* Retrieve module to update */
+        Module moduleToUpdate = dm.getModuleWithModuleId(moduleId);
+        Long parentCourseId = dm.getModuleParent(moduleId);
+
+        /* Access the datastore to update the entity fields without changing the module id */
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key courseKey = KeyFactory.createKey("Course", parentCourseId);
+        Entity Module = new Entity("Module",moduleToUpdate.id,courseKey);
+        Module.setIndexedProperty("name",moduleEditName);
+        Module.setIndexedProperty("hasTest",hasTest);
+
+        /* Update the entity associated with the current module id */
+        ObjectifyService.ofy().delete().entity(moduleToUpdate).now();
+        datastore.put(Module);
+    }
+
     public Long getCourseOwner(Long courseId){
         Course course = ObjectifyService.ofy().load().type(Course.class).id(courseId).now();
         return course.getTheParentUser().getId();
