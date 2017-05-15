@@ -82,17 +82,18 @@
             <div class="input_fields_wrap">
                 <label class="control-label">Add Modules</label>
                 <%-- To add modules and navigate back to current course edit page --%>
-                <span class="add_field_button" onclick="location.href='/editCourse?courseId=${courseToEdit.id}';">
-                <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
-            </span>
+                <span class="add_field_button" onclick="location.href='/newModule?courseId=${courseToEdit.id}'">
+                    <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
+                </span>
 
                 <!------  Start Dynamically loading ----------->
                 <c:forEach var="module" begin="0" items="${moduleList}">
                     <div>
                     <span class="btn glyphicon glyphicon-edit" title="edit"
-                          onclick="location.href='/newModule?courseId=${courseToEdit.id}&moduleId=${module.id}'"></span>
+                          onclick="location.href='/editModule?moduleId=${module.id}'"></span>
                         Name:<input type="text" name="course_name" value="${module.name}" disabled>
-                        <a href="#" class="remove_field" onclick="location.href='/DeleteModuleServlet?courseId=${courseToEdit.id}&moduleId=${module.id}'">
+                        <%--<a href="#" class="remove_field" onclick="location.href='/DeleteModuleServlet?courseId=${courseToEdit.id}&moduleId=${module.id}'">--%>
+                        <a href="#" class="remove_field" onclick="location.href='/deleteModule?moduleId=${module.id}'">
                             <span class="remove_field glyphicon glyphicon-minus-sign"></span>
                         </a>
                     </div>
