@@ -4,6 +4,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * Edited by Konstantinos Pagonis on 4/6/2017
  */
 @Entity
-public class User {
+public class User implements Serializable{
     //Primary Key
     @Id public Long id;
     // 5 attributes
@@ -23,7 +24,7 @@ public class User {
     @Index private int isInstructor;
     @Index private Date created;
     @Index private String email;
-    @Index private int[] endorsed;
+    //@Index private int[] endorsed;
 
     //Default constructor
     public User(){
@@ -32,7 +33,7 @@ public class User {
         this.isInstructor = 0;
         this.created = new Date();
         this.email = "no email";
-        this.endorsed = new int[100];
+        //this.endorsed = new int[100];
     }
 
     //Constructor
@@ -54,7 +55,7 @@ public class User {
             this.created = created;
         }
         if(endorsed != null){
-            this.endorsed = endorsed;
+            //this.endorsed = endorsed;
         }
     }
 
@@ -95,6 +96,7 @@ public class User {
 
     public void setEmail(String email){this.email=email;}
 
+    /*
     public int[] getEndorsed(){
         return endorsed;
     }
@@ -102,4 +104,5 @@ public class User {
     public void setEndorsed(int[] endorsed){
         this.endorsed = endorsed;
     }
+    */
 }
