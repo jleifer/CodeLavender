@@ -24,7 +24,7 @@ public class TopicController {
         return "newTopic"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 
-    @RequestMapping(value = {"deleteTopic"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/deleteTopic"}, method = RequestMethod.GET)
     public String deleteTopic(ModelMap model,
                               @ModelAttribute("topicId") Long topicId) {
         /* Retrieve Data manager. */
@@ -37,7 +37,7 @@ public class TopicController {
         return "redirect:/editModule";
     }
 
-    @RequestMapping(value = {"deleteMC"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/deleteMC"}, method = RequestMethod.GET)
     public String deleteMC(ModelMap model,
                            @ModelAttribute("mcID") Long mcId) {
 

@@ -111,22 +111,10 @@ public class CourseController {
                                @ModelAttribute("courseId") Long courseId) {
         /* Retrieve Data manager. */
         DataManager dm = DataManager.getDataManager();
-        model.addAttribute("userId", dm.getCourseOwner(courseId));
 
         dm.deleteCourse(courseId);
 
-        /* Set needed values into the session and model. */
-        return "redirect:/profile";
-    }
-
-    @RequestMapping(value = {"/deleteSelectedModule"}, method = RequestMethod.GET)
-    public String deleteModule(ModelMap model,
-                               @ModelAttribute("moduleId") Long moduleId) {
-        /* Retrieve Data manager. */
-        DataManager dm = DataManager.getDataManager();
-        model.addAttribute("moduleId", dm.getModuleParent(moduleId));
-
-        dm.deleteModule(moduleId);
+        model.remove("courseId");
 
         /* Set needed values into the session and model. */
         return "redirect:/profile";

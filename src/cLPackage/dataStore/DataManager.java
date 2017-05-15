@@ -396,7 +396,9 @@ public class DataManager {
             dm.deleteModule(m.getId());
         }
         /* Now delete it. */
-        ObjectifyService.ofy().delete().type(Course.class).id(courseId).now();
+        Course courseToDelete = dm.getCourseWithCourseId(courseId);
+        //ObjectifyService.ofy().delete().type(Course.class).id(courseId).now();
+        ObjectifyService.ofy().delete().entity(courseToDelete).now();
     }
 
     public void deleteModule(Long moduleId){
@@ -407,7 +409,9 @@ public class DataManager {
             dm.deleteTopic(t.getId());
         }
         /* Now delete it. */
-        ObjectifyService.ofy().delete().type(Module.class).id(moduleId).now();
+        //ObjectifyService.ofy().delete().type(Module.class).id(moduleId).now();
+        Module moduleToDelete = dm.getModuleWithModuleId(moduleId);
+        ObjectifyService.ofy().delete().entity(moduleToDelete).now();
     }
 
     public void deleteTopic(Long topicId){
@@ -418,10 +422,14 @@ public class DataManager {
             dm.deleteMC(m.getID());
         }
         /* Now delete it. */
-        ObjectifyService.ofy().delete().type(Topic.class).id(topicId).now();
+        //ObjectifyService.ofy().delete().type(Topic.class).id(topicId).now();
+        Topic topicToDelete = dm.getTopicWithTopicId(topicId);
+        ObjectifyService.ofy().delete().entity(topicToDelete).now();
     }
 
     public void deleteMC(Long mcId){
-        ObjectifyService.ofy().delete().type(MultipleChoices.class).id(mcId).now();
+        //ObjectifyService.ofy().delete().type(MultipleChoices.class).id(mcId).now();
+        MultipleChoices mcToDelete = dm.getMultipleChoiceFromMultipleChoiceID(mcId);
+        ObjectifyService.ofy().delete().entity(mcToDelete).now();
     }
 }

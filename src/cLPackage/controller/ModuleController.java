@@ -31,17 +31,4 @@ public class ModuleController {
         /* Set needed values into the session and model. */
         return "redirect:/editCourse";
     }
-
-    @RequestMapping(value = {"/deleteSelectedTopic"}, method = RequestMethod.GET)
-    public String deleteTopic(ModelMap model,
-                               @ModelAttribute("topicId") Long topicId) {
-        /* Retrieve Data manager. */
-        DataManager dm = DataManager.getDataManager();
-        model.addAttribute("moduleId", dm.getTopicParent(topicId));
-
-        dm.deleteTopic(topicId);
-
-        /* Set needed values into the session and model. */
-        return "redirect:/editModule";
-    }
 }

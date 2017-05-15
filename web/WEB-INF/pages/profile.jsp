@@ -54,7 +54,7 @@
                             <img class="profImg" src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="profile?userId=${userId}">Profile</a></li>
+                            <li><a href="profile">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a onclick="signOut();">Sign Out</a></li>
                         </ul>
@@ -101,20 +101,31 @@
             </button>
         </div>
 
-        <div style="width:600px; height:800px; float: left; border: 1px solid lightgrey; margin-left: 30px;">
-            &nbsp;<h2>Course Created</h2>
+        <div style="width:600px; float: left; border: 1px solid lightgrey; margin-left: 30px; padding-bottom: 1%; padding-left: 1%;">
+            <h2>Course Created</h2>
             <hr />
             <!--------- Start Dyanamic generating ------------>
-            <c:forEach var="course" begin="0" items="${courseList}">
-                <div class="courseCreated">
-                    <span onclick="location.href = 'editCourse?courseId=${course.id}'">
-                        ${course.name}
-                        <c:if test="${course.isPublic != 1}">
-                            (Not Published)
-                        </c:if>
-                    </span>
-                </div>
-            </c:forEach>
+            <c:choose>
+                <c:when test="${fn:length(courseList) == 0}">
+                    <h3>(No Courses Created Yet)</h3>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="course" begin="0" items="${courseList}">
+                        <div class="courseCreated">
+                            <span onclick="location.href = 'editCourse?courseId=${course.id}'">
+                                ${course.name}
+                                <c:if test="${course.isPublic != 1}">
+                                    (Not Published)
+                                </c:if>
+                            </span>
+                            <button class="btn btn-danger glyphicon glyphicon-remove"
+                                    onclick="location.href='/deleteCourse?courseId=${course.id}'">
+                                Delete
+                            </button>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
             <!----------------END generating ------------------->
         </div>
     </div>

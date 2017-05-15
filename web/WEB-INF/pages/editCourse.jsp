@@ -105,11 +105,17 @@
                         id ="submit_btn">&nbsp;Submit
                 </button>
 
+                <button class="btn btn-danger glyphicon glyphicon-remove" type="button"
+                        onclick="location.href='/deleteCourse?courseId=${courseToEdit.id}'">
+                        &nbsp;Delete
+                </button>
+
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='profile';">&nbsp;Back
                 </button>
             </span>
         </form>
+
 
     </div>
 </div>
