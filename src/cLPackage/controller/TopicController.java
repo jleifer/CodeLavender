@@ -4,7 +4,9 @@ import cLPackage.dataStore.DataManager;
 import cLPackage.dataStore.MultipleChoices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import cLPackage.dataStore.Topic;
@@ -105,6 +107,25 @@ public class TopicController {
         model.addAttribute("topicId", topicId);
 
         /* Set needed values into the session and model. */
+        return "redirect:/editTopic";
+    }
+
+    @RequestMapping(value = {"/updateTopic"}, method = RequestMethod.POST)
+    public String updateTopic(ModelMap model,
+                               @ModelAttribute("topicId") Long topicId,
+                               @RequestBody MultiValueMap<String, String> body) {
+
+        /* Retrieve Data manager. */
+        DataManager dm = DataManager.getDataManager();
+        System.out.println("Updating topic...");
+        /* Retrieve parameters needed to update topic. */
+        String topicEditName = body.get("topicEditName").get(0);
+        int hasTest = (body.keySet().contains("topicEditName")) ? 1 : 0;
+
+        //dm.updateTopic(topicId, topicEditName, hasTest);
+
+        /* Return to the edit module page with the changes committed. */
+        model.addAttribute("topicId", topicId);
         return "redirect:/editTopic";
     }
 }

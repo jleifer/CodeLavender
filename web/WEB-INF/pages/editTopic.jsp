@@ -107,121 +107,103 @@
         </nav>
         <!----------- !Navbar End ------------>
         <!---------!Topic Name ---------->
-        <div class="input-group input-group-lg col-xs-5">
-            <span class="input-group-addon" id="sizing-addon1">Topic Name</span>
-            <input name="topicEditName" id="topic_name_field" type="text" class="form-control" value="${topicToEdit.name}" aria-describedby="sizing-addon1">
-        </div>
-
-        <br>
-        <hr>
-        <!---------Add Topic Text ---------->
-        <div class="input_fields_wrap" style="width: 1000px;margin:auto; background-color: rgba(230,230,250,0.9);
-			font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
-            <label class="control-label">Topic Content</label>
-            <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">"${topicToEdit.content}"</textarea>
-        </div>
-        <!---------END Add Topic Text END---------->
-        <br style="clear: both;">
-
-        <hr>
-        <br>
-
-        <!--------- Add Topic Quiz Control------------>
-
-        <div class="topic_quiz_div">
-            <div class="input_fields_wrap" style="width: 1000px;margin:auto; ">
-                <label class="control-label" style="font-size:20px;">Topic Quiz </label>
+        <form action="/updateTopic?topicId=${topicToEdit.id}" method="post">
+            <div class="input-group input-group-lg col-xs-5">
+                <span class="input-group-addon" id="sizing-addon1">Topic Name</span>
+                <input name="topicEditName" id="topic_name_field" type="text" class="form-control" value="${topicToEdit.name}" aria-describedby="sizing-addon1">
             </div>
-            <div id="topic_quiz_content">
 
-                <!-------------start Dynamically generating ------------->
-                <c:choose>
-                    <c:when test="${fn:length(quizList) == 0}">
-                        <h3>No Quizzes exist.</h3>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach var="quiz" begin="0" items="${quizList}">
-                            <c:set var="qCount" value="1"/>
-                            <div class="quiz_question">
-                                <label class="quiz_label"></label>
-                                <span style="color:red;cursor:pointer;margin-left:10px;">Delete</span>
-                                <br />
-                                <textarea id="quizDescription_${qCount}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
-                                <c:forEach var="quizOption" begin="0" items="${quiz.options}">
-                                    <c:set var="qOptCount" value="0"/>
-                                    <div class="mutic">
-                                        <!-- Need to avoid making true/false edit-able, so make them different fields -->
-                                        <c:choose>
-                                            <c:when test="${quizOption == 'True' || quizOption == 'False'}">
-                                                <div class="mutic">${quizOption}</div>
-                                            </c:when>
-                                        <c:otherwise>
-                                            <input id="quizOption_${qCount}_${qOptCount+1}" type="text" class="text_field_option" value="${quizOption}">
-                                        </c:otherwise>
-                                    </c:choose>
-                                    </div>
-                                    <c:set var="qOptCount" value="${qOptCount+1}"/>
-                                </c:forEach>
-                                <label class="quiz_label">Answer: </label>
-                                <select id="quizAns_{qCount}">
-                                    <!-- Correct answer option -->
+            <br>
+            <hr>
+            <!---------Add Topic Text ---------->
+            <div class="input_fields_wrap" style="width: 1000px;margin:auto; background-color: rgba(230,230,250,0.9);
+                font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
+                <label class="control-label">Topic Content</label>
+                <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">"${topicToEdit.content}"</textarea>
+            </div>
+            <!---------END Add Topic Text END---------->
+            <br style="clear: both;">
+
+            <hr>
+            <br>
+
+            <!--------- Add Topic Quiz Control------------>
+
+            <div class="topic_quiz_div">
+                <div class="input_fields_wrap" style="width: 1000px;margin:auto; ">
+                    <label class="control-label" style="font-size:20px;">Topic Quiz </label>
+                </div>
+                <div id="topic_quiz_content">
+
+                    <!-------------start Dynamically generating ------------->
+                    <c:choose>
+                        <c:when test="${fn:length(quizList) == 0}">
+                            <h3>No Quizzes exist.</h3>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="quiz" begin="0" items="${quizList}">
+                                <c:set var="qCount" value="1"/>
+                                <div class="quiz_question">
+                                    <label class="quiz_label"></label>
+                                    <span style="color:red;cursor:pointer;margin-left:10px;">Delete</span>
+                                    <br />
+                                    <textarea id="quizDescription_${qCount}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
                                     <c:forEach var="quizOption" begin="0" items="${quiz.options}">
-                                        <c:set var="opt" value="0"/>
-                                        <option value="quizAnsOption_${qCount}_${opt}"> ${quizOption}</option>
-                                        <c:set var="opt" value="${opt+1}"/>
+                                        <c:set var="qOptCount" value="0"/>
+                                        <div class="mutic">
+                                            <!-- Need to avoid making true/false edit-able, so make them different fields -->
+                                            <c:choose>
+                                                <c:when test="${quizOption == 'True' || quizOption == 'False'}">
+                                                    <div class="mutic">${quizOption}</div>
+                                                </c:when>
+                                            <c:otherwise>
+                                                <input id="quizOption_${qCount}_${qOptCount+1}" type="text" class="text_field_option" value="${quizOption}">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </div>
+                                        <c:set var="qOptCount" value="${qOptCount+1}"/>
                                     </c:forEach>
-                                </select>
+                                    <label class="quiz_label">Answer: </label>
+                                    <select id="quizAns_{qCount}">
+                                        <!-- Correct answer option -->
+                                        <c:forEach var="quizOption" begin="0" items="${quiz.options}">
+                                            <c:set var="opt" value="0"/>
+                                            <option value="quizAnsOption_${qCount}_${opt}"> ${quizOption}</option>
+                                            <c:set var="opt" value="${opt+1}"/>
+                                        </c:forEach>
+                                    </select>
 
-                            </div>
-                            <c:set var="qCount" value="${qCount+1}"/>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-                <!---------------END Generating END --------------------->
+                                </div>
+                                <c:set var="qCount" value="${qCount+1}"/>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                    <!---------------END Generating END --------------------->
 
-            </div>
-            <div style="height: 30px; margin-top:30px;">
-                <span class="add_field_button" id="add_quiz_btn"  style="display: block; float: left;" >
-                        <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"
-                                onclick="location.href='/addMC?topicId=${topicId}"></button>
-                        New Quiz:&nbsp;
+                </div>
+                <div style="height: 30px; margin-top:30px;">
+                    <span class="add_field_button" id="add_quiz_btn"  style="display: block; float: left;" >
+                            <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
+                            New Quiz:&nbsp;
+                    </span>
+                    <select id="cur_quiz_type">
+                        <option value="TorF" selected >True or False</option>
+                        <option value="multi_4" >Multiple Choices(4)</option>
+                        <option value="multi_5" >Multiple Choices(5)</option>
+                        <option value="multi_6" >Multiple Choices(6)</option>
+                    </select>
+                    <span id="quiz_total_num" >Total: ${quizSize}</span>
+                    <br clear="both;">
+                </div>
+                <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
+                    <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+
+                    <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
+                        onclick="location.href='/editModule?moduleId=${topicToEdit.theParentModule.id}';">&nbsp;Back</button>
                 </span>
-                <select id="cur_quiz_type">
-                    <option value="TorF" selected >True or False</option>
-                    <option value="multi_4" >Multiple Choices(4)</option>
-                    <option value="multi_5" >Multiple Choices(5)</option>
-                    <option value="multi_6" >Multiple Choices(6)</option>
-                </select>
-                <span id="quiz_total_num" >Total: ${quizSize}</span>
-                <br clear="both;">
             </div>
-            <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
-                <button id="submit_edit" class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
-                <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
-                        onclick="location.href='editTopic?topicId=${topicToEdit.id}';">&nbsp;Back</button>
-            </span>
-        </div>
+        </form>
         <!---------END Add Topic Quiz Control END------------>
-        <script>
-        $("#submit_edit").click(function(){
-                var topic_name = $("#topic_name").val();
-                var topic_description = $("#topic_description").val();
-                var quiz_total_num = $("#quiz_total_num").val();
-                var href_to_go = "UpdateTopicQuiz?userId=${userId}"+
-                    "&topic_name="+topic_name+"&topic_description="+topic_description+
-                    "&quiz_total_num=${quizSize}";
-                for(var i =0 ; i<${quizSize};i++){
-                    href_to_go += "&quiz_id_"+i+"="+$("#quizId_"+i).val()
-                        +"&quizDescription_"+i+"="+$("#quizDescription_"+i).val();
-                    for(var k =0 ; typeof $("#quizOption_"+i+"_"+k).val() !== "undefined";k++){
-                        href_to_go += "&quizOption_"+i+"_"+k+"="+$("#quizOption_"+i+"_"+k).val();
-                    }
-                    href_to_go += "&quizAns_"+i+"="+$( "#quizAns_"+i+" option:selected" ).html();
-                }
-                alert(href_to_go);
-                location.href = href_to_go;
-            });
-        </script>
     </div>
 </div>
 </body>
