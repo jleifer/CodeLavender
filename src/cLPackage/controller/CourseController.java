@@ -24,7 +24,7 @@ public class CourseController {
         return "course";
     }
 
-    @RequestMapping(value = {"/newCourse", "/newCourse.jsp"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/newCourse"}, method = RequestMethod.GET)
     public String createNewCourse(ModelMap model,
                                   @SessionAttribute("userId") Long userId) {
 
