@@ -118,7 +118,7 @@
         <div class="input_fields_wrap" style="width: 1000px;margin:auto; background-color: rgba(230,230,250,0.9);
 			font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
             <label class="control-label">Topic Content</label>
-            <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">${topicToEdit.getContent()}</textarea>
+            <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">"${topicToEdit.content}"</textarea>
         </div>
         <!---------END Add Topic Text END---------->
         <br style="clear: both;">
@@ -150,9 +150,17 @@
                                 <textarea id="quizDescription_${qCount}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
                                 <c:forEach var="quizOption" begin="0" items="${quiz.options}">
                                     <c:set var="qOptCount" value="0"/>
-                                <div class="mutic">1
-                                    <input id="quizOption_${qCount}_${quizOption+1}" type="text" class="text_field_option" value="${quiz.options["${qOptCount}"]}">
-                                </div>
+                                    <div class="mutic">
+                                        <!-- Need to avoid making true/false edit-able, so make them different fields -->
+                                        <c:choose>
+                                            <c:when test="${quizOption == 'True' || quizOption == 'False'}">
+                                                <div class="mutic">${quizOption}</div>
+                                            </c:when>
+                                        <c:otherwise>
+                                            <input id="quizOption_${qCount}_${qOptCount+1}" type="text" class="text_field_option" value="${quizOption}">
+                                        </c:otherwise>
+                                    </c:choose>
+                                    </div>
                                     <c:set var="qOptCount" value="${qOptCount+1}"/>
                                 </c:forEach>
                                 <label class="quiz_label">Answer: </label>
@@ -178,13 +186,13 @@
                     <option value="multi_5" >Multiple Choices(5)</option>
                     <option value="multi_6" >Multiple Choices(6)</option>
                 </select>
-                <span id="quiz_total_num" >Total: ${quizList.size()}</span>
+                <span id="quiz_total_num" >Total: ${quizSize}</span>
                 <br clear="both;">
             </div>
             <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
                 <button id="submit_edit" class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
-                        onclick="location.href='newModule?courseId=${topicToEdit.theParentModule().parent.id}';">&nbsp;Back</button>
+                        onclick="location.href='editTopic?topicId=${topicToEdit.id}';">&nbsp;Back</button>
             </span>
         </div>
         <!---------END Add Topic Quiz Control END------------>
@@ -195,8 +203,8 @@
                 var quiz_total_num = $("#quiz_total_num").val();
                 var href_to_go = "UpdateTopicQuiz?userId=${userId}"+
                     "&topic_name="+topic_name+"&topic_description="+topic_description+
-                    "&quiz_total_num=${quizList.size()}";
-                for(var i =0 ; i<${quizList.size()};i++){
+                    "&quiz_total_num=${quizSize}";
+                for(var i =0 ; i<${quizSize};i++){
                     href_to_go += "&quiz_id_"+i+"="+$("#quizId_"+i).val()
                         +"&quizDescription_"+i+"="+$("#quizDescription_"+i).val();
                     for(var k =0 ; typeof $("#quizOption_"+i+"_"+k).val() !== "undefined";k++){

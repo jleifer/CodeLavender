@@ -59,6 +59,7 @@ public class TopicController {
         model.addAttribute("quizList", quizList);
         model.addAttribute("topicHasTest", topicHasTest);
         model.addAttribute("moduleId", topicToEdit.getTheParentModule().getId());
+        model.addAttribute("quizSize", quizList.size());
         return "editTopic";
     }
     @RequestMapping(value = {"/deleteTopic"}, method = RequestMethod.GET)

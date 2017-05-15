@@ -27,13 +27,16 @@ public class MultipleChoices implements Serializable  {
     @Index private String options[];
     @Index private int answer;
 
+    //Default constructor
     public MultipleChoices(){
         optionNumber = 2; //True or False question by default.
         questionText = "no question text input";
         options = new String[optionNumber];
         options[0] = "True";
-        options[1]="False";
+        options[1]= "False";
     }
+
+    //Constructor
     public MultipleChoices(String questionText,int optionNumber, int answer, String options[],Topic topic){
         this.topic = Key.create(Topic.class, topic.id);
         this.optionNumber = optionNumber;
