@@ -1,11 +1,16 @@
 package cLPackage.controller;
 
 import cLPackage.dataStore.DataManager;
+import cLPackage.dataStore.MultipleChoices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import cLPackage.dataStore.Topic;
+
+
+import java.util.List;
 /**
  * Created by Jonathan on 4/21/2017.
  * ViewTopicController
@@ -24,6 +29,38 @@ public class TopicController {
         return "newTopic"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 
+    @RequestMapping(value = {"/editTopic"}, method = RequestMethod.GET)
+    public String editTopic(ModelMap model,
+                             @ModelAttribute("topicId") Long topicId) {
+
+        /* Retrieve Data manager */
+        DataManager dm = DataManager.getDataManager();
+        Topic topicToEdit = null;
+        try{
+            topicToEdit = dm.getTopicWithTopicId(topicId);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            if(topicToEdit == null){
+                /* Wait and try again */
+                try {
+                    Thread.currentThread().sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                topicToEdit = dm.getTopicWithTopicId(topicId);
+            }
+        }
+        List<MultipleChoices> quizList = dm.getMCFromTopic(topicId);
+        String topicHasTest = (topicToEdit.getHasTest() == 0) ? "unchecked" : "checked";
+
+        /* Set needed values into the session and model */
+        model.addAttribute("topicToEdit", topicToEdit);
+        model.addAttribute("quizList", quizList);
+        model.addAttribute("topicHasTest", topicHasTest);
+        model.addAttribute("moduleId", topicToEdit.getTheParentModule().getId());
+        return "editTopic";
+    }
     @RequestMapping(value = {"/deleteTopic"}, method = RequestMethod.GET)
     public String deleteTopic(ModelMap model,
                               @ModelAttribute("topicId") Long topicId) {

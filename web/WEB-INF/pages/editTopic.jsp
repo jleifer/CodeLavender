@@ -1,8 +1,7 @@
-<%@ page import="cLPackage.dataStore.Topic" %>
-<%@ page import="com.googlecode.objectify.Key" %>
-<%@ page import="com.googlecode.objectify.ObjectifyService" %>
-<%@ page import="java.util.List" %>
-<%@ page import="cLPackage.dataStore.MultipleChoices" %><%--
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%--%
   Created by IntelliJ IDEA.
   User: Konstantinos
   Date: 2/7/2017
@@ -10,24 +9,7 @@
   To change this template use File | Settings | File Templates.
   from https://www.tutorialspoint.com/spring/spring_mvc_hello_world_example.htm
 --%>
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%
-    String userId = (String)request.getParameter("userId").toString();
-    String courseId = (String)request.getParameter("courseId").toString();
-    String moduleId = (String)request.getParameter("moduleId").toString();
-    String topicId = (String)request.getParameter("topicId").toString();
-
-    List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).list();
-    Topic topic = null;
-    for(int i = 0; i<topicList.size();i++){
-        if(topicList.get(i).getId()==Long.parseLong(topicId)){
-            topic = topicList.get(i);
-        }
-    }
-    Key<Topic> topicKey = Key.create(Topic.class,Long.parseLong(topicId));
-    List<MultipleChoices> quizList = ObjectifyService.ofy().load().type(MultipleChoices.class).ancestor(topicKey).list();
-    System.out.println("quizList size"+quizList.size());
-%>
+<!------  Start Dynamically loading ----------->
 <html>
 <head>
     <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
@@ -40,9 +22,7 @@
     <script src="../../resources/js/googleLogIn.js"></script>
     <script src="../../resources/js/newTopicController.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
-
-
-    <title>New Topic</title>
+    <title>Edit Topic</title>
 
     <style type="text/css">
         .topic_quiz_div{
@@ -126,11 +106,10 @@
             </div>
         </nav>
         <!----------- !Navbar End ------------>
-
         <!---------!Topic Name ---------->
         <div class="input-group input-group-lg col-xs-5">
             <span class="input-group-addon" id="sizing-addon1">Topic Name</span>
-            <input id="topic_name" type="text" class="form-control" value="<%=topic.getName()%>" aria-describedby="sizing-addon1" >
+            <input name="topicEditName" id="topic_name_field" type="text" class="form-control" value="${topicToEdit.name}" aria-describedby="sizing-addon1">
         </div>
 
         <br>
@@ -139,7 +118,7 @@
         <div class="input_fields_wrap" style="width: 1000px;margin:auto; background-color: rgba(230,230,250,0.9);
 			font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
             <label class="control-label">Topic Content</label>
-            <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;"><%=topic.getContent()%></textarea>
+            <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">${topicToEdit.getContent()}</textarea>
         </div>
         <!---------END Add Topic Text END---------->
         <br style="clear: both;">
@@ -156,39 +135,35 @@
             <div id="topic_quiz_content">
 
                 <!-------------start Dynamically generating ------------->
-                <%
-                   for (int i = 0; i<quizList.size();i++){
-                       int optionNumber = quizList.get(i).getOptionNumber();
-                       String options[] = quizList.get(i).getOptions();
-                       int answer = quizList.get(i).getAnswer();
-                       String quiz_label_text = "Question Type: (True or False)";
-                       if(optionNumber>2){
-                           quiz_label_text = "Question Type: (MultipleChoices("+optionNumber+"))";
-                       }
-                %>
-                <input type='hidden' value="<%=quizList.get(i).id%>" id="<%="quizId_"+i%>" />
-                <div class="quiz_question">
-                    <label class="quiz_label"><%=quiz_label_text%></label>
-                    <span style="color:red;cursor:pointer;margin-left:10px;"
-                          onclick="location.href='DeleteQuizServlet?courseId=<%=courseId%>&userId=<%=userId%>&moduleId=<%=moduleId%>&topicId=<%=topicId%>&quizId=<%=quizList.get(i).id%>';">Delete</span>
-                    <br />
-                    <textarea id="quizDescription_<%=i%>" rows="3" cols="70" style="width:600px;display:block; margin:auto;"><%=quizList.get(i).getQuestionText()%></textarea>
-                    <% for(int k = 0 ; k<options.length; k++){ %>
-                    <div class="mutic">
-                        <input id="quizOption_<%=i%>_<%=k%>" type="text" class="text_field_option" value="<%=options[k]%>">
-
-                    </div>
-                    <% } %>
-                    <label class="quiz_label">Answer: </label>
-                    <select id="quizAns_<%=i%>">
-                        <% for(int k = 0 ; k<options.length; k++){
-                            String selected = (k==(answer-1))? "selected":"";
-                        %>
-                        <option <%=selected%>> <%=(k+1)+":"+options[k]%> </option>
-                        <% } %>
-                    </select>
-                </div>
-                <%}%>
+                <c:choose>
+                    <c:when test="${fn:length(quizList) == 0}">
+                        <h3>No Quizzes exist.</h3>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="quiz" begin="0" items="${quizList}">
+                            <c:set var="qCount" value="1"/>
+                            <div class="quiz_question">
+                                <label class="quiz_label"></label>
+                                <span style="color:red;cursor:pointer;margin-left:10px;"
+                                      onclick="location.href='/deleteMC?mcId=${quiz.ID}';">Delete</span>
+                                <br />
+                                <textarea id="quizDescription_${qCount}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
+                                <c:forEach var="quizOption" begin="0" items="${quiz.options}">
+                                    <c:set var="qOptCount" value="0"/>
+                                <div class="mutic">1
+                                    <input id="quizOption_${qCount}_${quizOption+1}" type="text" class="text_field_option" value="${quiz.options["${qOptCount}"]}">
+                                </div>
+                                    <c:set var="qOptCount" value="${qOptCount+1}"/>
+                                </c:forEach>
+                                <label class="quiz_label">Answer: </label>
+                                <select id="quizAns_${qCount}">
+                                    <option ${quiz.answer}> </option>
+                                </select>
+                            </div>
+                            <c:set var="qCount" value="${qCount+1}"/>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
                 <!---------------END Generating END --------------------->
 
             </div>
@@ -203,13 +178,13 @@
                     <option value="multi_5" >Multiple Choices(5)</option>
                     <option value="multi_6" >Multiple Choices(6)</option>
                 </select>
-                <span id="quiz_total_num" >Total: <%=quizList.size()%></span>
+                <span id="quiz_total_num" >Total: ${quizList.size()}</span>
                 <br clear="both;">
             </div>
             <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
                 <button id="submit_edit" class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
                 <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
-                        onclick="location.href='newModule?courseId=<%=courseId%>&userId=<%=userId%>&moduleId=<%=moduleId%>';">&nbsp;Back</button>
+                        onclick="location.href='newModule?courseId=${topicToEdit.theParentModule().parent.id}';">&nbsp;Back</button>
             </span>
         </div>
         <!---------END Add Topic Quiz Control END------------>
@@ -218,10 +193,10 @@
                 var topic_name = $("#topic_name").val();
                 var topic_description = $("#topic_description").val();
                 var quiz_total_num = $("#quiz_total_num").val();
-                var href_to_go = "UpdateTopicQuiz?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>&topicId=<%=topicId%>"+
+                var href_to_go = "UpdateTopicQuiz?userId=${userId}"+
                     "&topic_name="+topic_name+"&topic_description="+topic_description+
-                    "&quiz_total_num=<%=quizList.size()%>";
-                for(var i =0 ; i<<%=quizList.size()%>;i++){
+                    "&quiz_total_num=${quizList.size()}";
+                for(var i =0 ; i<${quizList.size()};i++){
                     href_to_go += "&quiz_id_"+i+"="+$("#quizId_"+i).val()
                         +"&quizDescription_"+i+"="+$("#quizDescription_"+i).val();
                     for(var k =0 ; typeof $("#quizOption_"+i+"_"+k).val() !== "undefined";k++){
@@ -233,16 +208,6 @@
                 location.href = href_to_go;
             });
         </script>
-
-        <div class="bot_buffer_div" style="clear: both">
-            <form action="AddQuizServlet" method="get" id="hidden_form_for_creation">
-                <input type="hidden" name="quizType" id="hidden_quiz_type" value="TorF">
-                <input type="hidden" name="userId" value="<%=userId%>">
-                <input type="hidden" name="courseId" value="<%=courseId%>">
-                <input type="hidden" name="moduleId" value="<%=moduleId%>">
-                <input type="hidden" name="topicId" value="<%=topicId%>">
-            </form>
-        </div>
     </div>
 </div>
 </body>

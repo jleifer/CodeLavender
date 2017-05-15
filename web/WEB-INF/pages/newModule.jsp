@@ -5,7 +5,7 @@
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
-  User: Spartanrme
+  User: Konstantinos
   Date: 2/7/2017
   Time: 8:07 PM
   To change this template use File | Settings | File Templates.
