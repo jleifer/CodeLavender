@@ -181,8 +181,7 @@
 <script src="../../resources/js/scripts.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="../../resources/js/googleLogin.js" async defer></script>
-<meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
-
+<meta name="google-signin-client_id" content="960219417263-di4ik7aduhjj4i9ulc5fjfcskjc2puj6.apps.googleusercontent.com">
 <!--[if lt IE 10]>
 <!--<script src="js/placeholder.js"></script>-->
 <![endif]-->

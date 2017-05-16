@@ -12,8 +12,7 @@
 
 <html>
 <head>
-    <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
-    <meta charset="utf-8">
+    <meta name="google-signin-client_id" content="960219417263-di4ik7aduhjj4i9ulc5fjfcskjc2puj6.apps.googleusercontent.com"><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,7 +21,6 @@
     <script src="../../resources/js/bootstrap.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="../../resources/js/googleLogin.js" async defer></script>
-    <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
     <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <!-- Start our file -->
     <script src="../../resources/js/googleLogin.js"></script>
