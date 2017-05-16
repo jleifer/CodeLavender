@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class ModuleController {
 
-    @RequestMapping(value = {"/newModule.jsp","/newModule"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/editModule.jsp","/newModule"}, method = RequestMethod.GET)
     public String createNewModule(ModelMap model,
                                  @ModelAttribute("courseId") Long courseId) {
 
