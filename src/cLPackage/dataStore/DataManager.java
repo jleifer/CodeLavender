@@ -30,6 +30,7 @@ public class DataManager {
         ObjectifyService.register(Topic.class);
         ObjectifyService.register(MultipleChoices.class);
         ObjectifyService.register(UserCompleted.class);
+        ObjectifyService.register(UserRequest.class);
 
     }
 
@@ -446,6 +447,18 @@ public class DataManager {
     public Long getMCParent(Long mcId){
         MultipleChoices mc = getMultipleChoiceFromMultipleChoiceID(mcId);
         return mc.getParentTopicID();
+    }
+
+    public UserRequest getUserRequestByUserId(long UserId){
+        UserRequest userRequest =null;
+        List<UserRequest> userRequestList = ObjectifyService.ofy().load().type(UserRequest.class).list();
+
+        for (int i =0 ; i<userRequestList.size();i++){
+            if(userRequestList.get(i).UserId == UserId){
+                userRequest = userRequestList.get(i);
+            }
+        }
+        return userRequest;
     }
 
     public List<MultipleChoices> getMCFromTopic(Long topicId){
