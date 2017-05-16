@@ -64,7 +64,8 @@ public class CourseController {
         int isPublic = (body.keySet().contains("courseEditIsPublic")) ? 1 : 0;
 
 
-        dm.updateCourse(userId, courseId, courseEditName, courseEditDescription, courseEditImgURL, isPublic);
+        dm.updateCourse(userId, courseId, courseEditName, courseEditDescription, courseEditImgURL, isPublic,
+                0,0,0);
 
         /* Return to the edit course page with the changes committed */
         model.addAttribute("courseId", courseId);

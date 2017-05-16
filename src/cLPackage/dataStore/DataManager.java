@@ -280,9 +280,9 @@ public class DataManager {
         Course.setIndexedProperty("ownerFirst",courseToUpdate.getOwnerFirst());
         Course.setIndexedProperty("ownerLast",courseToUpdate.getOwnerLast());
         Course.setIndexedProperty("isPublic",isPublic);
-        Course.setIndexedProperty("endorsedByUsers",rating);
-        Course.setIndexedProperty("totalEndorsers",numEndorsers);
-        Course.setIndexedProperty("endorsedByInstructors",numInstructorEndorsers);
+        Course.setIndexedProperty("endorsedByUsers",courseToUpdate.getEndorsedByUsers());
+        Course.setIndexedProperty("totalEndorsers",courseToUpdate.getTotalEndorsers());
+        Course.setIndexedProperty("endorsedByInstructors",courseToUpdate.getEndorsedByInstructors());
         Course.setIndexedProperty("description",courseEditDescription);
         Course.setIndexedProperty("imgURL",courseEditImgURL);
 
