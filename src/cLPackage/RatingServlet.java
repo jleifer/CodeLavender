@@ -1,6 +1,7 @@
 package cLPackage;
 
 import cLPackage.dataStore.Course;
+import cLPackage.dataStore.DataManager;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -24,35 +25,21 @@ public class RatingServlet extends HttpServlet{
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
 
-
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);
         //get the module object
         Course course = null;
-        List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
-        for (int i = 0 ; i < courseList.size(); i++){
-            if(courseList.get(i).id.longValue()==courseId.longValue()){
-                course = courseList.get(i);
-            }
-        }
-        System.out.print("updating "+course.id);
+        DataManager dm = DataManager.getDataManager();
+        course = dm.getCourseWithCourseId(courseId);
 
-        //change attributes
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
-        Entity Course = new Entity("Course",course.id,userKey);
-        Course.setIndexedProperty("name",course.getName());
-        Course.setIndexedProperty("ownerFirst",course.getOwnerFirst());
-        Course.setIndexedProperty("ownerLast",course.getOwnerLast());
-        Course.setIndexedProperty("isPublic",course.getIsPublic());
-        Course.setIndexedProperty("endorsedByUsers",((course.getEndorsedByUsers()+rating))/(course.getTotalEndorsers()+1));
-        Course.setIndexedProperty("totalEndorsers",course.getTotalEndorsers()+1);
-        Course.setIndexedProperty("endorsedByInstructors",course.getEndorsedByInstructors());
-        Course.setIndexedProperty("description",course.getDescription());
-        Course.setIndexedProperty("imgURL",course.getImgURL());
-        ObjectifyService.ofy().delete().entity(course).now();
-        datastore.put(Course);
-        //delete it
+        int currentSum = course.getEndorsedByUsers() * course.getTotalEndorsers();
+        currentSum += rating;
+        int newNumEndorsers = course.getTotalEndorsers() + 1;
+        int newRating = currentSum / newNumEndorsers;
+
+        dm.updateCourse(userId, courseId, course.getName(), course.getDescription(),
+                course.getImgURL(), course.getIsPublic(), newRating, newNumEndorsers,
+                course.getEndorsedByInstructors());
 
         HttpSession session = req.getSession();
         session.setAttribute("userId",userId.longValue());

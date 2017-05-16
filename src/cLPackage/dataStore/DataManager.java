@@ -263,7 +263,10 @@ public class DataManager {
 
     }
 
-    public void updateCourse(Long userId, Long courseId, String courseEditName, String courseEditDescription, String courseEditImgURL, int isPublic) {
+    public void updateCourse(Long userId, Long courseId, String courseEditName,
+                             String courseEditDescription, String courseEditImgURL,
+                             int isPublic, int rating, int numEndorsers,
+                             int numInstructorEndorsers) {
         /* Retrieve course to update */
         Course courseToUpdate = dm.getCourseWithCourseId(courseId);
 
@@ -275,8 +278,9 @@ public class DataManager {
         Course.setIndexedProperty("ownerFirst",courseToUpdate.getOwnerFirst());
         Course.setIndexedProperty("ownerLast",courseToUpdate.getOwnerLast());
         Course.setIndexedProperty("isPublic",isPublic);
-        Course.setIndexedProperty("endorsedByUsers",courseToUpdate.getEndorsedByUsers());
-        Course.setIndexedProperty("endorsedByInstructors",courseToUpdate.getEndorsedByInstructors());
+        Course.setIndexedProperty("endorsedByUsers",rating);
+        Course.setIndexedProperty("totalEndorsers",numEndorsers);
+        Course.setIndexedProperty("endorsedByInstructors",numInstructorEndorsers);
         Course.setIndexedProperty("description",courseEditDescription);
         Course.setIndexedProperty("imgURL",courseEditImgURL);
 
