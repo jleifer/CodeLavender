@@ -1,14 +1,12 @@
 package cLPackage.controller;
 
-import cLPackage.dataStore.Course;
-import cLPackage.dataStore.DataManager;
-import cLPackage.dataStore.Module;
-import cLPackage.dataStore.UserCompleted;
+import cLPackage.dataStore.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +18,20 @@ public class CourseController {
     @RequestMapping(value = {"/viewCourse", "/viewCourse.jsp"}, method = RequestMethod.GET)
     public String getCoursePage(ModelMap model,
                                 @SessionAttribute("userId") Long userId,
-                                @ModelAttribute("courseId") Long courseId) {
+                                @ModelAttribute("courseId") Long courseId,
+                                @ModelAttribute("curUserId") long curUserId) {
+        DataManager dm = DataManager.getDataManager();
+        //check if the course is rated by this user;
+        UserRating userRating = dm.getUserRatingByUIDandCourseID(
+                userId.longValue(),
+                courseId.longValue());
+        boolean isRated = false;
+        if(userRating!=null){
+            isRated = true;
+        }
+        model.addAttribute("isRated",isRated);
         model.addAttribute("courseId", courseId);
+        model.addAttribute("curUserId",curUserId);
         return "course";
     }
 
@@ -125,4 +135,73 @@ public class CourseController {
         /* Set needed values into the session and model. */
         return "redirect:/profile";
     }
+
+    @RequestMapping(value = {"/InstructorCourse"}, method = RequestMethod.GET)
+    public String InstructorCourse(ModelMap model) {
+        /* Retrieve Data manager. */
+         /* Retrieve data manager */
+        DataManager dm = DataManager.getDataManager();
+
+        /* Retrieve the list of all Course entities from the datastore */
+        List<Course> courseList = dm.getCourseList();
+        List<User> userList = dm.getUserList();
+        ArrayList<Course> instructorCourseList  = new ArrayList<Course>();
+        for (int i =0; i<courseList.size();i++){
+            Course course = courseList.get(i);
+            // if private, skip this course.
+            if(course.getIsPublic()==0){
+                continue;
+            }
+            long userId = course.getTheParentUser().getId();
+            User user = null;
+            for(int k =0; k<userList.size();k++){
+                if(userList.get(k).getId().longValue()==userId){
+                    user = userList.get(k);
+                }
+            }
+            if(user.getIsInstructor()==1){
+                // is instructor, add to instructorCourseList
+                instructorCourseList.add(course);
+            }
+        }
+        /* Set attributes into the model for dynamic loading */
+        model.addAttribute("courseList", courseList);
+        model.addAttribute("instructorCourseList", instructorCourseList);
+        return "InstructorCourse";
+    }
+
+    @RequestMapping(value = {"/UserCourse"}, method = RequestMethod.GET)
+    public String UserCourse(ModelMap model) {
+        /* Retrieve Data manager. */
+         /* Retrieve data manager */
+        DataManager dm = DataManager.getDataManager();
+
+        /* Retrieve the list of all Course entities from the datastore */
+        List<Course> courseList = dm.getCourseList();
+        List<User> userList = dm.getUserList();
+        ArrayList<Course> userCourseList  = new ArrayList<Course>();
+        for (int i =0; i<courseList.size();i++){
+            Course course = courseList.get(i);
+            // if private, skip this course.
+            if(course.getIsPublic()==0){
+                continue;
+            }
+            long userId = course.getTheParentUser().getId();
+            User user = null;
+            for(int k =0; k<userList.size();k++){
+                if(userList.get(k).getId().longValue()==userId){
+                    user = userList.get(k);
+                }
+            }
+            if(user.getIsInstructor()==0){
+                // is not instructor, add to instructorCourseList
+                userCourseList.add(course);
+            }
+        }
+        /* Set attributes into the model for dynamic loading */
+        model.addAttribute("courseList", courseList);
+        model.addAttribute("userCourseList", userCourseList);
+        return "UserCourse";
+    }
+
 }

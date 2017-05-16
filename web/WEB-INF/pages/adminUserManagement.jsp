@@ -76,9 +76,21 @@
 <!------------- User management -------------->
 
 
+
 <div class="management_div">
     <h1>Admin User Management</h1>
     <hr />
+    <div class="flag_div">
+        <c:forEach items="${userRequestList}" var="userRequest">
+            <c:if test="${userRequest==true}">
+                <h3 style="color: red">
+                    R</h3>
+            </c:if>
+            <c:if test="${userRequest==false}">
+                <h3>-</h3>
+            </c:if>
+        </c:forEach>
+    </div>
     <div class="user_roster">
         <c:forEach items="${userList}" var="user">
             <%-- Prepare data before generating --%>
@@ -105,6 +117,7 @@
             </h3>
         </c:forEach>
     </div>
+    <div style="clear: both;"></div>
 </div>
 <!------------- User management END-------------->
 

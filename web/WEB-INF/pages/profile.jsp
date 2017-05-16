@@ -79,6 +79,9 @@
                         <div align="center">
                             <img class="profImg thumbnail img-responsive" src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" width="300px" height="300px">
                         </div>
+                        <c:if test="${isInstrucotr==true}">
+                            <div style="color:red;width:80px;margin:auto;">*Instructor*</div>
+                        </c:if>
                         <div class="media-body">
                             <hr>
                             <h3><strong>Last Name</strong></h3>

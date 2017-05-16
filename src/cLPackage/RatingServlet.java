@@ -1,6 +1,7 @@
 package cLPackage;
 
 import cLPackage.dataStore.Course;
+import cLPackage.dataStore.UserRating;
 import cLPackage.dataStore.DataManager;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -20,13 +21,17 @@ import java.util.List;
  */
 public class RatingServlet extends HttpServlet{
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void doGet(HttpServletRequest req,
+                      HttpServletResponse resp) throws IOException {
         int rating = Integer.parseInt(req.getParameter("rating"));
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
+        String curUserIdString = req.getParameter("curUserId");
+
 
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);
+        Long curUserId = Long.parseLong(curUserIdString);
         //get the module object
         Course course = null;
         DataManager dm = DataManager.getDataManager();
@@ -41,9 +46,16 @@ public class RatingServlet extends HttpServlet{
                 course.getImgURL(), course.getIsPublic(), newRating, newNumEndorsers,
                 course.getEndorsedByInstructors());
 
+        //Add UserRating Object
+        UserRating userRating = new UserRating(userId.longValue()
+                                        ,courseId.longValue()
+                                        ,rating);
+        ObjectifyService.ofy().save().entity(userRating).now();
+
+        //save everything needed into session
         HttpSession session = req.getSession();
         session.setAttribute("userId",userId.longValue());
         session.setAttribute("courseId",courseId.longValue());
-        resp.sendRedirect("viewCourse?userId="+userId.longValue()+"&courseId="+courseId.longValue());
+        resp.sendRedirect("viewCourse?userId="+userId.longValue()+"&courseId="+courseId.longValue()+"&curUserId="+curUserId);
     }
 }

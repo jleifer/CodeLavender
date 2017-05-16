@@ -2,6 +2,7 @@ package cLPackage.controller;
 
 import cLPackage.dataStore.Course;
 import cLPackage.dataStore.DataManager;
+import cLPackage.dataStore.User;
 import cLPackage.dataStore.UserCompleted;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,10 +48,25 @@ public class ProfileController {
         }
         System.out.println("courseStarted Size:"+courseStarted.size());
 
+        List<User> userList = dm.getUserList();
+        User user =null;
+        boolean isInstrucotr =false;
+
+        for (int i = 0 ; i<userList.size();i++){
+            if(userList.get(i).id.longValue()== Long.parseLong(userId)){
+                user = userList.get(i);
+            }
+        }
+        if(user!=null){
+            if(user.getIsInstructor()==1){
+                isInstrucotr = true;
+            }
+        }
         /* Add them to the model to load */
         model.addAttribute("userId",userId);
         model.addAttribute("courseList", courseList);
         model.addAttribute("courseStarted",courseStarted);
+        model.addAttribute("isInstrucotr",isInstrucotr);
         return "profile"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 }
