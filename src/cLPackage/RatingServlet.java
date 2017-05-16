@@ -1,7 +1,7 @@
 package cLPackage;
 
 import cLPackage.dataStore.Course;
-import cLPackage.dataStore.DataManager;
+import cLPackage.dataStore.UserRating;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -20,30 +20,53 @@ import java.util.List;
  */
 public class RatingServlet extends HttpServlet{
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void doGet(HttpServletRequest req,
+                      HttpServletResponse resp) throws IOException {
         int rating = Integer.parseInt(req.getParameter("rating"));
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
+        String curUserIdString = req.getParameter("curUserId");
 
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);
+        Long curUserId = Long.parseLong(curUserIdString);
         //get the module object
         Course course = null;
-        DataManager dm = DataManager.getDataManager();
-        course = dm.getCourseWithCourseId(courseId);
+        List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
+        for (int i = 0 ; i < courseList.size(); i++){
+            if(courseList.get(i).id.longValue()==courseId.longValue()){
+                course = courseList.get(i);
+            }
+        }
+        System.out.print("updating "+course.id);
 
-        int currentSum = course.getEndorsedByUsers() * course.getTotalEndorsers();
-        currentSum += rating;
-        int newNumEndorsers = course.getTotalEndorsers() + 1;
-        int newRating = currentSum / newNumEndorsers;
+        //change attributes
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", curUserId);
+        Entity Course = new Entity("Course",course.id,userKey);
+        Course.setIndexedProperty("name",course.getName());
+        Course.setIndexedProperty("ownerFirst",course.getOwnerFirst());
+        Course.setIndexedProperty("ownerLast",course.getOwnerLast());
+        Course.setIndexedProperty("isPublic",course.getIsPublic());
+        Course.setIndexedProperty("endorsedByUsers",((course.getEndorsedByUsers()+rating))/(course.getTotalEndorsers()+1));
+        Course.setIndexedProperty("totalEndorsers",course.getTotalEndorsers()+1);
+        Course.setIndexedProperty("endorsedByInstructors",course.getEndorsedByInstructors());
+        Course.setIndexedProperty("description",course.getDescription());
+        Course.setIndexedProperty("imgURL",course.getImgURL());
+        ObjectifyService.ofy().delete().entity(course).now();
+        datastore.put(Course);
+        //delete it
 
-        dm.updateCourse(userId, courseId, course.getName(), course.getDescription(),
-                course.getImgURL(), course.getIsPublic(), newRating, newNumEndorsers,
-                course.getEndorsedByInstructors());
+        //Add UserRating Object
+        UserRating userRating = new UserRating(userId.longValue()
+                                        ,courseId.longValue()
+                                        ,rating);
+        ObjectifyService.ofy().save().entity(userRating).now();
 
+        //save everything needed into session
         HttpSession session = req.getSession();
         session.setAttribute("userId",userId.longValue());
         session.setAttribute("courseId",courseId.longValue());
-        resp.sendRedirect("viewCourse?userId="+userId.longValue()+"&courseId="+courseId.longValue());
+        resp.sendRedirect("viewCourse?userId="+userId.longValue()+"&courseId="+courseId.longValue()+"&curUserId="+curUserId);
     }
 }
