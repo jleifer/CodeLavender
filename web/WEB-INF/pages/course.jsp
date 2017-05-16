@@ -1,11 +1,9 @@
-<%@ page import="cLPackage.dataStore.Course" %>
-<%@ page import="cLPackage.dataStore.Module" %>
-<%@ page import="cLPackage.dataStore.Topic" %>
-<%@ page import="cLPackage.dataStore.User" %>
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="cLPackage.dataStore.*" %>
+<%--
   Created by IntelliJ IDEA.
   User: Jonathan
   Date: 4/21/2017
@@ -44,6 +42,7 @@
         System.out.println("How Many here: "+topics.size());
     }
     request.setAttribute("topicList",topicList);
+    List<UserCompleted> ucList = DataManager.getDataManager().getUserCompletedListByCourseId(Long.parseLong(courseId));
 %>
 <html>
 <head>
@@ -133,7 +132,14 @@
                                 Topic <%=k+1%>
                             </a>
                         </div>
-                            <div class="score"><span class="passed">100%</span></div>
+                        <%
+                            for (UserCompleted uc : ucList) {
+                                if (uc.getTopicID() == topics.get(k).getId()) { %>
+                                    <div class="score"><span class="passed"><%=uc.getCompleted()%>%</span></div>
+                                <%}
+                            }
+                        %>
+
                         <br/>
                         <%=topics.get(k).getName()%>
                         <br/>
@@ -141,10 +147,6 @@
                 </div>
                 <br/>
             <%}%>
-
-            <hr />
-            <div class="topic-name"><a href="#" style="margin-left: 30px;">Module Test</a></div>
-            <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
             </div>
         </div>
     <% }%>

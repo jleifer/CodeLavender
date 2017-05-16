@@ -20,39 +20,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>AddModuleServlet</servlet-name>
-        <servlet-class>cLPackage.AddModuleServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddModuleServlet</servlet-name>
-        <url-pattern>/AddModuleServlet</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>DeleteModuleServlet</servlet-name>
-        <servlet-class>cLPackage.DeleteModuleServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteModuleServlet</servlet-name>
-        <url-pattern>/DeleteModuleServlet</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>UpdateModuleServlet</servlet-name>
-        <servlet-class>cLPackage.UpdateModuleServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UpdateModuleServlet</servlet-name>
-        <url-pattern>/UpdateModuleServlet</url-pattern>
-    </servlet-mapping>
 
-    <servlet>
-        <servlet-name>UpdateModuleName</servlet-name>
-        <servlet-class>cLPackage.UpdateModuleName</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UpdateModuleName</servlet-name>
-        <url-pattern>/UpdateModuleName</url-pattern>
-    </servlet-mapping>
 
 
     <servlet>

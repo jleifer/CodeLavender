@@ -1,3 +1,6 @@
+#about, p.text-muted, .section-heading {
+    color: #ffffff;
+}
 
 body {
     font-family: 'Roboto', sans-serif;

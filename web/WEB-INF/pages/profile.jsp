@@ -65,8 +65,6 @@
         <!----------- !Navbar End ------------>
         <!----new course button---->
         <div align="right">
-            <%--<button type="button" class="btn btn-outline-primary"
-                    onclick="location.href = 'AddModuleServlet?courseId=-1&userId=${userId}';">--%>
             <button class="btn btn-outline-primary" onclick="location.href='/newCourse'">
                 <span class="glyphicon glyphicon-plus"></span> Add course
             </button>
@@ -118,16 +116,35 @@
                                     (Not Published)
                                 </c:if>
                             </span>
-                            <button class="btn btn-danger glyphicon glyphicon-remove"
+                            <%--<button class="btn btn-danger glyphicon glyphicon-remove"
                                     onclick="location.href='/deleteCourse?courseId=${course.id}'">
                                 Delete
-                            </button>
+                            </button>--%>
                         </div>
                     </c:forEach>
                 </c:otherwise>
             </c:choose>
-            <!----------------END generating ------------------->
         </div>
+        <div style="width:600px; float: left; margin-top: 30px; padding-bottom: 1%; padding-left: 1%; border: 1px solid lightgrey; margin-left: 30px;">
+            <h2>Course Started</h2>
+            <hr />
+            <!--------- Start Dyanamic generating ------------>
+            <c:choose>
+                <c:when test="${fn:length(courseStarted)} == 0">
+                    <h3>(No Courses Started)</h3>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="course" begin="0" items="${courseStarted}">
+                        <div class="courseCreated">
+                            <span onclick="location.href = 'viewCourse?courseId=${course.id}&userId=${userId}'">
+                                    ${course.name}
+                            </span>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <!----------------END generating ------------------->
     </div>
 </div>
 </body>

@@ -1,0 +1,16 @@
+.login_div{
+    width:500px;
+    height:300px;
+    border: 1px solid black;
+    box-shadow: 5px 5px 15px black;
+    background-color: lavender;
+    padding: 20px;
+    margin-top: 50px;
+    margin: auto;
+}
+.login_prompt{
+    margin-top: 30px;
+    border: 1px solid grey;
+    padding: 10px;
+}
+

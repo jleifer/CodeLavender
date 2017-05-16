@@ -92,7 +92,6 @@
                     <span class="btn glyphicon glyphicon-edit" title="edit"
                           onclick="location.href='/editModule?moduleId=${module.id}'"></span>
                         Name:<input type="text" name="course_name" value="${module.name}" disabled>
-                        <%--<a href="#" class="remove_field" onclick="location.href='/DeleteModuleServlet?courseId=${courseToEdit.id}&moduleId=${module.id}'">--%>
                         <a href="#" class="remove_field" onclick="location.href='/deleteModule?moduleId=${module.id}'">
                             <span class="remove_field glyphicon glyphicon-minus-sign"></span>
                         </a>
