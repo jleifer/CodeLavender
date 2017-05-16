@@ -360,6 +360,18 @@ public class DataManager {
         return UserCompletedList;
     }
 
+    public List<UserCompleted> getUserCompletedListByCourseId(Long courseId) {
+        Key<Course> courseKey = Key.create(Course.class, courseId);
+        List<UserCompleted> UserCompletedList = ObjectifyService.ofy().load().type(UserCompleted.class).list();
+        List<UserCompleted> result = new ArrayList<UserCompleted>();
+        for (UserCompleted uc: UserCompletedList) {
+            if(uc.getCourseID() == courseId) {
+                result.add(uc);
+            }
+        }
+        return result;
+    }
+
     /**
      * Update isInstructor of a User entity.
      *

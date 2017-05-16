@@ -3,6 +3,7 @@ package cLPackage.controller;
 import cLPackage.dataStore.Course;
 import cLPackage.dataStore.DataManager;
 import cLPackage.dataStore.Module;
+import cLPackage.dataStore.UserCompleted;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;

@@ -26,7 +26,7 @@ public class UserCompleted {
     @Index private long moduleID; // The module belonging to the course.
     @Index private long topicID; // The topic belonging to the course.
     @Index private int moduleLevel; // The amount of module quizzes a user has completed within the course.
-    @Index private int topicLevel; // The amount of topic quizzes a user has completed within the course.
+    @Index private int topicProficiencyScore; // The amount of topic quizzes a user has completed within the course.
     @Index private int completed; /* 0 - false, 1 - true; If a user completed a course - true when all quizzes
     * have been completed. */
     @Index private int rating; // An int with value 0 - 5; Denotes the rating a user gave the course.
@@ -38,14 +38,14 @@ public class UserCompleted {
         this.moduleID = 0L;
         this.topicID = 0L;
         this.moduleLevel = 0;
-        this.topicLevel = 0;
+        this.topicProficiencyScore = 0;
         this.completed = 0;
         this.rating = 0;
     }
 
     // Constructor
     public UserCompleted(long courseID, long moduleID, long topicID, int moduleLevel,
-                  int topicLevel, int completed, int rating, User u){
+                         int topicProficiencyScore, int completed, int rating, User u){
         this();
         user = Key.create(User.class, u.id);
         if(courseID >= 0L){
@@ -60,8 +60,8 @@ public class UserCompleted {
         if(moduleLevel >= 0){
             this.moduleLevel = moduleLevel;
         }
-        if(topicLevel >= 0){
-            this.topicLevel = topicLevel;
+        if(topicProficiencyScore >= 0){
+            this.topicProficiencyScore = topicProficiencyScore;
         }
         if(completed >= 0){
             this.completed = completed;
@@ -96,8 +96,8 @@ public class UserCompleted {
         return moduleLevel;
     }
 
-    public int getTopicLevel() {
-        return topicLevel;
+    public int getTopicProficiencyScore() {
+        return topicProficiencyScore;
     }
 
     public int getCompleted() {
@@ -120,8 +120,8 @@ public class UserCompleted {
         this.moduleLevel = moduleLevel;
     }
 
-    public void setTopicLevel(int topicLevel) {
-        this.topicLevel = topicLevel;
+    public void setTopicProficiencyScore(int topicProficiencyScore) {
+        this.topicProficiencyScore = topicProficiencyScore;
     }
 
     public void setCompleted(int completed) {
