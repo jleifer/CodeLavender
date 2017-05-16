@@ -27,8 +27,14 @@ public class TopicController {
     }
 
     @RequestMapping(value = {"/editTopic.jsp","/newTopic"}, method = RequestMethod.GET)
-    public String getNewTopicPage(ModelMap model) {
-        return "editTopic"; //Name of the jsp - using a different name will result in a different jsp being loaded.
+    public String getNewTopicPage(ModelMap model,
+                                  @ModelAttribute("moduleId") Long moduleId) {
+        DataManager dm = DataManager.getDataManager();
+        dm.createTopic(moduleId, null);
+
+        model.addAttribute("moduleId", moduleId);
+
+        return "redirect:/editModule"; //Name of the jsp - using a different name will result in a different jsp being loaded.
     }
 
     @RequestMapping(value = {"/editTopic"}, method = RequestMethod.GET)
@@ -120,9 +126,10 @@ public class TopicController {
         System.out.println("Updating topic...");
         /* Retrieve parameters needed to update topic. */
         String topicEditName = body.get("topicEditName").get(0);
+        String topicContent = body.get("topic_text").get(0);
         int hasTest = (body.keySet().contains("topicEditName")) ? 1 : 0;
 
-        //dm.updateTopic(topicId, topicEditName, hasTest);
+        dm.updateTopic(topicId, topicEditName, topicContent, hasTest);
 
         /* Return to the edit module page with the changes committed. */
         model.addAttribute("topicId", topicId);

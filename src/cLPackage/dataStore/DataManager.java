@@ -302,6 +302,23 @@ public class DataManager {
         datastore.put(Module);
     }
 
+    public void updateTopic(Long topicId, String topicEditName, String content, int hasTest) {
+        /* Retrieve topicId to update */
+        Topic topicToUpdate = dm.getTopicWithTopicId(topicId);
+
+        /* Access the datastore to update the entity fields without changing the topicId id */
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key moduleKey = KeyFactory.createKey("Module", topicToUpdate.getTheParentModule().getId());
+        Entity Topic = new Entity("Topic",topicToUpdate.id,moduleKey);
+        Topic.setIndexedProperty("name", topicEditName);
+        Topic.setIndexedProperty("content", content);
+        Topic.setIndexedProperty("hasTest", hasTest);
+
+        /* Update the entity associated with the current module id */
+        ObjectifyService.ofy().delete().entity(topicToUpdate).now();
+        datastore.put(Topic);
+    }
+
     public Long getCourseOwner(Long courseId){
         Course course = ObjectifyService.ofy().load().type(Course.class).id(courseId).now();
         return course.getTheParentUser().getId();

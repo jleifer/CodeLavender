@@ -83,12 +83,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="main?email=<%=request.getAttribute("email")%>"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
+                <a href="main"><img src="../../resources/img/dev.png" alt="*Logo*" height = "50px" width = "75px" ></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="main?email=<%=request.getAttribute("email")%>">Homepage <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="main">Homepage</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -97,7 +97,7 @@
                             <img class="profImg" src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="profile?userId=<%=request.getAttribute("userId")%>">Profile</a></li>
+                            <li><a href="profile">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a onclick="signOut();">Sign Out</a></li>
                         </ul>
@@ -119,7 +119,7 @@
             <div class="input_fields_wrap" style="width: 1000px;margin:auto; background-color: rgba(230,230,250,0.9);
                 font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
                 <label class="control-label">Topic Content</label>
-                <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">"${topicToEdit.content}"</textarea>
+                <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">${topicToEdit.content}</textarea>
             </div>
             <!---------END Add Topic Text END---------->
             <br style="clear: both;">
@@ -164,11 +164,11 @@
                                         <c:set var="qOptCount" value="${qOptCount+1}"/>
                                     </c:forEach>
                                     <label class="quiz_label">Answer: </label>
-                                    <select id="quizAns_{qCount}">
+                                    <select id="quizAns_${qCount}">
                                         <!-- Correct answer option -->
                                         <c:forEach var="quizOption" begin="0" items="${quiz.options}">
                                             <c:set var="opt" value="0"/>
-                                            <option value="quizAnsOption_${qCount}_${opt}"> ${quizOption}</option>
+                                                <option value="quizAnsOption_${qCount}_${opt}"> ${quizOption}</option>
                                             <c:set var="opt" value="${opt+1}"/>
                                         </c:forEach>
                                     </select>
@@ -196,7 +196,7 @@
                     <br clear="both;">
                 </div>
                 <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
-                    <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="button">&nbsp;Submit</button>
+                    <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="submit">&nbsp;Submit</button>
 
                     <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
                         onclick="location.href='/editModule?moduleId=${topicToEdit.theParentModule.id}';">&nbsp;Back</button>
