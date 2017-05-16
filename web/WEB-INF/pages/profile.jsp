@@ -126,6 +126,19 @@
             </c:choose>
             <!----------------END generating ------------------->
         </div>
+        <div style="width:600px; height:auto; margin-top: 30px; padding-bottom: 20px; border: 1px solid lightgrey; margin-left: 10px;">
+            &nbsp;<h2>Course Started</h2>
+            <hr />
+            <!--------- Start Dyanamic generating ------------>
+            <c:forEach var="course" begin="0" items="${courseStarted}">
+                <div class="courseCreated">
+                        <span onclick="location.href = 'viewCourse?courseId=${course.id}&userId=${userId}'">
+                                ${course.name}
+                        </span>
+                </div>
+            </c:forEach>
+            <!----------------END generating ------------------->
+        </div>
     </div>
 </div>
 </body>

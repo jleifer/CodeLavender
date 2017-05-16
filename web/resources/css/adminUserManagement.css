@@ -1,0 +1,22 @@
+.management_div{
+    width:800px;
+    height:auto;
+    border: 1px solid black;
+    box-shadow: 5px 5px 15px black;
+    background-color: lavender;
+    padding: 20px;
+    margin-top: 50px;
+    margin: auto;
+}
+.user_roster{
+    margin-top: 30px;
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+.user_entry{
+    cursor: pointer;
+}
+.user_entry:hover{
+    background-color: rgb(240,240,250);
+}

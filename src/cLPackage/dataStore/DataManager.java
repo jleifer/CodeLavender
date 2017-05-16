@@ -312,7 +312,17 @@ public class DataManager {
      *
      * @return List List of all Course object entities from the datastore.
      */
-    public List<Course> getCourseList() { return ObjectifyService.ofy().load().type(Course.class).list(); }
+    public List<Course> getCourseList() {
+        return ObjectifyService.ofy().load().type(Course.class).list();
+    }
+    /**
+     * Returns a list of all User entities in the datastore.
+     *
+     * @return List List of all User object entities from the datastore.
+     */
+    public List<User> getUserList() {
+        return ObjectifyService.ofy().load().type(User.class).list();
+    }
 
     /**
      * Returns a list of all Course entities in the datastore created by
@@ -344,6 +354,48 @@ public class DataManager {
         Key<User> userKey = Key.create(User.class, userId);
         List<UserCompleted> UserCompletedList = ObjectifyService.ofy().load().type(UserCompleted.class).ancestor(userKey).list();
         return UserCompletedList;
+    }
+
+    /**
+     * Update isInstructor of a User entity.
+     *
+     * @param userId User Id of the User entity in the datastore
+     * @param isInstructor User attribute to update
+     * @return List List of UserCompleted entities from the datastore created
+     * by the user with the given user id.
+     */
+    public void updateIsInstructor(long userId,int isInstructor){
+        List<User> userList = dm.getUserList();
+        User user = null;
+        for (int i =0 ; i<userList.size();i++){
+            if(userList.get(i).id.longValue()==userId){
+                user= userList.get(i);
+                break;
+            }
+        }
+        //change attributes
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
+        Entity User = new Entity("User",user.id);
+        User.setIndexedProperty("firstName",user.getFirstName());
+        User.setIndexedProperty("lastName",user.getLastName());
+        User.setIndexedProperty("isInstructor",isInstructor);
+        User.setIndexedProperty("created",user.getCreated());
+        User.setIndexedProperty("email",user.getEmail());
+        //User.setIndexedProperty("endorsed",0);
+
+        /*
+        User newuser = new User(user.getFirstName(),
+                user.getLastName(),
+                isInstructor,
+                user.getEmail(),
+                user.getCreated(),
+                null);
+        ObjectifyService.ofy().save().entity(newuser).now();
+                */
+        ObjectifyService.ofy().delete().entity(user).now();
+        datastore.put(User);
     }
 
 
