@@ -44,6 +44,7 @@ public class MailServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.getWriter().print("Sending simple email.");
         userEmail = (String)req.getSession().getAttribute("email");
+
         sendSimpleMail();
         resp.sendRedirect("/profile");
     }
