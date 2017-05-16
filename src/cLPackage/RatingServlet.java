@@ -1,8 +1,8 @@
 package cLPackage;
 
 import cLPackage.dataStore.Course;
-import cLPackage.dataStore.UserRating;
 import cLPackage.dataStore.DataManager;
+import cLPackage.dataStore.UserRating;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -27,7 +27,6 @@ public class RatingServlet extends HttpServlet{
         String userIdString =req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
         String curUserIdString = req.getParameter("curUserId");
-
 
         Long userId = Long.parseLong(userIdString);
         Long courseId = Long.parseLong(courseIdString);

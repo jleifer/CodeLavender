@@ -56,20 +56,16 @@ public class CourseController {
 
         /* Retrieve Data manager to create new course */
         DataManager dm = DataManager.getDataManager();
-        Course courseToUpdate = dm.getCourseWithCourseId(courseId);
 
         /* Retrieve parameters needed to update course */
         String courseEditName = body.get("courseEditName").get(0);
         String courseEditDescription = body.get("courseEditDescription").get(0);
         String courseEditImgURL = body.get("courseEditImgURL").get(0);
         int isPublic = (body.keySet().contains("courseEditIsPublic")) ? 1 : 0;
-        int currentRating = courseToUpdate.getEndorsedByUsers();
-        int currentNumEndorsers = courseToUpdate.getTotalEndorsers();
-        int currentNumInstructorEndorsers = courseToUpdate.getEndorsedByInstructors();
 
 
-        dm.updateCourse(userId, courseId, courseEditName, courseEditDescription,
-                courseEditImgURL, isPublic, currentRating, currentNumEndorsers, currentNumInstructorEndorsers);
+        dm.updateCourse(userId, courseId, courseEditName, courseEditDescription, courseEditImgURL, isPublic,
+                0,0,0);
 
         /* Return to the edit course page with the changes committed */
         model.addAttribute("courseId", courseId);

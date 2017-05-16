@@ -96,7 +96,7 @@
                 <div class="input-group" >
                     <form action="/search" method="get">
                         <input id="searchBox" type="text" name="searchStr" class="form-control" placeholder="Search by Course Name..."
-                               style=" width:550px; ">
+                               style=" width:240px; ">
                         <span class="input-group-btn"><input id="GoButooon" class="btn btn-default" type="submit" value="Go!"></span>
                     </form>
                 </div><!-- /input-group -->

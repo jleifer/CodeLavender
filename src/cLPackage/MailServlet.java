@@ -58,6 +58,7 @@ public class MailServlet extends HttpServlet {
 
         //send email
         userEmail = (String)req.getSession().getAttribute("email");
+
         sendSimpleMail();
         resp.sendRedirect("/profile");
     }
