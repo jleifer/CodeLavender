@@ -113,6 +113,6 @@ $( document ).ready(function() {
 
 });
 
-function rateCourse(courseId,userId){
-    location.href = 'RatingServlet?courseId='+courseId+'&userId='+userId+'&rating='+rating;
+function rateCourse(courseId,userId,curUserId){
+    location.href = 'RatingServlet?courseId='+courseId+'&userId='+userId+'&rating='+rating+'&curUserId='+curUserId;
 }

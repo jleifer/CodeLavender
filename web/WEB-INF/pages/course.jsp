@@ -192,20 +192,21 @@
     </div>
  -->
     <br><br>
-    <div class="star-container">
-        <div class="row">
-            <h3>Rate this course !!</h3>
+    <c:if test="${isRated==false}">
+        <div class="star-container">
+            <div class="row">
+                <h3>Rate this course !!</h3>
+            </div>
+            <div class="row lead">
+                <div id="stars" class="starrr"></div>
+                You gave a rating of <span id="count">0</span> star(s)
+            </div>
+            <button type="button" class="btn btn-outline-primary"
+                    onclick="rateCourse(${courseId},${userId},${curUserId})">
+                <span class="glyphicon glyphicon-plus"></span> Submit Rating
+            </button>
         </div>
-        <div class="row lead">
-            <div id="stars" class="starrr"></div>
-            You gave a rating of <span id="count">0</span> star(s)
-        </div>
-        <button type="button" class="btn btn-outline-primary"
-                onclick="rateCourse(${courseId},${userId})">
-            <span class="glyphicon glyphicon-plus"></span> Submit Rating
-        </button>
-    </div>
-
+    </c:if>
 </div>
 
 

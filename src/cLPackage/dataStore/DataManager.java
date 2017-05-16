@@ -31,6 +31,7 @@ public class DataManager {
         ObjectifyService.register(MultipleChoices.class);
         ObjectifyService.register(UserCompleted.class);
         ObjectifyService.register(UserRequest.class);
+        ObjectifyService.register(UserRating.class);
 
     }
 
@@ -424,6 +425,24 @@ public class DataManager {
         }
 
         return result;
+    }
+
+    public UserRating getUserRatingByUIDandCourseID(long userId,long courseId){
+        UserRating userRating =null;
+
+        List<UserRating> userRatingList = ObjectifyService.ofy().load().type(UserRating.class).list();
+        try {
+            Thread.currentThread().sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (int i =0;i <userRatingList.size();i++){
+            UserRating ur = userRatingList.get(i);
+            if(ur.courseId==courseId&&ur.UserId==userId){
+                userRating = ur;
+            }
+        }
+        return userRating;
     }
 
     public List<Module> getModulesFromCourse(Long courseId) {
