@@ -341,6 +341,7 @@ public class DataManager {
         com.google.appengine.api.datastore.Key topicKey = KeyFactory.createKey("Topic", mcToUpdate.getParentTopicID());
         Entity MultipleChoice = new Entity("MultipleChoices",mcToUpdate.id,topicKey);
         MultipleChoice.setIndexedProperty("questionText", questionText);
+        MultipleChoice.setIndexedProperty("answer", answer);
 
         /* Update the entity associated with the current mc id */
         ObjectifyService.ofy().delete().entity(mcToUpdate).now();

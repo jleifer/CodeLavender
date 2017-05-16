@@ -2,6 +2,7 @@ package cLPackage.controller;
 
 import cLPackage.dataStore.DataManager;
 import cLPackage.dataStore.MultipleChoices;
+import cLPackage.dataStore.Topic;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import cLPackage.dataStore.Topic;
-
 
 import java.util.List;
 /**
@@ -20,7 +19,7 @@ import java.util.List;
  */
 @Controller
 public class TopicController {
-    
+
     @RequestMapping(value = {"/viewTopic", "/viewTopic.jsp"}, method = RequestMethod.GET)
     public String getCoursePage(ModelMap model) {
         return "viewTopic";
@@ -102,15 +101,19 @@ public class TopicController {
         return "redirect:/editTopic";
     }
 
-    @RequestMapping(value = {"/saveMC"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/saveMC"}, method = RequestMethod.POST)
     public String saveMC(ModelMap model,
                            @ModelAttribute("mcId") Long mcId,
                            @ModelAttribute("topicId") Long topicId,
-                            @ModelAttribute("questionText") String questionText){
+                         @RequestBody MultiValueMap<String, String> body){
 
         /* Retrieve Data manager. */
         DataManager dm = DataManager.getDataManager();
         System.out.println("Saving " + mcId);
+        String qT = "quizDescription_"+mcId.toString();
+        String ans = "quiz_"+mcId.toString()+"_ans";
+        String questionText = body.get(qT).get(0);
+       // int answer = body.get(ans).get
 
         dm.updateMC(mcId, questionText, 0);
 
@@ -120,7 +123,7 @@ public class TopicController {
         return "redirect:/editTopic";
     }
 
-    @RequestMapping(value = {"/addMC"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/addMC"}, method = RequestMethod.POST)
     public String addMC(ModelMap model,
                            @ModelAttribute("topicId") Long topicId){
 
