@@ -47,7 +47,7 @@ public class AddTopicServlet extends HttpServlet {
         }
 
         //Create Topic.
-        Topic newTopic = new Topic("Default Topic", 0, "No Content", ObjectifyService.ofy().load().entity(module).now());
+        Topic newTopic = new Topic("Default Topic", 1, "No Content", ObjectifyService.ofy().load().entity(module).now());
         ObjectifyService.ofy().save().entity(newTopic).now();
         String options[] = {"True", "False"};
         MultipleChoices newMulti = new MultipleChoices("Default Question Text", 2, 1
