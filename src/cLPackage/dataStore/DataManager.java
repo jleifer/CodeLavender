@@ -147,6 +147,19 @@ public class DataManager {
         return topic;
     }
 
+    public MultipleChoices getMCFromId(Long mcId){
+        MultipleChoices mc = null;
+
+        List<MultipleChoices> mcList = ObjectifyService.ofy().load().type(MultipleChoices.class).list();
+        for (MultipleChoices m: mcList){
+            if(m.getID().equals(mcId)){
+                mc = m;
+                break;
+            }
+        }
+        return mc;
+    }
+
     public MultipleChoices getMultipleChoiceFromMultipleChoiceID(Long mcId){
         MultipleChoices mc = null;
 
@@ -317,6 +330,21 @@ public class DataManager {
         /* Update the entity associated with the current module id */
         ObjectifyService.ofy().delete().entity(topicToUpdate).now();
         datastore.put(Topic);
+    }
+
+    public void updateMC(Long mcId, String questionText, int answer){
+        /* Retrieve mcId to update */
+        MultipleChoices mcToUpdate = dm.getMCFromId(mcId);
+
+        /* Access the datastore to update the entity fields without changing the mc id */
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        com.google.appengine.api.datastore.Key topicKey = KeyFactory.createKey("Topic", mcToUpdate.getParentTopicID());
+        Entity MultipleChoice = new Entity("MultipleChoices",mcToUpdate.id,topicKey);
+        MultipleChoice.setIndexedProperty("questionText", questionText);
+
+        /* Update the entity associated with the current mc id */
+        ObjectifyService.ofy().delete().entity(mcToUpdate).now();
+        datastore.put(MultipleChoice);
     }
 
     public Long getCourseOwner(Long courseId){

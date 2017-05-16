@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--%
   Created by IntelliJ IDEA.
   User: Konstantinos
@@ -120,7 +121,15 @@
                 font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888; ">
                 <label class="control-label">Topic Content</label>
                 <textarea id="topic_description" rows="10" cols="98" name="topic_text" style="display: block;">${topicToEdit.content}</textarea>
+                <br>
+                <span class="input-group-btn" style="display: block; margin-top: auto;" title="Submit">
+                    <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="submit">&nbsp;Submit</button>
+
+                    <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
+                            onclick="location.href='/editModule?moduleId=${topicToEdit.theParentModule.id}';">&nbsp;Back</button>
+                 </span>
             </div>
+
             <!---------END Add Topic Text END---------->
             <br style="clear: both;">
 
@@ -145,9 +154,10 @@
                                 <c:set var="qCount" value="1"/>
                                 <div class="quiz_question">
                                     <label class="quiz_label"></label>
-                                    <span style="color:red;cursor:pointer;margin-left:10px;">Delete</span>
+                                    <span style="color:red;cursor:pointer;margin-left:10px;" type="button" id="delete_'${qCount}'" onclick="location.href='/deleteMC?mcId=${quiz.ID}&topicId=${topicId}';">Delete</span>
+                                    <span style="color:blue;cursor:pointer;margin-left:20px;" type="button" onclick="location.href='/saveMC?mcId=${quiz.ID}&topicId=${topicId}&questionContent=${quizD}';">Save</span>
                                     <br />
-                                    <textarea id="quizDescription_${qCount}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
+                                    <textarea id="quizDescription_${quiz.ID}" name="quizDescription_${quiz.ID}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
                                     <c:forEach var="quizOption" begin="0" items="${quiz.options}">
                                         <c:set var="qOptCount" value="0"/>
                                         <div class="mutic">
@@ -157,7 +167,7 @@
                                                     <div class="mutic">${quizOption}</div>
                                                 </c:when>
                                             <c:otherwise>
-                                                <input id="quizOption_${qCount}_${qOptCount+1}" type="text" class="text_field_option" value="${quizOption}">
+                                                <input id="quizOption_${quiz.ID}_${qOptCount+1}" type="text" class="text_field_option" value="${quizOption}">
                                             </c:otherwise>
                                         </c:choose>
                                         </div>
@@ -182,11 +192,12 @@
 
                 </div>
                 <div style="height: 30px; margin-top:30px;">
-                    <span class="add_field_button" id="add_quiz_btn"  style="display: block; float: left;" >
+                    <span class="add_field_button" id="add_quiz_btn"  style="display: block; float: left;"
+                        onclick="location.href='/addMC?topicId=${topicId}';">
                             <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
                             New Quiz:&nbsp;
                     </span>
-                    <select id="cur_quiz_type">
+                    <select id="cur_quiz_type" name="cur_quiz_type">
                         <option value="TorF" selected >True or False</option>
                         <option value="multi_4" >Multiple Choices(4)</option>
                         <option value="multi_5" >Multiple Choices(5)</option>
@@ -195,12 +206,6 @@
                     <span id="quiz_total_num" >Total: ${quizSize}</span>
                     <br clear="both;">
                 </div>
-                <span class="input-group-btn" style="display: block; margin-top: 30px;" title="Submit">
-                    <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="submit">&nbsp;Submit</button>
-
-                    <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
-                        onclick="location.href='/editModule?moduleId=${topicToEdit.theParentModule.id}';">&nbsp;Back</button>
-                </span>
             </div>
         </form>
         <!---------END Add Topic Quiz Control END------------>

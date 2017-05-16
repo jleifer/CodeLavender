@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller
 public class TopicController {
-
+    
     @RequestMapping(value = {"/viewTopic", "/viewTopic.jsp"}, method = RequestMethod.GET)
     public String getCoursePage(ModelMap model) {
         return "viewTopic";
@@ -68,6 +68,7 @@ public class TopicController {
         model.addAttribute("topicHasTest", topicHasTest);
         model.addAttribute("moduleId", topicToEdit.getTheParentModule().getId());
         model.addAttribute("quizSize", quizList.size());
+        model.addAttribute("cur_quiz_type", 4);
         return "editTopic";
     }
     @RequestMapping(value = {"/deleteTopic"}, method = RequestMethod.GET)
@@ -101,15 +102,32 @@ public class TopicController {
         return "redirect:/editTopic";
     }
 
+    @RequestMapping(value = {"/saveMC"}, method = RequestMethod.GET)
+    public String saveMC(ModelMap model,
+                           @ModelAttribute("mcId") Long mcId,
+                           @ModelAttribute("topicId") Long topicId,
+                            @ModelAttribute("questionText") String questionText){
+
+        /* Retrieve Data manager. */
+        DataManager dm = DataManager.getDataManager();
+        System.out.println("Saving " + mcId);
+
+        dm.updateMC(mcId, questionText, 0);
+
+        model.addAttribute("topicId", topicId);
+
+        /* Set needed values into the session and model. */
+        return "redirect:/editTopic";
+    }
+
     @RequestMapping(value = {"/addMC"}, method = RequestMethod.GET)
     public String addMC(ModelMap model,
-                           @ModelAttribute("topicId") Long topicId) {
+                           @ModelAttribute("topicId") Long topicId){
 
         /* Retrieve Data manager. */
         DataManager dm = DataManager.getDataManager();
         dm.createTopicQuizQuestion(topicId, null);
 
-        /* Add the model attribute before we delete the MC */
         model.addAttribute("topicId", topicId);
 
         /* Set needed values into the session and model. */
