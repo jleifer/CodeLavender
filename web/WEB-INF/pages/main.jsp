@@ -126,6 +126,7 @@
             <div class="rec-class-name">${course.name}</div>
             <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
             <div class="rec-class-intro">${course.description}</div>
+            <!--
             <span class="glyphicon glyphicon-star"
                   aria-hidden="true" style="margin-left:10px; color:red;"></span>
             <span class="glyphicon glyphicon-star"
@@ -137,6 +138,8 @@
             <span class="glyphicon glyphicon-star"
                   aria-hidden="true" style=" color:lavender;"></span>
             <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
+            -->
+            <span class="rec-rating-text">${course.endorsedByUsers} <span style="color:grey;">(${course.totalEndorsers})</span></span>
             <div class="progress-text">Start Now</div>
         </div>
     </c:forEach>

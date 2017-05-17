@@ -127,7 +127,7 @@
                     <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
                     <div class="topic">
                         <div class="topic-name">
-                            <a href="viewTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>&topicId=<%=topics.get(k).id%>">
+                            <a href="viewTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>&topicId=<%=topics.get(k).id%>&curUserId=${curUserId}">
                                 Topic <%=k+1%>
                             </a>
                         </div>

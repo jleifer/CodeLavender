@@ -141,11 +141,11 @@
             for (int k = 0 ; k<options.length;k++){
                 if(quizList.get(i).getAnswer()==k+1){
                     %>
-        <div id="quiz_<%=i+1%>_<%=k+1%>" onclick="selectOption(<%=i+1%>,<%=k+1%>,1)" class="mutic"><b ><%=options[k]%></b></div>
+        <div id="quiz_<%=i+1%>_<%=k+1%>" onclick="selectOption(<%=i+1%>,<%=k+1%>,1 )" class="mutic"><b ><%=options[k]%></b></div>
         <%
                 }else{
                     %>
-        <div id="quiz_<%=i+1%>_<%=k+1%>" onclick="selectOption(<%=i+1%>,<%=k+1%>,0)" class="mutic"><b ><%=options[k]%></b></div>
+        <div id="quiz_<%=i+1%>_<%=k+1%>" onclick="selectOption(<%=i+1%>,<%=k+1%>,0 )" class="mutic"><b ><%=options[k]%></b></div>
         <%
                 }
         %><% } %>
@@ -211,6 +211,7 @@ public class HelloWorld {
             <c:url var="backUrl" value="/viewCourse">
                 <c:param name="userId" value="${userId}"/>
                 <c:param name="courseId" value="${courseId}"/>
+                <c:param name="curUserId" value="${curUserId}"/>
             </c:url>
 
     </div>
@@ -245,15 +246,17 @@ public class HelloWorld {
 
 <!--Hidden Form for recording and submitting quiz answers-->
 
-<form id="takeQuizForm" action="TakeTopicQuizServlet" method="POST">
+<form id="takeQuizForm" action="TakeTopicQuizServlet" method="GET">
     <input type="hidden" name="quizNum"  id="quizNum"  value="<c:out value="${fn:length(quizList)}"/>">
     <input type="hidden" name="userId" value="<c:out value="${userId}" />">
+    <input type="hidden" name="curUserId" value="${curUserId}"/>
     <input type="hidden" name="courseId" value="<c:out value="${courseId}" />">
     <input type="hidden" name="moduleId" value="<c:out value="${moduleId}" />">
     <input type="hidden" name="topicId" value="<c:out value="${topicId}" />">
     <input type="hidden" id="topicProficiency" name="topicProficiency" value="0">
     <c:forEach var="i" begin="1" end="${fn:length(quizList)}">
-        <input type="hidden" id="quizAnswer${i}" name="quizAnswer${i}" value="-1"> "><!-- val=-1 not answered yet -->
+        <input type="hidden" id="quizAnswer${i}" name="quizAnswer${i}" value="-1">
+        <!-- val=-1 not answered yet -->
     </c:forEach>
 
 </form>
