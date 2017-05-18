@@ -60,17 +60,7 @@
         </div>
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3 social-login">
-            <!--<h3>...or login with:</h3>-->
             <div class="social-login-buttons">
-              <!--<a class="btn btn-link-1 btn-link-1-facebook" href="#">-->
-              <!--<i class="fa fa-facebook"></i> Facebook-->
-              <!--</a>-->
-              <!--<a class="btn btn-link-1 btn-link-1-twitter" href="#">-->
-              <!--<i class="fa fa-twitter"></i> Twitter-->
-              <!--</a>-->
-              <%--<a class="btn btn-link-1 btn-link-1-google-plus" >--%>
-                <%--<i class="fa fa-google-plus" ></i> Login With Google--%>
-              <%--</a>--%>
               <center><div class="g-signin2" data-onsuccess="onSignIn"></div></center>
 
               <br>
@@ -89,7 +79,6 @@
       <div class="row">
         <div class="col-lg-12 text-center">
           <h2 class="section-heading">About Us</h2>
-          <!--<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
         </div>
       </div>
       <div class="row">
@@ -97,12 +86,10 @@
           <ul class="timeline">
             <li>
               <div class="timeline-image">
-                <%--<img class="img-circle img-responsive" src="img/about/1.jpg" alt="">--%>
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
                   <h4>Goal</h4>
-                  <!--<h4 class="subheading">Our Humble Beginnings</h4>-->
                 </div>
                 <div class="timeline-body">
                   <p class="text-muted">
@@ -113,12 +100,10 @@
             </li>
             <li class="timeline-inverted">
               <div class="timeline-image">
-                <%--<img class="img-circle img-responsive" src="img/about/2.jpg" alt="">--%>
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
                   <h4>Process</h4>
-                  <!--<h4 class="subheading">An Agency is Born</h4>-->
                 </div>
                 <div class="timeline-body">
                   <p class="text-muted">
@@ -131,7 +116,6 @@
             </li>
             <li>
               <div class="timeline-image">
-                <%--<img class="img-circle img-responsive" src="img/about/3.jpg" alt="">--%>
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">
@@ -148,7 +132,6 @@
             </li>
             <li class="timeline-inverted">
               <div class="timeline-image">
-                <%--<img class="img-circle img-responsive" src="img/about/4.jpg" alt="">--%>
               </div>
               <div class="timeline-panel">
                 <div class="timeline-heading">

@@ -447,17 +447,7 @@ public class DataManager {
         User.setIndexedProperty("isInstructor",isInstructor);
         User.setIndexedProperty("created",user.getCreated());
         User.setIndexedProperty("email",user.getEmail());
-        //User.setIndexedProperty("endorsed",0);
 
-        /*
-        User newuser = new User(user.getFirstName(),
-                user.getLastName(),
-                isInstructor,
-                user.getEmail(),
-                user.getCreated(),
-                null);
-        ObjectifyService.ofy().save().entity(newuser).now();
-                */
         ObjectifyService.ofy().delete().entity(user).now();
         datastore.put(User);
     }
@@ -560,7 +550,6 @@ public class DataManager {
         }
         /* Now delete it. */
         Course courseToDelete = dm.getCourseWithCourseId(courseId);
-        //ObjectifyService.ofy().delete().type(Course.class).id(courseId).now();
         ObjectifyService.ofy().delete().entity(courseToDelete).now();
     }
 
@@ -572,7 +561,6 @@ public class DataManager {
             dm.deleteTopic(t.getId());
         }
         /* Now delete it. */
-        //ObjectifyService.ofy().delete().type(Module.class).id(moduleId).now();
         Module moduleToDelete = dm.getModuleWithModuleId(moduleId);
         ObjectifyService.ofy().delete().entity(moduleToDelete).now();
     }
@@ -585,13 +573,11 @@ public class DataManager {
             dm.deleteMC(m.getID());
         }
         /* Now delete it. */
-        //ObjectifyService.ofy().delete().type(Topic.class).id(topicId).now();
         Topic topicToDelete = dm.getTopicWithTopicId(topicId);
         ObjectifyService.ofy().delete().entity(topicToDelete).now();
     }
 
     public void deleteMC(Long mcId){
-        //ObjectifyService.ofy().delete().type(MultipleChoices.class).id(mcId).now();
         MultipleChoices mcToDelete = dm.getMultipleChoiceFromMultipleChoiceID(mcId);
         ObjectifyService.ofy().delete().entity(mcToDelete).now();
     }

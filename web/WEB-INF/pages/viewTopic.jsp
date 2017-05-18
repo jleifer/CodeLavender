@@ -111,14 +111,6 @@
 			font-size: 19px; padding: 10px;box-shadow:  1px 1px 14px #888888;">
             <%=topic.getContent()%>
 
-            <!--
-            <div class="prevnext" style="float: left;">
-                Previous Topic
-            </div>
-            <div class="prevnext" style="margin-left: 650px;">
-                Next Topic
-            </div>
-            -->
             <br style="clear: both;"/>
         </div>
 
@@ -161,52 +153,7 @@
 
         </script>
         <!---------------ENd Generating ----------->
-
-        <!--
-        <div style=" width: 800px; margin-left: 60px; margin-top: 50px;
-  font: 16px Raleway, sans-serif; margin-left: 50px; margin-bottom: 30px; "><b style="font-size: 18px;">(50%)2.&nbsp;</b>
-            Write a Java Program that prints <b>Hello, World!</b> to the terminal window.. </div>
-
-        <textarea style="width:600px; height: 120px; margin-left:60px; color: blue; "autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">public class HelloWorld {
-
-    public static void main(String[] args) {
-        // Prints "Hello, World" to the terminal window.
-        System.out.println("Hello, World");
-    }
-
-}
-</textarea>
-
-
-        <div style=" width: 800px; margin-left: 60px; margin-top: 50px;
-  font: 16px Raleway, sans-serif; margin-left: 50px; margin-bottom: 30px; "><b style="font-size: 18px;">(30%)3.&nbsp;</b>Complete the following Java snipet with <b>boolean operators </b>, and make the program prints <b>Apple</b> to the terminal. </div>
-        <div style="width: 800px; margin-left: 60px; margin-top: 50px;
-  font: 18px Raleway, sans-serif; margin-left: 50px; margin-bottom: 30px; ">
-  <pre>
-public class HelloWorld {
-
-    public static void main(String[] args) {
-    	boolean animal = false;
-    	boolean notEdible = false;
-    	boolean bnum = (3 - 16 > 0);
-    	boolean t = true;
-    	if( !animal <input style="width: 30px;color: blue;" maxlength="2" type="text" name=""> notEdible || (bnum <input style="color: blue; width: 30px;" maxlength="2" type="text" name="">  t)){
-        System.out.println("Apple");
-    	}
-    }
-}
-  </pre>
-
-            <div style="margin:auto;width: 150px;
-			height: 25px;
-			border:1px solid grey;
-			background-color: rgb(190,190,210); text-align: center;
-			line-height: 25px;">
-                <b>Submit</b>
-            </div>
-        </div>
-    -->
-
+            
             <!--prepare back btn url-->
             <c:url var="backUrl" value="/viewCourse">
                 <c:param name="userId" value="${userId}"/>

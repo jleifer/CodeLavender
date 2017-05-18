@@ -169,7 +169,6 @@ public class CourseController {
     @RequestMapping(value = {"/UserCourse"}, method = RequestMethod.GET)
     public String UserCourse(ModelMap model) {
         /* Retrieve Data manager. */
-         /* Retrieve data manager */
         DataManager dm = DataManager.getDataManager();
 
         /* Retrieve the list of all Course entities from the datastore */

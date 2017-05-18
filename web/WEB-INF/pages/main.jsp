@@ -50,12 +50,6 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
-        <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" class="search-box" placeholder="Search">-->
-        <!--<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>-->
-        <!--</div>-->
-        <!--</form>-->
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle navbar-img" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -126,48 +120,12 @@
             <div class="rec-class-name">${course.name}</div>
             <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
             <div class="rec-class-intro">${course.description}</div>
-            <!--
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style="margin-left:10px; color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style="color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:lavender;"></span>
-            <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-            -->
             <span class="rec-rating-text">${course.endorsedByUsers} <span style="color:grey;">(${course.totalEndorsers})</span></span>
             <div class="progress-text">Start Now</div>
         </div>
     </c:forEach>
     <!------------- END Dynamically generate here END ----------------------->
 
-    <!--
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress"><div class="progress_unfill"></div><div class="progress_minMark"></div></div>
-        <div class="progress-text">25%</div>
-    </div>
-    -->
     <br style="clear:both;" />
 
     <!--  User Recommendations  -->
@@ -187,17 +145,6 @@
             <div class="rec-class-name">${course.name}</div>
             <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
             <div class="rec-class-intro">${course.description}</div>
-            <%--<span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style="margin-left:10px; color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style="color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:lavender;"></span>--%>
-
             <span class="rec-rating-text">${course.endorsedByUsers} <span style="color:grey;">(${course.totalEndorsers})</span></span>
             <div class="progress-text">Start Now</div>
         </div>

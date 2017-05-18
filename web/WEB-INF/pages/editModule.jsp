@@ -64,7 +64,6 @@
         <form action="/updateModule?moduleId=${moduleToEdit.id}" method="post">
             <div class="input-group input-group-lg col-xs-5">
                 <span class="input-group-addon" id="sizing-addon1">Module Name</span>
-                <%--<input id="module_name_field" type="text" class="form-control" value="<%=module.getName()%>" aria-describedby="sizing-addon1">--%>
                 <input name="moduleEditName" id="module_name_field" type="text" class="form-control" value="${moduleToEdit.name}" aria-describedby="sizing-addon1">
             </div>
             <br>
@@ -73,8 +72,6 @@
             <div class="input_fields_wrap">
                 <label class="control-label">Add Topics</label>
                 <span class="add_field_button">
-                    <%--<button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"
-                            onclick="location.href='/AddTopicServlet?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleId%>';"></button>--%>
                     <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"
                             onclick="location.href='/newTopic?moduleId=${moduleToEdit.id}'"></button>
                 </span>
