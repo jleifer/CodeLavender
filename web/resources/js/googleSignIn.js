@@ -11,7 +11,6 @@ var profile;
 var auth2;
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
-    //window.open("/lists_all","_self",false);
     userId =  profile.getId(); // Do not send to your backend! Use an ID token instead.
     localStorage.setItem("userUrl",plusUrl.concat(userId));
     firstName =  profile.getGivenName();

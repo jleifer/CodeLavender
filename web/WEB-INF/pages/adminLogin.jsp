@@ -49,12 +49,6 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
-        <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" class="search-box" placeholder="Search">-->
-        <!--<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>-->
-        <!--</div>-->
-        <!--</form>-->
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle navbar-img" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

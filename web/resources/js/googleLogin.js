@@ -52,7 +52,6 @@ function loadAuth(){
         gapi.auth2.init();
 
     });
-    //var auth2 = gapi.auth2.getAuthInstance();
 }
 
 function signOut() {

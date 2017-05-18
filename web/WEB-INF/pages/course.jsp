@@ -84,12 +84,6 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="main">Homepage <span class="sr-only">(current)</span></a></li>
         </ul>
-        <!--<form class="navbar-form navbar-left form-horizontal" role="search">-->
-        <!--<div class="input-group">-->
-        <!--<input type="text" class="search-box" placeholder="Search">-->
-        <!--<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>-->
-        <!--</div>-->
-        <!--</form>-->
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle navbar-img" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -111,7 +105,6 @@
 
 
     <div id="course-page-name"><h1><c:out value="${course.name}"></c:out></h1></div>
-   <!-- <div class="masonry-container">-->
     <div style=" width: 1100px; padding-bottom: 20px;">
     <%  for (int i = 0; i<moduleList.size();i++){%>
         <div class="module_active" >
@@ -150,48 +143,7 @@
         </div>
     <% }%>
     </div>
-    <!-------
 
-    <div id="course-page-name"><h1>Sample Course</h1></div>
-
-    <div class="module_active">
-        <div class="module-name"><h3>Module 1</h3></div>
-
-        <hr/>
-
-        <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
-        <div class="topic">
-            <div class="topic-name"><a href="#">Topic 1</a></div>
-            <div class="score"><span class="passed">100%</span></div>
-            Test Name
-            <br/>
-        </div>
-        <br/>
-
-        <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
-        <div class="topic">
-            <div class="topic-name"><a href="#">Topic 2</a></div>
-            <div class="score"><span class="passed">100%</span></div>
-
-            <br/>
-        </div>
-        <br/>
-        <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
-        <div class="topic">
-            <div class="topic-name"><a href="#">Topic 3</a></div>
-            <div class="score"><span class="passed">80%</span></div>
-
-            <br/>
-        </div>
-        <br/>
-
-
-        <hr />
-        <div class="topic-name"><a href="#" style="margin-left: 30px;">Module Test</a></div>
-        <div class="score"><span class="passed" style="margin-right: 30px;">90%</span></div>
-        <br/>
-    </div>
- -->
     <br><br>
     <c:if test="${isRated==false}">
         <div class="star-container">
