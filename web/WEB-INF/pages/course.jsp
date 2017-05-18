@@ -19,10 +19,13 @@
     ObjectifyService.register(User.class);
     String userId = (String)request.getParameter("userId").toString();
     String courseId = (String)request.getParameter("courseId").toString();
+    Long courseIdLong = Long.parseLong(courseId);
     List<Course> courseList = ObjectifyService.ofy().load().type(Course.class).list();
-    Course course = null;
+    DataManager dm = DataManager.getDataManager();
+
+    Course course = dm.getCourseWithCourseId(courseIdLong);
     for(int i = 0; i<courseList.size();i++){
-        if(courseList.get(i).getId()==Long.parseLong(courseId)){
+        if(courseList.get(i).getTheParentUser().getId() == course.getTheParentUser().getId()){
             course = courseList.get(i);
         }
     }

@@ -25,7 +25,6 @@
 
     List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).list();
     Topic topic = dm.getTopicWithTopicId(topicIdLong);
-    topic =
     for(int i = 0; i<topicList.size();i++){
         if(topicList.get(i).getTheParentModule().getId()==topic.getTheParentModule().getId()){
             topic = topicList.get(i);
