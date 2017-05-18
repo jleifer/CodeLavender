@@ -64,5 +64,15 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.');
     });
-    window.open("/index","_self",false);
+    //window.open("/index","_self",false);
+    deleteAllCookies();
+    location.href ="https://mail.google.com/mail/u/0/?logout&hl=en";
+}
+function deleteAllCookies(){
+    var cookies = document.cookie.split(";");
+    for(var i=0; i < cookies.length; i++) {
+        var equals = cookies[i].indexOf("=");
+        var name = equals > -1 ? cookies[i].substr(0, equals) : cookies[i];
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 }
