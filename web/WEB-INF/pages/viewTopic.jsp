@@ -3,6 +3,7 @@
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 <%@ page import="java.util.List" %>
+<%@ page import="cLPackage.dataStore.DataManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: AjaxSurangama
@@ -19,14 +20,19 @@
     String courseId = (String)request.getParameter("courseId").toString();
     String moduleId = (String)request.getParameter("moduleId").toString();
     String topicId = (String)request.getParameter("topicId").toString();
+    Long topicIdLong = Long.parseLong(topicId);
+    DataManager dm = DataManager.getDataManager();
 
     List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).list();
-    Topic topic = null;
+    Topic topic = dm.getTopicWithTopicId(topicIdLong);
+    topic =
     for(int i = 0; i<topicList.size();i++){
-        if(topicList.get(i).getId()==Long.parseLong(topicId)){
+        if(topicList.get(i).getTheParentModule().getId()==topic.getTheParentModule().getId()){
             topic = topicList.get(i);
+            break;
         }
     }
+
     Key<Topic> topicKey = Key.create(Topic.class,Long.parseLong(topicId));
     List<MultipleChoices> quizList = ObjectifyService.ofy().load().type(MultipleChoices.class).ancestor(topicKey).list();
 

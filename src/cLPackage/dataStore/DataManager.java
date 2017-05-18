@@ -6,7 +6,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
-import com.sun.org.apache.xpath.internal.operations.Mult;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +32,6 @@ public class DataManager {
         ObjectifyService.register(UserCompleted.class);
         ObjectifyService.register(UserRequest.class);
         ObjectifyService.register(UserRating.class);
-
     }
 
     public static DataManager getDataManager(){
@@ -202,6 +200,7 @@ public class DataManager {
         /* Create new Course object and save it to the datastore */
         Course newCourse = new Course("New Course", owningUser.getFirstName(), owningUser.getLastName(),
                 0, 0, 0, "default description", owningUser);
+
         ObjectifyService.ofy().save().entity(newCourse).now();
         newCourse = ObjectifyService.ofy().load().entity(newCourse).now();
 
@@ -551,7 +550,8 @@ public class DataManager {
 
     public void deleteCourse(Long courseId){
         /* Now delete the modules associated with this course first. */
-        List<Module> moduleList = dm.getModulesFromCourse(courseId);
+        Key<Course> courseKey = Key.create(Course.class, courseId);
+        List<Module> moduleList = ObjectifyService.ofy().load().type(Module.class).ancestor(courseKey).list();
         for (Module m : moduleList){
             /* Each module will handle deletion of it's own topics. */
             dm.deleteModule(m.getId());
@@ -563,7 +563,8 @@ public class DataManager {
 
     public void deleteModule(Long moduleId){
         /* Now delete the topics associated with this module first. */
-        List<Topic> topicList = dm.getTopicsFromModule(moduleId);
+        Key<Module> moduleKey = Key.create(Module.class, moduleId);
+        List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
         for(Topic t : topicList){
             /* Each topic will handle deletion of it's own MCs. */
             dm.deleteTopic(t.getId());
@@ -575,7 +576,8 @@ public class DataManager {
 
     public void deleteTopic(Long topicId){
         /* Now delete the MCs associated with this topic first. */
-        List<MultipleChoices> mc = dm.getMCFromTopic(topicId);
+        Key<Topic> topicKey = Key.create(Topic.class, topicId);
+        List<MultipleChoices> mc = ObjectifyService.ofy().load().type(MultipleChoices.class).ancestor(topicKey).list();
         for(MultipleChoices m : mc){
             /* Each MC will delete itself. */
             dm.deleteMC(m.getID());
