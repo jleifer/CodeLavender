@@ -36,7 +36,6 @@ $(document).ready(function(){
         $("#topicProficiency").val(proficiencyScore);
         $("#quiz_proficiency").html("Proficiency: "+proficiencyScore+"%");
         $("#quizResponse").show();
-        //alert($("#topicProficiency").val());
     });
     //alert(quizNum);
 });
@@ -54,7 +53,6 @@ function selectOption(i,k,ans) {
     }
     for(var index = 1 ; index<=6 ;index++){
         $("#quiz_"+i+"_"+index).css("background-color","rgb(101,165,183)")
-        //alert($("#quiz_"+i+"_"+index).css()+" "+index);
     }
     var $ele = $("#quiz_"+i+"_"+k);
     $ele.css("background-color","green");

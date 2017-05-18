@@ -153,7 +153,7 @@
 
         </script>
         <!---------------ENd Generating ----------->
-            
+
             <!--prepare back btn url-->
             <c:url var="backUrl" value="/viewCourse">
                 <c:param name="userId" value="${userId}"/>
