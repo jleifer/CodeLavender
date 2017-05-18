@@ -31,7 +31,10 @@ public class TopicController {
     @RequestMapping(value = {"/editTopic.jsp","/newTopic"}, method = RequestMethod.GET)
     public String getNewTopicPage(ModelMap model,
                                   @ModelAttribute("moduleId") Long moduleId) {
+        /* Get the data manager. */
         DataManager dm = DataManager.getDataManager();
+
+        /* Create the topic. */
         dm.createTopic(moduleId, null);
 
         model.addAttribute("moduleId", moduleId);
@@ -46,6 +49,7 @@ public class TopicController {
         /* Retrieve Data manager */
         DataManager dm = DataManager.getDataManager();
         Topic topicToEdit = null;
+        /* Try to get the topic, if not then wait. */
         try{
             topicToEdit = dm.getTopicWithTopicId(topicId);
         }catch(Exception ex){
@@ -80,6 +84,7 @@ public class TopicController {
         DataManager dm = DataManager.getDataManager();
         model.addAttribute("moduleId", dm.getTopicParent(topicId));
 
+        /* Delete topic */
         dm.deleteTopic(topicId);
 
         /* Set needed values into the session and model. */
@@ -108,17 +113,30 @@ public class TopicController {
     public String saveMC(ModelMap model,
                            @ModelAttribute("mcId") Long mcId,
                            @ModelAttribute("topicId") Long topicId,
-                         @RequestBody MultiValueMap<String, String> body){
+                            @RequestBody MultiValueMap<String, String> body){
 
         /* Retrieve Data manager. */
         DataManager dm = DataManager.getDataManager();
         System.out.println("Saving " + mcId);
+        /* Prepare form names */
         String qT = "quizDescription_"+mcId.toString();
-        String ans = "quiz_"+mcId.toString()+"_ans";
+        String ans = "quizAns_"+mcId.toString();
+        String opt = "quizOption_"+mcId.toString();
+        /* Get form names. */
         String questionText = body.get(qT).get(0);
-       // int answer = body.get(ans).get
+        String ansStr = body.get(ans).get(0);
+        int ansInt = Integer.parseInt(ansStr);
+        String[] options = null;
+        /* If we are not a T/F, fill out options[numOptions] */
+        if(body.get(opt) != null && body.get(opt).size() > 2){
+            options = new String[body.get(opt).size()];
+            for(int i = 0; i < body.get(opt).size(); i++){
+                options[i] = body.get(opt).get(i);
+            }
+        }
 
-        dm.updateMC(mcId, questionText, 0);
+        /* Now update */
+        dm.updateMC(mcId, questionText, options, ansInt);
 
         model.addAttribute("topicId", topicId);
 
@@ -128,11 +146,17 @@ public class TopicController {
 
     @RequestMapping(value = {"/addMC"}, method = RequestMethod.POST)
     public String addMC(ModelMap model,
-                           @ModelAttribute("topicId") Long topicId){
+                           @ModelAttribute("topicId") Long topicId,
+                            @RequestBody MultiValueMap<String, String> body){
 
         /* Retrieve Data manager. */
         DataManager dm = DataManager.getDataManager();
-        dm.createTopicQuizQuestion(topicId, null);
+        /* Get form names */
+        String numStr = body.get("cur_quiz_type").get(0);
+        int numInt = Integer.parseInt(numStr);
+
+        /* Update */
+        dm.createTopicQuizQuestion(topicId, numInt, null);
 
         model.addAttribute("topicId", topicId);
 
@@ -163,6 +187,7 @@ public class TopicController {
     @RequestMapping(value = {"/TakeTopicQuizServlet", "/TakeTopicQuizServlet.jsp"}, method = RequestMethod.GET)
     public String TakeTopicQuizServlet(ModelMap model,
                                        HttpServletRequest req ) {
+        /* Get parameters */
         String curUserIdString = req.getParameter("curUserId");
         String userIdString = req.getParameter("userId");
         String courseIdString =req.getParameter("courseId");
@@ -175,7 +200,7 @@ public class TopicController {
         Long topicId = Long.parseLong(topicIdString);
         long curUserId = Long.parseLong(curUserIdString);
         int topicProficiency = Integer.parseInt(topicProficiencyString);
-        //get the module object
+        /* Get the module object. */
         User user = null;
         List<User> userList = ObjectifyService.ofy().load().type(User.class).list();
         for (int i = 0 ; i < userList.size(); i++){
@@ -184,7 +209,7 @@ public class TopicController {
             }
         }
 
-        //clean up current topic proficiency score
+        /* Clean up current topic proficiency score. */
         List<UserCompleted> userCompletedList = ObjectifyService.ofy().load().type(UserCompleted.class).list();
         for (int i = 0 ; i < userCompletedList.size(); i++){
             UserCompleted usercompleted =userCompletedList.get(i);
@@ -195,7 +220,7 @@ public class TopicController {
             }
         }
 
-        //create and record new topic proficiency into datastore
+        /* Create and record new topic proficiency into datastore */
         UserCompleted usercompleted = new UserCompleted(
                 courseId.longValue(),
                 moduleId.longValue(),
@@ -208,7 +233,7 @@ public class TopicController {
         ObjectifyService.ofy().save().entity(usercompleted).now();
 
 
-
+        /* Return to viewTopic */
         HttpSession session = req.getSession();
         session.setAttribute("userId",userId.longValue());
         session.setAttribute("courseId",courseId.longValue());

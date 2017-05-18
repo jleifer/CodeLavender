@@ -160,31 +160,39 @@
                                     <button name="saveMC" value="SaveMC" style="color:blue;cursor:pointer;margin-left:20px;">Save</button>
                                 <br />
                                 <textarea id="quizDescription_${quiz.ID}" name="quizDescription_${quiz.ID}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
+                                <c:set var="qOptCount" value="0"/>
                                 <c:forEach var="quizOption" begin="0" items="${quiz.options}">
-                                    <c:set var="qOptCount" value="0"/>
                                     <div class="mutic">
                                         <!-- Need to avoid making true/false edit-able, so make them different fields -->
-                                        <c:choose>
-                                            <c:when test="${quizOption == 'True' || quizOption == 'False'}">
-                                                <div class="mutic">${quizOption}</div>
-                                            </c:when>
-                                        <c:otherwise>
-                                            <input id="quizOption_${quiz.ID}_${qOptCount+1}" type="text" class="text_field_option" value="${quizOption}">
-                                        </c:otherwise>
-                                    </c:choose>
+                                            <c:choose>
+                                                <c:when test="${quizOption == 'True' || quizOption == 'False'}">
+                                                    <div class="mutic">${quizOption}</div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input name="quizOption_${quiz.ID}" id="quizOption_${quiz.ID}_${qOptCount+1}" type="text" class="text_field_option" value="${quizOption}">
+                                                </c:otherwise>
+                                            </c:choose>
                                     </div>
                                     <c:set var="qOptCount" value="${qOptCount+1}"/>
                                 </c:forEach>
                                 <label class="quiz_label" id="quiz_${quiz.ID}_label">Answer: </label>
-                                <select id="quizAns_${quiz.ID}" name="quizAns_${quiz.ID}">
-                                    <!-- Correct answer option -->
-                                    <c:forEach var="quizOption" begin="0" items="${quiz.options}">
+                                <form action="/saveMC?mcId=${quiz.ID}&topicId=${topicToEdit.id}" method="post">
+                                    <select id="quizAns_${quiz.ID}" name="quizAns_${quiz.ID}">
+                                        <!-- Correct answer option -->
                                         <c:set var="opt" value="0"/>
-                                            <option value="quizAnsOption_${qCount}_${opt}"> ${quizOption}</option>
-                                        <c:set var="opt" value="${opt+1}"/>
-                                    </c:forEach>
-                                </select>
-
+                                        <c:forEach var="quizOption" begin="0" items="${quiz.options}">
+                                            <c:choose>
+                                                <c:when test="${quiz.answer == opt}">
+                                                    <option value="${opt}" selected>${opt+1}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${opt}">${opt+1}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:set var="opt" value="${opt+1}"/>
+                                        </c:forEach>
+                                    </select>
+                                </form>
                             </div>
                             <c:set var="qCount" value="${qCount+1}"/>
                         </c:forEach>
@@ -195,19 +203,18 @@
 
             </div>
             <div style="height: 30px; margin-top:30px;">
-                <span class="add_field_button" id="add_quiz_btn"  style="display: block; float: left;"
-                    onclick="location.href='/addMC?topicId=${topicId}';">
-                        <button class="btn btn-primary glyphicon glyphicon-plus btn-xs" type="button"></button>
-                        New Quiz:&nbsp;
-                </span>
-                <select id="cur_quiz_type" name="cur_quiz_type">
-                    <option value="TorF" selected >True or False</option>
-                    <option value="multi_4" >Multiple Choices(4)</option>
-                    <option value="multi_5" >Multiple Choices(5)</option>
-                    <option value="multi_6" >Multiple Choices(6)</option>
-                </select>
-                <span id="quiz_total_num" >Total: ${quizSize}</span>
-                <br clear="both;">
+                <form action="/addMC?topicId=${topicId}" method="post">
+                    <button name="addMC" value="AddMC" style="color:blue;cursor:pointer;margin-left:20px;">Add</button>
+                    <select id="cur_quiz_type" name="cur_quiz_type">
+                        <option value="2" selected >True or False</option>
+                        <option value="3" selected >Multiple Choices(3)</option>
+                        <option value="4" >Multiple Choices(4)</option>
+                        <option value="5" >Multiple Choices(5)</option>
+                        <option value="6" >Multiple Choices(6)</option>
+                    </select>
+                    <span id="quiz_total_num" >Total: ${quizSize}</span>
+                    <br clear="both;">
+                </form>
             </div>
         </div>
         <!---------END Add Topic Quiz Control END------------>

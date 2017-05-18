@@ -5,7 +5,6 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
-import java.io.Serializable;
 
 import java.io.Serializable;
 
@@ -25,7 +24,7 @@ public class MultipleChoices implements Serializable  {
     //Attributes
     @Index private int optionNumber;
     @Index private String questionText;
-    @Index private String options[];
+    @Index private String[] options;
     @Index private int answer;
 
     //Default constructor
@@ -45,9 +44,7 @@ public class MultipleChoices implements Serializable  {
         this.questionText = questionText;
         if(options!=null && optionNumber>2){
             this.options = new String[optionNumber];
-            for (int i = 0; i<optionNumber;i++){
-                this.options[i]= new String(options[i]);
-            }
+            System.arraycopy(options, 0, this.options, 0, optionNumber);
         }
     }
 

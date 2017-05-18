@@ -6,6 +6,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.sun.org.apache.xpath.internal.operations.Mult;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -254,10 +255,10 @@ public class DataManager {
         ObjectifyService.ofy().save().entity(newTopic).now();
 
         Long newTopicId = ObjectifyService.ofy().load().entity(newTopic).now().id;
-        dm.createTopicQuizQuestion(newTopicId, newTopic);
+        dm.createTopicQuizQuestion(newTopicId, 2, newTopic);
     }
 
-    public void createTopicQuizQuestion(Long topicId, Topic topic) {
+    public void createTopicQuizQuestion(Long topicId, int num, Topic topic) {
         /* Retrieve data needed for creation of new topic */
         if(topic == null){
             topic = dm.getTopicWithTopicId(topicId);
@@ -271,8 +272,18 @@ public class DataManager {
                 e.printStackTrace();
             }
         }
-        String[] defaultChoices = {"True", "False"};
-        MultipleChoices newMC = new MultipleChoices("Default Question Text", 2, 1
+
+        String[] defaultChoices = new String[num];
+        if(num == 2) {
+            defaultChoices[0] = "True";
+            defaultChoices[1] = "False";
+        }else{
+            for(int i = 0; i < num; i++){
+                defaultChoices[i] = "MultipleChoice "+String.valueOf(i+1);
+            }
+        }
+
+        MultipleChoices newMC = new MultipleChoices("Default Question Text", num, 0
                 , defaultChoices, topic);
         ObjectifyService.ofy().save().entity(newMC).now();
 
@@ -338,20 +349,17 @@ public class DataManager {
         datastore.put(Topic);
     }
 
-    public void updateMC(Long mcId, String questionText, int answer){
+    public void updateMC(Long mcId, String questionText, String[] options, int answer){
         /* Retrieve mcId to update */
         MultipleChoices mcToUpdate = dm.getMCFromId(mcId);
 
         /* Access the datastore to update the entity fields without changing the mc id */
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        com.google.appengine.api.datastore.Key topicKey = KeyFactory.createKey("Topic", mcToUpdate.getParentTopicID());
-        Entity MultipleChoice = new Entity("MultipleChoices",mcToUpdate.id,topicKey);
-        MultipleChoice.setIndexedProperty("questionText", questionText);
-        MultipleChoice.setIndexedProperty("answer", answer);
+        mcToUpdate.setOptions(options);
+        mcToUpdate.setAnswer(answer);
+        mcToUpdate.setQuestionText(questionText);
 
         /* Update the entity associated with the current mc id */
-        ObjectifyService.ofy().delete().entity(mcToUpdate).now();
-        datastore.put(MultipleChoice);
+        ObjectifyService.ofy().save().entity(mcToUpdate).now();
     }
 
     public Long getCourseOwner(Long courseId){

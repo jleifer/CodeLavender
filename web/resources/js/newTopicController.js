@@ -116,7 +116,7 @@ function removeQuiz(whichOne){
 function changeMultiChoice(input){
     var cur_val = input.val();
     var parent = input.parent();
-    var cur_index = parent.index()-4;
+    var cur_index = parent.index()-3;
     parent = parent.parent();
     var select = parent.find("select");
     var option  = select.children()[cur_index];
