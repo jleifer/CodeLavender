@@ -7,7 +7,6 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
 
 /**
  * Original created by Yifang Cao on 2/11/2017.
@@ -15,7 +14,8 @@ import com.googlecode.objectify.annotation.Parent;
  */
 @Entity
 public class Topic {
-    @Parent @Index private Key<Module> module; // What module this topic belongs to.
+
+   @Index public Key<Module> module; // What module this topic belongs to.
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Id public Long id;

@@ -7,7 +7,6 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
 
 /**
  * Original created by Yifang Cao on 2/11/2017.
@@ -16,7 +15,8 @@ import com.googlecode.objectify.annotation.Parent;
 @Entity
 public class UserCompleted {
     /* IDs which user this belongs to. */
-    @Parent @Index private Key<User> user; // What user this user completed belongs to.
+
+   @Index public Key<User> user; // What user this user completed belongs to.
     //have to be capitalized L-ong, not long, its value will be auto-generated
     //Primary Key
     @Id public Long id;

@@ -37,7 +37,7 @@ public class DeleteTopicServlet extends HttpServlet {
                     //Delete the quiz.
                     List<MultipleChoices> quizList = ObjectifyService.ofy().load().type(MultipleChoices.class).list();
                     for (int j = 0 ; j < quizList.size(); j++){
-                        if(quizList.get(j).getParentTopicID().longValue() == topic.id){
+                        if(quizList.get(j).topic.getId() == topic.id){
                             System.out.println("deleting "+quizList.get(j).id);
                             ObjectifyService.ofy().delete().entity(quizList.get(j));
                             break;

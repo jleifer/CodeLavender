@@ -81,7 +81,8 @@ public class ModuleController {
         model.addAttribute("moduleToEdit", moduleToEdit);
         model.addAttribute("topicList", topicList);
         model.addAttribute("moduleHasTest", moduleHasTest);
-        model.addAttribute("courseId", moduleToEdit.getTheParentCourse().getId());
+        model.addAttribute("courseId", moduleToEdit.course.getId());
+
 
         return "editModule";
     }

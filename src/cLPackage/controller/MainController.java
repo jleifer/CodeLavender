@@ -68,7 +68,7 @@ public class MainController {
             if(course.getIsPublic()==0){
                 continue;
             }
-            long userId = course.getTheParentUser().getId();
+            long userId = course.user.getId();
             User user = null;
             for(int k =0; k<userList.size();k++){
                 if(userList.get(k).getId().longValue()==userId){

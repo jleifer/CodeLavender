@@ -125,7 +125,8 @@
                     <button id="submit_btn" class="btn btn-success glyphicon glyphicon-ok" type="submit">&nbsp;Submit</button>
 
                     <button class="btn btn-success glyphicon glyphicon-backward" type="button" style="margin-left: 20px;"
-                            onclick="location.href='/editModule?moduleId=${topicToEdit.theParentModule.id}';">&nbsp;Back</button>
+                            <c:set value="${topicToEdit.module}" var="topicToEdit_module"/>
+                            onclick="location.href='/editModule?moduleId=${topicToEdit_module.getId}';">&nbsp;Back</button>
                  </span>
             </div>
         </form>
@@ -182,11 +183,11 @@
                                         <c:set var="opt" value="0"/>
                                         <c:forEach var="quizOption" begin="0" items="${quiz.options}">
                                             <c:choose>
-                                                <c:when test="${quiz.answer == opt}">
-                                                    <option value="${opt}" selected>${opt+1}</option>
+                                                <c:when test="${quiz.answer == opt+1}">
+                                                    <option value="${opt+1}" selected>${opt+1}</option>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <option value="${opt}">${opt+1}</option>
+                                                    <option value="${opt+1}">${opt+1}</option>
                                                 </c:otherwise>
                                             </c:choose>
                                             <c:set var="opt" value="${opt+1}"/>

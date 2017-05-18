@@ -7,7 +7,6 @@
     <groupId>groupId</groupId>
     <artifactId>cL</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <properties>  <!-- App Engine Standard currently requires Java 7 -->
         <appengine.app.version>1</appengine.app.version>
         <appengine.sdk.version>1.9.48</appengine.sdk.version>

@@ -139,7 +139,7 @@
                 <c:otherwise>
                     <c:forEach var="course" begin="0" items="${courseStarted}">
                         <div class="courseCreated">
-                            <span onclick="location.href = 'viewCourse?courseId=${course.id}&userId=${userId}&curUserId=${course.theParentUser.id}'">
+                            <span onclick="location.href = 'viewCourse?courseId=${course.id}&userId=${userId}&curUserId=${course.user.getId}'">
                                     ${course.name}
                             </span>
                         </div>

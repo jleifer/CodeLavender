@@ -121,7 +121,7 @@
         <h3 style="color: red;">No Course Yet...</h3>
     </c:if>
     <c:forEach var="course" begin="0" items="${instructorCourseList}">
-        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}&curUserId=${course.theParentUser.id}'">
+        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}&curUserId=${course.user.getId}'">
             <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
             <div class="rec-class-name">${course.name}</div>
             <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
@@ -182,7 +182,7 @@
         <h3 style="color: red;">No Course Yet...</h3>
     </c:if>
     <c:forEach var="course" begin="0" items="${userCourseList}">
-        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}&curUserId=${course.theParentUser.id}'">
+        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}&curUserId=${course.user.getId}'">
             <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
             <div class="rec-class-name">${course.name}</div>
             <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>

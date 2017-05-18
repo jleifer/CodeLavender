@@ -6,7 +6,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
-import com.sun.org.apache.xpath.internal.operations.Mult;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -114,7 +113,7 @@ public class DataManager {
 
     public Long getModuleParent(Long moduleId){
         Module module = getModuleWithModuleId(moduleId);
-        return module.getTheParentCourse().getId();
+        return module.course.getId();
     }
 
     public Module getModuleWithModuleId(Long moduleId) {
@@ -133,7 +132,7 @@ public class DataManager {
 
     public Long getTopicParent(Long topicId){
         Topic topic = getTopicWithTopicId(topicId);
-        return topic.getTheParentModule().getId();
+        return topic.module.getId();
     }
 
     public Topic getTopicWithTopicId(Long topicId) {
@@ -283,7 +282,7 @@ public class DataManager {
             }
         }
 
-        MultipleChoices newMC = new MultipleChoices("Default Question Text", num, 0
+        MultipleChoices newMC = new MultipleChoices("Default Question Text", num, 1
                 , defaultChoices, topic);
         ObjectifyService.ofy().save().entity(newMC).now();
 
@@ -299,7 +298,8 @@ public class DataManager {
         /* Access the datastore to update the entity fields without changing the course id */
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         com.google.appengine.api.datastore.Key userKey = KeyFactory.createKey("User", userId);
-        Entity Course = new Entity("Course",courseToUpdate.id,userKey);
+        Entity Course = new Entity("Course",courseToUpdate.id);
+        Course.setIndexedProperty("user",userKey);
         Course.setIndexedProperty("name",courseEditName);
         Course.setIndexedProperty("ownerFirst",courseToUpdate.getOwnerFirst());
         Course.setIndexedProperty("ownerLast",courseToUpdate.getOwnerLast());
@@ -323,7 +323,8 @@ public class DataManager {
         /* Access the datastore to update the entity fields without changing the module id */
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         com.google.appengine.api.datastore.Key courseKey = KeyFactory.createKey("Course", parentCourseId);
-        Entity Module = new Entity("Module",moduleToUpdate.id,courseKey);
+        Entity Module = new Entity("Module",moduleToUpdate.id);
+        Module.setIndexedProperty("course",courseKey);
         Module.setIndexedProperty("name",moduleEditName);
         Module.setIndexedProperty("hasTest",hasTest);
 
@@ -338,8 +339,9 @@ public class DataManager {
 
         /* Access the datastore to update the entity fields without changing the topicId id */
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        com.google.appengine.api.datastore.Key moduleKey = KeyFactory.createKey("Module", topicToUpdate.getTheParentModule().getId());
-        Entity Topic = new Entity("Topic",topicToUpdate.id,moduleKey);
+        com.google.appengine.api.datastore.Key moduleKey = KeyFactory.createKey("Module", topicToUpdate.module.getId());
+        Entity Topic = new Entity("Topic",topicToUpdate.id);
+        Topic.setIndexedProperty("module", moduleKey);
         Topic.setIndexedProperty("name", topicEditName);
         Topic.setIndexedProperty("content", content);
         Topic.setIndexedProperty("hasTest", hasTest);
@@ -364,7 +366,7 @@ public class DataManager {
 
     public Long getCourseOwner(Long courseId){
         Course course = ObjectifyService.ofy().load().type(Course.class).id(courseId).now();
-        return course.getTheParentUser().getId();
+        return course.user.getId();
     }
 
     /**
@@ -535,7 +537,7 @@ public class DataManager {
 
     public Long getMCParent(Long mcId){
         MultipleChoices mc = getMultipleChoiceFromMultipleChoiceID(mcId);
-        return mc.getParentTopicID();
+        return mc.topic.getId();
     }
 
     public UserRequest getUserRequestByUserId(long UserId){

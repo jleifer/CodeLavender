@@ -72,7 +72,7 @@ public class TopicController {
         model.addAttribute("topicToEdit", topicToEdit);
         model.addAttribute("quizList", quizList);
         model.addAttribute("topicHasTest", topicHasTest);
-        model.addAttribute("moduleId", topicToEdit.getTheParentModule().getId());
+        model.addAttribute("moduleId", topicToEdit.module.getId());
         model.addAttribute("quizSize", quizList.size());
         model.addAttribute("cur_quiz_type", 4);
         return "editTopic";
@@ -213,7 +213,7 @@ public class TopicController {
         List<UserCompleted> userCompletedList = ObjectifyService.ofy().load().type(UserCompleted.class).list();
         for (int i = 0 ; i < userCompletedList.size(); i++){
             UserCompleted usercompleted =userCompletedList.get(i);
-            long parentId=usercompleted.getParentUser().getId();
+            long parentId=usercompleted.user.getId();
             long curTopicId = usercompleted.getTopicID();
             if(parentId==userId.longValue()&&curTopicId==topicId.longValue()){
                 ObjectifyService.ofy().delete().entities(usercompleted).now();
