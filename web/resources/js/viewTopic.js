@@ -36,7 +36,7 @@ $(document).ready(function(){
         $("#topicProficiency").val(proficiencyScore);
         $("#quiz_proficiency").html("Proficiency: "+proficiencyScore+"%");
         $("#quizResponse").show();
-        alert($("#topicProficiency").val());
+        //alert($("#topicProficiency").val());
     });
     //alert(quizNum);
 });

@@ -2,12 +2,16 @@ package cLPackage.controller;
 
 import cLPackage.dataStore.DataManager;
 import cLPackage.dataStore.User;
+import cLPackage.dataStore.UserRequest;
+import com.googlecode.objectify.ObjectifyService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +28,8 @@ public class AdminController {
         return "adminLogin";
     }
     @RequestMapping(value = {"/adminUserManagement"}, method = RequestMethod.GET)
-    public String adminUserManagement(HttpServletRequest req) {
+    public String adminUserManagement(HttpServletRequest req,
+                                      ModelMap model) {
         /* Retrieve data manager */
         DataManager dm = DataManager.getDataManager();
 
@@ -36,7 +41,19 @@ public class AdminController {
         }else{
 
             List<User> userList = dm.getUserList();
-            req.getSession().setAttribute("userList",userList);
+            ArrayList<Boolean> userRequestList = new ArrayList<Boolean>();
+            System.out.print("userlist size;"+userList.size());
+            for (int i = 0; i<userList.size();i++){
+                if(dm.getUserRequestByUserId(userList.get(i).getId().longValue())==null){
+                    //no request, then set false
+                    userRequestList.add(false);
+                }else{
+                    //requested, then set true;
+                    userRequestList.add(true);
+                }
+            }
+            model.addAttribute("userList",userList);
+            model.addAttribute("userRequestList",userRequestList);
             return "adminUserManagement";
         }
 
@@ -72,6 +89,12 @@ public class AdminController {
             String isInstructor = req.getParameter("isInstructor");
             String userId = req.getParameter("userId");
             System.out.println("id"+userId+"operation:"+isInstructor);
+            //delete the user request
+            UserRequest ur =dm.getUserRequestByUserId(Long.parseLong(userId));
+            if(ur!=null){
+                ObjectifyService.ofy().delete().entity(ur).now();
+            }
+            //update insturctor status
             dm.updateIsInstructor(Long.parseLong(userId),Integer.parseInt(isInstructor));
             return "redirect:adminUserManagement";
         }

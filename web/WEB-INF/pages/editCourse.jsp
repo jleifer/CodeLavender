@@ -12,14 +12,13 @@
 
 <html>
 <head>
-    <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
-
+    <meta name="google-signin-client_id" content="960219417263-di4ik7aduhjj4i9ulc5fjfcskjc2puj6.apps.googleusercontent.com">
     <link rel="stylesheet" href="../../resources/css/profile.css">
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../../resources/js/jquery-3.1.1.js"></script>
     <script src="../../resources/js/bootstrap.js"></script>
-    <script src="../../resources/js/googleLogIn.js"></script>
+    <script src="../../resources/js/googleLogin.js"></script>
     <script src="../../resources/js/newCourseController.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 

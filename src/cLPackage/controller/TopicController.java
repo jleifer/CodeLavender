@@ -1,8 +1,7 @@
 package cLPackage.controller;
 
-import cLPackage.dataStore.DataManager;
-import cLPackage.dataStore.MultipleChoices;
-import cLPackage.dataStore.Topic;
+import cLPackage.dataStore.*;
+import com.googlecode.objectify.ObjectifyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 /**
  * Created by Jonathan on 4/21/2017.
@@ -21,7 +22,9 @@ import java.util.List;
 public class TopicController {
 
     @RequestMapping(value = {"/viewTopic", "/viewTopic.jsp"}, method = RequestMethod.GET)
-    public String getCoursePage(ModelMap model) {
+    public String getCoursePage(ModelMap model,
+                                @ModelAttribute("curUserId") long curUserId) {
+        model.addAttribute("curUserId",curUserId);
         return "viewTopic";
     }
 
@@ -156,4 +159,64 @@ public class TopicController {
         model.addAttribute("topicId", topicId);
         return "redirect:/editTopic";
     }
+
+    @RequestMapping(value = {"/TakeTopicQuizServlet", "/TakeTopicQuizServlet.jsp"}, method = RequestMethod.GET)
+    public String TakeTopicQuizServlet(ModelMap model,
+                                       HttpServletRequest req ) {
+        String curUserIdString = req.getParameter("curUserId");
+        String userIdString = req.getParameter("userId");
+        String courseIdString =req.getParameter("courseId");
+        String moduleIdString =req.getParameter("moduleId");
+        String topicIdString = req.getParameter("topicId");
+        String topicProficiencyString = req.getParameter("topicProficiency");
+        Long userId = Long.parseLong(userIdString);
+        Long courseId = Long.parseLong(courseIdString);
+        Long moduleId = Long.parseLong(moduleIdString);
+        Long topicId = Long.parseLong(topicIdString);
+        long curUserId = Long.parseLong(curUserIdString);
+        int topicProficiency = Integer.parseInt(topicProficiencyString);
+        //get the module object
+        User user = null;
+        List<User> userList = ObjectifyService.ofy().load().type(User.class).list();
+        for (int i = 0 ; i < userList.size(); i++){
+            if(userList.get(i).id.longValue()==userId.longValue()){
+                user = userList.get(i);
+            }
+        }
+
+        //clean up current topic proficiency score
+        List<UserCompleted> userCompletedList = ObjectifyService.ofy().load().type(UserCompleted.class).list();
+        for (int i = 0 ; i < userCompletedList.size(); i++){
+            UserCompleted usercompleted =userCompletedList.get(i);
+            long parentId=usercompleted.getParentUser().getId();
+            long curTopicId = usercompleted.getTopicID();
+            if(parentId==userId.longValue()&&curTopicId==topicId.longValue()){
+                ObjectifyService.ofy().delete().entities(usercompleted).now();
+            }
+        }
+
+        //create and record new topic proficiency into datastore
+        UserCompleted usercompleted = new UserCompleted(
+                courseId.longValue(),
+                moduleId.longValue(),
+                topicId.longValue(),
+                0,
+                0,
+                topicProficiency,
+                0,
+                user);
+        ObjectifyService.ofy().save().entity(usercompleted).now();
+
+
+
+        HttpSession session = req.getSession();
+        session.setAttribute("userId",userId.longValue());
+        session.setAttribute("courseId",courseId.longValue());
+        model.addAttribute("moduleId",moduleId.longValue());
+        model.addAttribute("topicId",topicId.longValue());
+        model.addAttribute("curUserId",curUserId);
+
+        return "viewTopic";
+    }
+
 }

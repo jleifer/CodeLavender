@@ -9,9 +9,17 @@
     margin: auto;
 }
 .user_roster{
+    width:700px;
     margin-top: 30px;
-    border: 1px solid grey;
     padding: 10px;
+    float: left;
+    border-left:1px solid grey;
+}
+.flag_div{
+    width:50px;
+    margin-top: 30px;
+    padding: 10px;
+    float: left;
 }
 
 .user_entry{

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Konstantinos
+  User: Spartanrme
   Date: 2/7/2017
   Time: 8:07 PM
   To change this template use File | Settings | File Templates.
@@ -30,7 +30,7 @@
     <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
 
-    <title>DevRoot</title>
+    <title>Instructor Courses</title>
 
 </head>
 <body onload="loadAuth()">
@@ -111,22 +111,21 @@
 <div class = "main-page-all-recommendation-div">
     <!-- recommendation Professors -->
     <br style="clear: both;">
-    <div class="main-page-all-recommendation-name">Best Classes by Professors</div>
-    <div class="rec-see-all"><a href="/InstructorCourse">See All</a></div>
+    <div class="main-page-all-recommendation-name">Professors' Courses</div>
+
     <br style="clear: both;">
 
     <!----------- Dynamically change ------------->
     <!------- load courses here ---------->
     <c:if test="${fn:length(instructorCourseList)==0}">
-        <h3 style="color: red;">No Course Yet...</h3>
+        <h2 style="color: red;">No Course Yet...</h2>
     </c:if>
     <c:forEach var="course" begin="0" items="${instructorCourseList}">
-        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}&curUserId=${course.theParentUser.id}'">
+        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}'">
             <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
             <div class="rec-class-name">${course.name}</div>
             <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
             <div class="rec-class-intro">${course.description}</div>
-            <!--
             <span class="glyphicon glyphicon-star"
                   aria-hidden="true" style="margin-left:10px; color:red;"></span>
             <span class="glyphicon glyphicon-star"
@@ -138,73 +137,10 @@
             <span class="glyphicon glyphicon-star"
                   aria-hidden="true" style=" color:lavender;"></span>
             <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-            -->
-            <span class="rec-rating-text">${course.endorsedByUsers} <span style="color:grey;">(${course.totalEndorsers})</span></span>
             <div class="progress-text">Start Now</div>
         </div>
     </c:forEach>
     <!------------- END Dynamically generate here END ----------------------->
-
-    <!--
-    <div class="main-page-single-rec">
-        <img src="../../resources/img/rec-img.jpeg" alt="course" style="width:219px;">
-        <div class="rec-class-name">Boolean Logic for Beginners</div>
-        <div class="rec-creator-name">Prof.Jack Smith</div>
-        <div class="rec-class-intro">This course is designed for beginners with an apprehensive approach to teach Boolean
-            Logic...
-        </div>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="margin-left:10px; color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style="color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:red;"></span>
-        <span class="glyphicon glyphicon-star"
-              aria-hidden="true" style=" color:lavender;"></span>
-        <span class="rec-rating-text">3.9 <span style="color:grey;">(852)</span></span>
-        <div class="progress"><div class="progress_unfill"></div><div class="progress_minMark"></div></div>
-        <div class="progress-text">25%</div>
-    </div>
-    -->
-    <br style="clear:both;" />
-
-    <!--  User Recommendations  -->
-    <div class="main-page-all-recommendation-name">Best Classes by Users</div>
-    <div class="rec-see-all"><a href="/UserCourse">See All</a></div>
-    <br style="clear: both;">
-
-
-    <!----------- Dynamically change ------------->
-    <!------- load courses here ---------->
-    <c:if test="${fn:length(userCourseList)==0}">
-        <h3 style="color: red;">No Course Yet...</h3>
-    </c:if>
-    <c:forEach var="course" begin="0" items="${userCourseList}">
-        <div class="main-page-single-rec" onclick="location.href='viewCourse?userId=${userId}&courseId=${course.id}&curUserId=${course.theParentUser.id}'">
-            <img src="../../resources/img/rec-img2.jpeg" alt="course" style="width:219px;">
-            <div class="rec-class-name">${course.name}</div>
-            <div class="rec-creator-name">${course.ownerFirst} ${course.ownerLast}</div>
-            <div class="rec-class-intro">${course.description}</div>
-            <%--<span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style="margin-left:10px; color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style="color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:red;"></span>
-            <span class="glyphicon glyphicon-star"
-                  aria-hidden="true" style=" color:lavender;"></span>--%>
-
-            <span class="rec-rating-text">${course.endorsedByUsers} <span style="color:grey;">(${course.totalEndorsers})</span></span>
-            <div class="progress-text">Start Now</div>
-        </div>
-    </c:forEach>
-    <!------------- END Dynamically generate here END ----------------------->
-
-
     <br style="clear:both;" />
     <br><br><br><br><br><br>
 </div>

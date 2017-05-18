@@ -30,6 +30,8 @@ public class DataManager {
         ObjectifyService.register(Topic.class);
         ObjectifyService.register(MultipleChoices.class);
         ObjectifyService.register(UserCompleted.class);
+        ObjectifyService.register(UserRequest.class);
+        ObjectifyService.register(UserRating.class);
 
     }
 
@@ -487,6 +489,24 @@ public class DataManager {
         return result;
     }
 
+    public UserRating getUserRatingByUIDandCourseID(long userId,long courseId){
+        UserRating userRating =null;
+
+        List<UserRating> userRatingList = ObjectifyService.ofy().load().type(UserRating.class).list();
+        try {
+            Thread.currentThread().sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (int i =0;i <userRatingList.size();i++){
+            UserRating ur = userRatingList.get(i);
+            if(ur.courseId==courseId&&ur.UserId==userId){
+                userRating = ur;
+            }
+        }
+        return userRating;
+    }
+
     public List<Module> getModulesFromCourse(Long courseId) {
         /* Create the key to search for the modules in the datastore */
         Key<Course> courseKey = Key.create(Course.class, courseId);
@@ -503,6 +523,23 @@ public class DataManager {
         List<Topic> topicList = ObjectifyService.ofy().load().type(Topic.class).ancestor(moduleKey).list();
 
         return topicList;
+    }
+
+    public Long getMCParent(Long mcId){
+        MultipleChoices mc = getMultipleChoiceFromMultipleChoiceID(mcId);
+        return mc.getParentTopicID();
+    }
+
+    public UserRequest getUserRequestByUserId(long UserId){
+        UserRequest userRequest =null;
+        List<UserRequest> userRequestList = ObjectifyService.ofy().load().type(UserRequest.class).list();
+
+        for (int i =0 ; i<userRequestList.size();i++){
+            if(userRequestList.get(i).UserId == UserId){
+                userRequest = userRequestList.get(i);
+            }
+        }
+        return userRequest;
     }
 
     public List<MultipleChoices> getMCFromTopic(Long topicId){

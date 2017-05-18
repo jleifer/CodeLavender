@@ -46,7 +46,7 @@
 %>
 <html>
 <head>
-    <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="960219417263-di4ik7aduhjj4i9ulc5fjfcskjc2puj6.apps.googleusercontent.com">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,7 +57,6 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="../../resources/js/googleLogin.js" async defer></script>
     <script src="../../resources/js/ratingController.js" async defer></script>
-    <meta name="google-signin-client_id" content="1027240453637-n7gq0t7hs7sq0nu30p4keu797ui3rhcm.apps.googleusercontent.com">
     <link rel="stylesheet" href="../../resources/css/bootstrap.css">
     <!-- Start our file -->
     <script src="../../resources/js/googleLogin.js"></script>
@@ -128,7 +127,7 @@
                     <div class="check-sign"><span class="glyphicon glyphicon-ok-sign"></span></div>
                     <div class="topic">
                         <div class="topic-name">
-                            <a href="viewTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>&topicId=<%=topics.get(k).id%>">
+                            <a href="viewTopic?userId=<%=userId%>&courseId=<%=courseId%>&moduleId=<%=moduleList.get(i).id%>&topicId=<%=topics.get(k).id%>&curUserId=${curUserId}">
                                 Topic <%=k+1%>
                             </a>
                         </div>
@@ -194,20 +193,21 @@
     </div>
  -->
     <br><br>
-    <div class="star-container">
-        <div class="row">
-            <h3>Rate this course !!</h3>
+    <c:if test="${isRated==false}">
+        <div class="star-container">
+            <div class="row">
+                <h3>Rate this course !!</h3>
+            </div>
+            <div class="row lead">
+                <div id="stars" class="starrr"></div>
+                You gave a rating of <span id="count">0</span> star(s)
+            </div>
+            <button type="button" class="btn btn-outline-primary"
+                    onclick="rateCourse(${courseId},${userId},${curUserId})">
+                <span class="glyphicon glyphicon-plus"></span> Submit Rating
+            </button>
         </div>
-        <div class="row lead">
-            <div id="stars" class="starrr"></div>
-            You gave a rating of <span id="count">0</span> star(s)
-        </div>
-        <button type="button" class="btn btn-outline-primary"
-                onclick="rateCourse(${courseId},${userId})">
-            <span class="glyphicon glyphicon-plus"></span> Submit Rating
-        </button>
-    </div>
-
+    </c:if>
 </div>
 
 
