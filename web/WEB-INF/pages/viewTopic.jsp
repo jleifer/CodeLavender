@@ -120,7 +120,7 @@
 
 
         <hr />
-        <h1 style="margin-left: 50px;">Topic Quizz</h1>
+        <h1 style="margin-left: 50px;">Topic Quiz</h1>
 
         <!---------Start  dyanamical Generating---->
         <% for (int i = 0 ; i<quizList.size();i++){%>

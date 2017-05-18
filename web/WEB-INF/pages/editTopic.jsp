@@ -155,10 +155,10 @@
                             <div class="quiz_question">
                                 <label class="quiz_label"></label>
                                 <!-- Save & Delete -->
-                                    <span style="color:red;cursor:pointer;margin-left:10px;" type="button" id="delete_'${qCount}'" onclick="location.href='/deleteMC?mcId=${quiz.ID}&topicId=${topicId}';">Delete</span>
                                 <form action="/saveMC?topicId=${topicId}&mcId=${quiz.ID}" method="post">
                                     <button name="saveMC" value="SaveMC" style="color:blue;cursor:pointer;margin-left:20px;">Save</button>
-                                <br />
+                                    <span style="color:red;cursor:pointer;margin-left:10px;" type="button" id="delete_'${qCount}'" onclick="location.href='/deleteMC?mcId=${quiz.ID}&topicId=${topicId}';">Delete</span>
+                                    <br />
                                 <textarea id="quizDescription_${quiz.ID}" name="quizDescription_${quiz.ID}" rows="3" cols="70" style="width:600px;display:block; margin:auto;">${quiz.questionText}</textarea>
                                 <c:set var="qOptCount" value="0"/>
                                 <c:forEach var="quizOption" begin="0" items="${quiz.options}">
